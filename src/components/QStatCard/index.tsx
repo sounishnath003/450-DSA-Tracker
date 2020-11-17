@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 
 const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
   const { topicName, questions } = props;
-  console.log(props);
+  const [state, dispatch] = useReducer(reducer, defaultQuesStat);
 
   // searchBar component()
   function SearchBar() {
@@ -26,6 +27,11 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
         </div>
       </form>
     );
+  }
+
+  function questionCompleted(key: string, index: number) {
+    dispatch({ type: "COMPLETED", payload: { key, index } });
+    console.log(state);
   }
 
   // utility function()
@@ -58,9 +64,14 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                     <td className="border px-4 py-2"> {index + 1} </td>
                     <td className="border px-4 py-2">
                       {" "}
-                      <Link to={question.URL} style={{ color: "#8345E5" }}>
-                        {question.Problem}
-                      </Link>{" "}
+                      <a
+                        target="_blank"
+                        href={question.URL}
+                        style={{ color: "#8345E5" }}
+                      >
+                        {" "}
+                        {question.Problem}{" "}
+                      </a>
                     </td>
                     <td className="border px-4 py-2">
                       {" "}
@@ -69,7 +80,12 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                     <td className="text-center py-2">
                       <input
                         type="checkbox"
-                        onClick={() => alert("done")}
+                        onClick={() =>
+                          questionCompleted(
+                            topicName.replace(/[^A-Z0-9]+/gi, "_"),
+                            index
+                          )
+                        }
                         name="done"
                         id="doneId"
                       />
