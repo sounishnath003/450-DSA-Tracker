@@ -1,4 +1,4 @@
-interface IQuestion {
+export interface IQuestion {
   Topic: string;
   Problem: string;
   Done: boolean;

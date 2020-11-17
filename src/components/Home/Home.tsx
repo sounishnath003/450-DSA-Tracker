@@ -20,7 +20,11 @@ const Home: React.FC = () => {
         ) : (
           <div className="flex d-flex flex-row flex-wrap justify-evenly m-2">
             {" "}
-            <QTopicCard {...questionDataContext[0]} />
+            {questionDataContext.map(
+              (quesTopic: IQuestionData, index: number) => (
+                <QTopicCard {...quesTopic} key={index} />
+              )
+            )}
           </div>
         )}
       </div>
