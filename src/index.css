@@ -13,9 +13,7 @@
 }
 
 * {
-  /* font-family: "Product Sans"; */
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Product Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
