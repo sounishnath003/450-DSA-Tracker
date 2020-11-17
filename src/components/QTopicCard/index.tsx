@@ -34,8 +34,13 @@ const QTopicCard: React.FC<IQuestionData> = (props) => {
               {questions.length}{" "}
             </div>{" "}
           </span>
-          <div className="text-sm ">
+          <div className="text-sm">
             {" "}
+            {started && (
+              <div className="text-green-600 px-3 py-1 inline rounded-lg bg-gray-100">
+                14 more to go
+              </div>
+            )}
             {started ? (
               <div className="text-green-400">Started</div>
             ) : (
