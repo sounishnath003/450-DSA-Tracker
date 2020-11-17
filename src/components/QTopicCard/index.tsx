@@ -7,8 +7,8 @@ const QTopicCard: React.FC<IQuestionData> = (props) => {
 
   return (
     <>
-      <Link to={`/${topicName.replace(" ", "-").toLowerCase()}`}  >
-        <div className="flex border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300">
+      <Link to={`/${topicName.replace(" ", "-").toLowerCase()}`}>
+        <div className="flex hover:bg-gray-100 border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300">
           <div className="flex items-center  justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
             <svg
               className="w-6 h-6 "
