@@ -4,6 +4,7 @@ import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 
 const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
   const { topicName, questions } = props;
+  console.log(props);
 
   // searchBar component()
   function SearchBar() {
@@ -27,11 +28,12 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
     );
   }
 
+  // utility function()
   function tableRowLogic(index: number, question: IQuestion): string {
     if (question.Done === true) {
       return `green`;
     }
-    return index % 2 == 0 ? "white" : "#fff5fb";
+    return index % 2 === 0 ? "white" : "#fff5fb";
   }
 
   function QTable() {

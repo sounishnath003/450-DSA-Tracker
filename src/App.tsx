@@ -19,7 +19,9 @@ function App() {
               key={index}
               exact
               path={route.path}
-              component={() => <QStatCard {...QuestionData[index]} />}
+              component={() => (
+                <QStatCard key={index} {...QuestionData[index]} />
+              )}
             />
           ))}
         </Switch>
