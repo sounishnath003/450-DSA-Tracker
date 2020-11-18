@@ -87,7 +87,9 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() => questionCompleted(topicName, props)}
+                        onClick={() =>
+                          questionCompleted(topicName, index, props)
+                        }
                       />
                     </td>
                   </tr>
