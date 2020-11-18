@@ -22,7 +22,7 @@ export const routes: IRoute[] = [
   },
   {
     component: QStatCard,
-    path: `/${QuestionData[3].topicName.replace(" & ", " ").toLowerCase()}`,
+    path: `/${QuestionData[3].topicName.replace(" & ", "-").toLowerCase()}`,
   },
   {
     component: QStatCard,
@@ -46,7 +46,7 @@ export const routes: IRoute[] = [
   },
   {
     component: QStatCard,
-    path: `/${QuestionData[9].topicName.replace(" & ", " ").toLowerCase()}`,
+    path: `/${QuestionData[9].topicName.replace(" & ", "-").toLowerCase()}`,
   },
   {
     component: QStatCard,

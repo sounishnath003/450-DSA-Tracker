@@ -24,6 +24,7 @@ export function getData() {
         console.log("putting / inserting data to DB");
         insertData();
       } else {
+        console.log(data);
         return data.sort((a, b) => a.position - b.position);
       }
     });

@@ -8,7 +8,7 @@ enum Types {
   RANDOM = "RANDOM",
 }
 
-export function reducer(state: any, action: any) {
+export function reducer(state: any, action: any): any {
   if (Types.COMPLETED === action.type) {
     return {
       ...state,
