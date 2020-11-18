@@ -29,15 +29,19 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
     );
   }
 
-  function questionCompleted(key: string, index: number) {
+  function questionCompleted(
+    key: string,
+    id: number,
+    questionData: IQuestionData
+  ) {
+    dispatch({ type: "COMPLETED", payload: { key, id, questionData } });
     console.log(state);
-    dispatch({ type: "COMPLETED", payload: { key, index } });
   }
 
   // utility function()
   function tableRowLogic(index: number, question: IQuestion): string {
     if (question.Done === true) {
-      return `green`;
+      return `#5AFFA8`;
     }
     return index % 2 === 0 ? "white" : "#fff5fb";
   }
@@ -76,14 +80,14 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                     </td>
                     <td className="border px-4 py-2">
                       {" "}
-                      {question.Done ? "Completed" : "Incomplete"}{" "}
+                      {question.Done ? "✅Completed" : "❌Incomplete"}{" "}
                     </td>
                     <td className="text-center py-2">
                       <input
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() => questionCompleted(topicName, index)}
+                        onClick={() => questionCompleted(topicName, props)}
                       />
                     </td>
                   </tr>

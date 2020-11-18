@@ -1,8 +1,12 @@
 import { QuestionData } from "../db-store/data";
 import Localbase from "localbase";
-import { IQuestionData } from "../model/Question-model";
+import { IQuestionData, IQuestion } from "../model/Question-model";
 
 const db: Localbase = new Localbase("db");
+
+function formatKeys(key: string): string {
+  return key.replace(/[^A-Z0-9]+/gi, "_").toLowerCase();
+}
 
 // life saver inserter
 function insertData(): void {
@@ -17,7 +21,8 @@ function insertData(): void {
 // getting all the records
 export function getData() {
   insertData();
-  return db.collection("450dsaArchive")
+  return db
+    .collection("450dsaArchive")
     .get()
     .then((data: IQuestionData[]) => {
       if (data.length < 1) {
@@ -29,9 +34,19 @@ export function getData() {
     });
 }
 
-export function updateDocumentState(
-  key: string,
-  updatedData: IQuestionData
-): void {
-  db.collection("450dsaArchive").doc(key).update(updatedData);
+function findByKeyIndex(key: string, position: number): IQuestionData {
+  return db.collection("450dsaArchive")
+    .doc(formatKeys(key))
+    .get()
+    .then((dat: IQuestionData) => {
+      if(dat.position === position){
+        return dat;
+      }
+    });
+}
+
+export function updateDocumentState(key: string, position: number) {
+  const d = Promise.resolve(findByKeyIndex(key, position)).then((r) => r);
+  console.log(d);
+  db.collection("450dsaArchive").doc(formatKeys(key)).update({});
 }
