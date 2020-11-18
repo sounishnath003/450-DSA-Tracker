@@ -30,8 +30,8 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
   }
 
   function questionCompleted(key: string, index: number) {
-    dispatch({ type: "COMPLETED", payload: { key, index } });
     console.log(state);
+    dispatch({ type: "COMPLETED", payload: { key, index } });
   }
 
   // utility function()
@@ -46,7 +46,7 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
     return (
       <>
         <table className="table-auto max-w-3xl mx-auto my-6">
-          <thead>
+          <thead key={"thred"}>
             <tr className="bg-indigo-700 text-white tracking-wide">
               <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Question(s)</th>
@@ -54,11 +54,12 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
               <th className="px-4 py-2">Done</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody key={"tbody"}>
             {questions.map((question: IQuestion, index: number) => {
               return (
                 <>
                   <tr
+                    key={index}
                     style={{ backgroundColor: tableRowLogic(index, question) }}
                   >
                     <td className="border px-4 py-2"> {index + 1} </td>
@@ -80,14 +81,9 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                     <td className="text-center py-2">
                       <input
                         type="checkbox"
-                        onClick={() =>
-                          questionCompleted(
-                            topicName.replace(/[^A-Z0-9]+/gi, "_"),
-                            index
-                          )
-                        }
-                        name="done"
-                        id="doneId"
+                        onChange={(e) => question.Done}
+                        checked={question.Done === true}
+                        onClick={() => questionCompleted(topicName, index)}
                       />
                     </td>
                   </tr>
@@ -126,3 +122,14 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
 };
 
 export default QStatCard;
+
+/*
+
+ onClick={(e: any) =>
+                          questionCompleted(
+                            topicName.replace(/[^A-Z0-9]+/gi, "_"),
+                            index
+                          )
+                        }
+
+*/

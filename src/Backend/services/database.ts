@@ -20,11 +20,18 @@ export function getData() {
   db.collection("450dsaArchive")
     .get()
     .then((data: IQuestionData[]) => {
-      if(data.length < 1){
-        console.log('putting / inserting data to DB');
+      if (data.length < 1) {
+        console.log("putting / inserting data to DB");
         insertData();
       } else {
         return data.sort((a, b) => a.position - b.position);
       }
-    })
+    });
+}
+
+export function updateDocumentState(
+  key: string,
+  updatedData: IQuestionData
+): void {
+  db.collection("450dsaArchive").doc(key).update(updatedData);
 }
