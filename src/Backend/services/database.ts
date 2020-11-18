@@ -17,14 +17,13 @@ function insertData(): void {
 // getting all the records
 export function getData() {
   insertData();
-  db.collection("450dsaArchive")
+  return db.collection("450dsaArchive")
     .get()
     .then((data: IQuestionData[]) => {
       if (data.length < 1) {
         console.log("putting / inserting data to DB");
         insertData();
       } else {
-        console.log(data);
         return data.sort((a, b) => a.position - b.position);
       }
     });
