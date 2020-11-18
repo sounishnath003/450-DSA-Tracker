@@ -1,5 +1,7 @@
 import React, { useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 
@@ -65,6 +67,7 @@ const QStatCard: React.FC<IQuestionData> = (
   ) {
     dispatch({ type: "COMPLETED", payload: { key, id, questionData } });
     console.log(state);
+    toast.info('🎉 Hurray!! you made it🙌');
   }
 
   // utility function()
@@ -133,6 +136,7 @@ const QStatCard: React.FC<IQuestionData> = (
 
   return (
     <>
+    <ToastContainer />
       <div className="text-4xl text-center text-gray-800">
         {" "}
         ✨ {topicName} Problems{" "}

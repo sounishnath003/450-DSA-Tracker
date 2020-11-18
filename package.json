@@ -43,6 +43,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
     "localbase": "^0.7.4",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "react-toastify": "^6.1.0"
   }
 }
