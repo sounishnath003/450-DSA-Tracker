@@ -1,27 +1,53 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 
-const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
-  const { topicName, questions } = props;
+const QStatCard: React.FC<IQuestionData> = (
+  questionDataProps: IQuestionData
+) => {
+  const { topicName, questions } = questionDataProps;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
+  const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
+  const searchTxtRef = useRef<any>();
 
   // searchBar component()
-  function SearchBar() {
+  function SearchBar(this: undefined) {
+    function handleSearch() {
+      const searchTxt: string = searchTxtRef.current.value;
+      if (searchTxt !== "") {
+        const nques: IQuestion[] = questionsState.filter(
+          (ques: IQuestion, index: number) =>
+            ques.Problem.toLowerCase().includes(searchTxt)
+        );
+        setTimeout(() => setQuestionsState(nques), 1200);
+      } else {
+        setQuestionsState(questions);
+      }
+    }
     return (
-      <form onSubmit={(e: any) => e.preventDefault()}>
+      <form>
         <div className="text-center">
           <div className="inline-flex">
             <div className="m-auto">
               <input
+                ref={searchTxtRef}
+                onChange={handleSearch}
                 type="text"
                 placeholder="search questions accordingly"
                 className="px-3 py-2 w-64 border font-mono font-bold border-black bg-blue-100"
               />
             </div>
             <div className="m-auto border border-black rounded-tr rounded-br text-white px-3 bg-black py-2">
-              <button className="uppercase tracking-wide">Search</button>
+              <button
+                className="uppercase tracking-wide"
+                type="reset"
+                onClick={() => {
+                  setQuestionsState(questions);
+                }}
+              >
+                Reset🤷‍♂️
+              </button>
             </div>
           </div>
         </div>
@@ -59,7 +85,7 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
             </tr>
           </thead>
           <tbody key={"tbody"}>
-            {questions.map((question: IQuestion, index: number) => {
+            {questionsState.map((question: IQuestion, index: number) => {
               return (
                 <>
                   <tr
@@ -88,7 +114,7 @@ const QStatCard: React.FC<IQuestionData> = (props: IQuestionData) => {
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
                         onClick={() =>
-                          questionCompleted(topicName, index, props)
+                          questionCompleted(topicName, index, questionDataProps)
                         }
                       />
                     </td>

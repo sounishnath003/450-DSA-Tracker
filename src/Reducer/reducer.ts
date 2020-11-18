@@ -17,11 +17,12 @@ interface IAction {
 enum Types {
   COMPLETED = "COMPLETED",
   RANDOM = "RANDOM",
+  SEARCH_ON = "SEARCH_ON",
 }
 
 export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
-    const { key, id, questionData } = action.payload;
+    const { id, questionData } = action.payload;
 
     let updatedQuestionStatus = questionData.questions.map(
       (question: IQuestion, index: number) => {
