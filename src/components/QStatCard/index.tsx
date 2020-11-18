@@ -20,7 +20,10 @@ const QStatCard: React.FC<IQuestionData> = (
           (ques: IQuestion, index: number) =>
             ques.Problem.toLowerCase().includes(searchTxt)
         );
-        setTimeout(() => setQuestionsState(nques), 1245);
+        if (nques.length == 0) {
+          // setNoData(true);
+        }
+        setTimeout(() => setQuestionsState(nques), 1505);
       } else {
         setQuestionsState(questions);
       }
