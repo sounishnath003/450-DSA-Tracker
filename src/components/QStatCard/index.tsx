@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,9 @@ const QStatCard: React.FC<IQuestionData> = (
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
 
+  // no of question ~ selected realtime
+  const [selected, setSelected] = useState<number[]>([]);
+
   // searchBar component()
   function SearchBar(this: undefined) {
     function handleSearch() {
@@ -22,7 +25,7 @@ const QStatCard: React.FC<IQuestionData> = (
           (ques: IQuestion, index: number) =>
             ques.Problem.toLowerCase().includes(searchTxt)
         );
-        if (nques.length == 0) {
+        if (nques.length === 0) {
           // setNoData(true);
         }
         setTimeout(() => setQuestionsState(nques), 1505);
@@ -62,12 +65,11 @@ const QStatCard: React.FC<IQuestionData> = (
 
   function questionCompleted(
     key: string,
-    id: number,
-    questionData: IQuestionData
+    index: number,
+    questionSelected: IQuestion
   ) {
-    dispatch({ type: "COMPLETED", payload: { key, id, questionData } });
-    console.log(state);
-    toast.info('🎉 Hurray!! you made it🙌');
+    dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
+    toast.info("🎉 Hurray!! you made it🙌");
   }
 
   // utility function()
@@ -103,6 +105,7 @@ const QStatCard: React.FC<IQuestionData> = (
                       {" "}
                       <a
                         target="_blank"
+                        rel="noreferrer"
                         href={question.URL}
                         style={{ color: "#8345E5" }}
                       >
@@ -120,7 +123,7 @@ const QStatCard: React.FC<IQuestionData> = (
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
                         onClick={() =>
-                          questionCompleted(topicName, index, questionDataProps)
+                          questionCompleted(topicName, index, question)
                         }
                       />
                     </td>
@@ -136,7 +139,7 @@ const QStatCard: React.FC<IQuestionData> = (
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="text-4xl text-center text-gray-800">
         {" "}
         ✨ {topicName} Problems{" "}

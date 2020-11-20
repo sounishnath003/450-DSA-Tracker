@@ -1,4 +1,8 @@
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
+import {
+  findDocByKey,
+  updateDocumentState,
+} from "../Backend/services/database";
 
 export const defaultQuesStat = {
   isSelected: false,
@@ -9,8 +13,8 @@ interface IAction {
   type: string;
   payload: {
     key: string;
-    id: number;
-    questionData: IQuestionData;
+    index: number;
+    questionSelected: IQuestion;
   };
 }
 
@@ -22,22 +26,36 @@ enum Types {
 
 export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
-    const { id, questionData } = action.payload;
+    const { key, index, questionSelected } = action.payload;
 
-    let updatedQuestionStatus = questionData.questions.map(
-      (question: IQuestion, index: number) => {
-        if (index === id) {
-          question.Done = true;
-          if (question.Done) {
-          }
-        }
-      }
-    );
+    const quesPromise = Promise.resolve(findDocByKey(key));
+    quesPromise.then((questionTopic) => {
+      // let idx: number = questionTopic.questions.indexOf(questionSelected);
+
+      const updatedQuestionsData: IQuestion = {
+        Topic: questionSelected.Topic,
+        Problem: questionSelected.Problem,
+        URL: questionSelected.URL,
+        Done: true,
+      };
+
+      questionTopic.questions[index] = updatedQuestionsData;
+
+      const updatedData: IQuestionData = {
+        doneQuestions: questionTopic.doneQuestions + 1,
+        topicName: questionTopic.topicName,
+        started: true,
+        position: questionTopic.position,
+        questions: questionTopic.questions,
+      };
+
+      updateDocumentState(key, updatedData);
+    });
 
     return {
       ...state,
       isSelected: true,
-      questionTableData: [],
+      questionTableData: questionSelected,
       payload: "",
     };
   } else if (action.type === Types.RANDOM) {

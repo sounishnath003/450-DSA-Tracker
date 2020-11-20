@@ -9,8 +9,8 @@ function formatKeys(key: string): string {
 }
 
 // life saver inserter
-function insertData(): void {
-  QuestionData.forEach((topicInfo: IQuestionData, index) => {
+function insertData(questionData: IQuestionData[]): void {
+  questionData.forEach((topicInfo: IQuestionData, index) => {
     db.collection("450dsaArchive").add(
       topicInfo,
       topicInfo.topicName.replace(/[^A-Z0-9]+/gi, "_").toLowerCase()
@@ -19,34 +19,33 @@ function insertData(): void {
 }
 
 // getting all the records
-export function getData() {
-  insertData();
+export function getData(questionData: IQuestionData[]) {
   return db
     .collection("450dsaArchive")
     .get()
     .then((data: IQuestionData[]) => {
       if (data.length < 1) {
         console.log("putting / inserting data to DB");
-        insertData();
+        insertData(QuestionData);
       } else {
         return data.sort((a, b) => a.position - b.position);
+        // return data;
       }
     });
 }
 
-function findByKeyIndex(key: string, position: number): IQuestionData {
-  return db.collection("450dsaArchive")
+export async function findDocByKey(key: string): Promise<IQuestionData> {
+  return await db
+    .collection("450dsaArchive")
     .doc(formatKeys(key))
     .get()
-    .then((dat: IQuestionData) => {
-      if(dat.position === position){
-        return dat;
-      }
-    });
+    .then((doc: IQuestionData) => doc);
 }
 
-export function updateDocumentState(key: string, position: number) {
-  const d = Promise.resolve(findByKeyIndex(key, position)).then((r) => r);
-  console.log(d);
-  db.collection("450dsaArchive").doc(formatKeys(key)).update({});
+export function updateDocumentState(key: string, updatedData: IQuestionData) {
+  let d: any = db
+    .collection("450dsaArchive")
+    .doc(formatKeys(key))
+    .update(updatedData);
+  // getData();
 }

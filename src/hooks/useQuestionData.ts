@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
+import { getData } from "../Backend/services/database";
 
 export function useQuestionData(): [
   IQuestionData[],
@@ -11,6 +12,8 @@ export function useQuestionData(): [
   );
 
   useEffect(() => {
+    console.log("loaded from contextAPI");
+
     setQuestionData(QuestionData);
   }, []);
 
