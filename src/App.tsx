@@ -13,14 +13,14 @@ function App() {
   const [questionData] = useQuestionData();
 
   useEffect(() => {
-    getData(questionData)
-  }, [])
+    getData(questionData);
+  }, []);
 
   return (
     <QuestionDataContext.Provider value={questionData}>
       <div className="App bg-white mx-auto mt-10 p-8 max-w-4xl m-auto ">
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={() => <Home {...questionData} />} />
           {/* mapping all app routes */}
           {routes.map((route: IRoute, index) => (
             <Route

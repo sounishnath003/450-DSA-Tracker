@@ -3,10 +3,13 @@ import { IQuestionData } from "../../Backend/model/Question-model";
 import { QuestionDataContext } from "../../context/QuestionDataContext";
 import QTopicCard from "../QTopicCard";
 
-const Home: React.FC = () => {
-  const questionDataContext: IQuestionData[] = useContext(QuestionDataContext);
+const Home: React.FC<IQuestionData[]> = (questionData: IQuestionData[]) => {
+  // let updatedQuestionTopicData
+  let questionDataContext: IQuestionData[] = useContext(QuestionDataContext);
 
-  useEffect(() => {}, [questionDataContext]);
+  useEffect(() => {
+    questionDataContext = questionData;
+  }, [questionDataContext]);
 
   return (
     <React.Fragment>

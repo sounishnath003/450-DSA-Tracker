@@ -7,9 +7,7 @@ export function useQuestionData(): [
   IQuestionData[],
   React.Dispatch<React.SetStateAction<IQuestionData[]>>
 ] {
-  const [questionData, setQuestionData] = useState<IQuestionData[]>(
-    QuestionData
-  );
+  const [questionData, setQuestionData] = useState<IQuestionData[]>(QuestionData);
 
   useEffect(() => {
     console.log("loaded from contextAPI");
