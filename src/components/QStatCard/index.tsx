@@ -70,6 +70,8 @@ const QStatCard: React.FC<IQuestionData> = (
   ) {
     dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
     toast.info("🎉 Hurray!! you made it🙌");
+
+    console.log(state);
   }
 
   // utility function()
@@ -98,7 +100,9 @@ const QStatCard: React.FC<IQuestionData> = (
                 <>
                   <tr
                     key={index}
-                    style={{ backgroundColor: tableRowLogic(index, question) }}
+                    style={{
+                      backgroundColor: tableRowLogic(index, question),
+                    }}
                   >
                     <td className="border px-4 py-2"> {index + 1} </td>
                     <td className="border px-4 py-2">
@@ -122,9 +126,9 @@ const QStatCard: React.FC<IQuestionData> = (
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() =>
-                          questionCompleted(topicName, index, question)
-                        }
+                        onClick={() => {
+                          return questionCompleted(topicName, index, question);
+                        }}
                       />
                     </td>
                   </tr>

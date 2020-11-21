@@ -1,8 +1,11 @@
+import { QuestionData } from "../Backend/db-store/data";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 import {
   findDocByKey,
+  getData,
   updateDocumentState,
 } from "../Backend/services/database";
+
 
 export const defaultQuesStat = {
   isSelected: false,
@@ -55,7 +58,7 @@ export function reducer(state: any, action: IAction) {
     return {
       ...state,
       isSelected: true,
-      questionTableData: questionSelected,
+      questionTableData: [...state.questionTableData],
       payload: "",
     };
   } else if (action.type === Types.RANDOM) {

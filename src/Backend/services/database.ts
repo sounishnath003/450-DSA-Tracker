@@ -19,7 +19,7 @@ function insertData(questionData: IQuestionData[]): void {
 }
 
 // getting all the records
-export function getData(questionData: IQuestionData[]) {
+export function getData(questionData: IQuestionData[]): IQuestionData[] {
   return db
     .collection("450dsaArchive")
     .get()
