@@ -52,7 +52,7 @@ export function reducer(state: any, action: IAction) {
         questions: questionTopic.questions,
       };
 
-      updateDocumentState(key, updatedData);
+      // updateDocumentState(key, updatedData);
     });
 
     return {

@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { QuestionData } from "../../Backend/db-store/data";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 
@@ -73,6 +74,8 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   ) {
     dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
     toast.info("🎉 Hurray!! you made it🙌");
+
+    updateData(key, QuestionData, index);
 
     console.log(state);
   }
@@ -163,22 +166,11 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         </span>
       </div>
       <div className="my-8 ">
-        <SearchBar />
-        <QTable />
+        <SearchBar  />
+        <QTable  />
       </div>
     </>
   );
 };
 
 export default QStatCard;
-
-/*
-
- onClick={(e: any) =>
-                          questionCompleted(
-                            topicName.replace(/[^A-Z0-9]+/gi, "_"),
-                            index
-                          )
-                        }
-
-*/

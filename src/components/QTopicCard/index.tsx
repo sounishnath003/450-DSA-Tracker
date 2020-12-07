@@ -54,7 +54,7 @@ const QTopicCard: React.FC<Props> = ({ questionData, updateData }) => {
                 </div>
               )}
               {started ? (
-                <div className="text-green-400">Started</div>
+                <div className="text-green-400">Started Solving</div>
               ) : (
                 <div className="text-red-700">Not yet started</div>
               )}{" "}

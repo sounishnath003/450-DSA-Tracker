@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { IQuestionData } from "../../Backend/model/Question-model";
-import { QuestionDataContext } from "../../context/QuestionDataContext";
 import QTopicCard from "../QTopicCard";
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ questionData, updateData }) => {
   // let updatedQuestionTopicData
-  let questionDataContext: IQuestionData[] = useContext(QuestionDataContext);
+  // let questionData: IQuestionData[] = useContext(QuestionDataContext);
 
   // useEffect(() => {
   //   questionDataContext = questionData;
@@ -23,20 +22,18 @@ const Home: React.FC<Props> = ({ questionData, updateData }) => {
         your gateway to crack product based
       </div>
       <div className="mt-8">
-        {questionDataContext.length < 1 ? (
+        {questionData.length < 1 ? (
           <div>loading....</div>
         ) : (
           <div className="flex d-flex flex-row flex-wrap justify-evenly m-2">
             {" "}
-            {questionDataContext.map(
-              (quesTopic: IQuestionData, index: number) => (
-                <QTopicCard
-                  questionData={quesTopic}
-                  updateData={updateData}
-                  key={index}
-                />
-              )
-            )}
+            {questionData.map((quesTopic: IQuestionData, index: number) => (
+              <QTopicCard
+                questionData={quesTopic}
+                updateData={updateData}
+                key={index}
+              />
+            ))}
           </div>
         )}
       </div>

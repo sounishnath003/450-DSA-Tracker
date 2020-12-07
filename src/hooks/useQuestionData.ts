@@ -2,7 +2,7 @@ import { type } from "os";
 import { useEffect, useState } from "react";
 import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
-import { getData } from "../Backend/services/database";
+import { getData, updateDocumentState } from "../Backend/services/database";
 
 type TQuestionData = [
   IQuestionData[],
@@ -14,14 +14,14 @@ export function useQuestionData(): TQuestionData {
   const [questionData, setQuestionData] = useState<IQuestionData[]>([]);
 
   function updateData(
-    key: number,
+    key: string,
     topicData: IQuestionData[],
     topicPosition: number
   ) {
     let upData: any = questionData.map(
       (topic: IQuestionData, index: number) => {
-        if (index == topicPosition) {
-          // updateDBData(key, topicData);
+        if (index === topicPosition) {
+          updateDocumentState(key, topicData);
           return {
             topicName: topic.topicName,
             position: topic.position,
@@ -37,8 +37,11 @@ export function useQuestionData(): TQuestionData {
 
   useEffect(() => {
     console.log("loaded from contextAPI");
-    setQuestionData(QuestionData);
-    getData(QuestionData);
+    // setQuestionData(QuestionData);
+    // setQuestionData(getData(QuestionData));
+
+    getData((qData: IQuestionData[]) => setQuestionData(qData));
+
   }, []);
 
   return [questionData, setQuestionData, updateData];
