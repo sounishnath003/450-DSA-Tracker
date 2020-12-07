@@ -20,6 +20,16 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
+  // @TODO - useEffect questionCompleted Update
+
+  useEffect(() => {
+    if(questionData !== undefined) {
+      let doneQuestions = [];
+      console.log('question clicked status..');
+      
+    }
+  }, [questionData]);
+
   // searchBar component()
   function SearchBar(this: undefined) {
     function handleSearch() {
@@ -75,7 +85,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
     toast.info("🎉 Hurray!! you made it🙌");
 
-    updateData(key, QuestionData, index);
+    updateData(key, QuestionData[index], index);
 
     console.log(state);
   }
@@ -166,8 +176,8 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         </span>
       </div>
       <div className="my-8 ">
-        <SearchBar  />
-        <QTable  />
+        <SearchBar />
+        <QTable />
       </div>
     </>
   );

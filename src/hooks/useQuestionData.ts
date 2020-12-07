@@ -15,7 +15,7 @@ export function useQuestionData(): TQuestionData {
 
   function updateData(
     key: string,
-    topicData: IQuestionData[],
+    topicData: IQuestionData,
     topicPosition: number
   ) {
     let upData: any = questionData.map(
@@ -23,9 +23,9 @@ export function useQuestionData(): TQuestionData {
         if (index === topicPosition) {
           updateDocumentState(key, topicData);
           return {
-            topicName: topic.topicName,
-            position: topic.position,
-            ...topicData,
+            // topicName: topic.topicName,
+            // position: topic.position,
+            // ...topicData,
           };
         } else {
           return topic;
@@ -37,8 +37,6 @@ export function useQuestionData(): TQuestionData {
 
   useEffect(() => {
     console.log("loaded from contextAPI");
-    // setQuestionData(QuestionData);
-    // setQuestionData(getData(QuestionData));
 
     getData((qData: IQuestionData[]) => setQuestionData(qData));
 

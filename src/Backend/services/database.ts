@@ -1,6 +1,6 @@
 import { QuestionData } from "../db-store/data";
 import Localbase from "localbase";
-import { IQuestionData, IQuestion } from "../model/Question-model";
+import { IQuestionData } from "../model/Question-model";
 
 const db: Localbase = new Localbase("db");
 
@@ -20,6 +20,7 @@ function formatKeys(key: string): string {
 //   getData(questionData);
 // }
 
+// life saver inserter
 export function insertData(callback: Function) {
   QuestionData.forEach((topicInfo: IQuestionData, index) => {
     db.collection("450dsaArchive").add(
@@ -51,7 +52,7 @@ export function getData(callback: Function) {
   db.collection("450dsaArchive")
     .get()
     .then((data: IQuestionData[]) => {
-      if (data.length == 0) {
+      if (data.length === 0) {
         insertData(callback);
       } else {
         return callback(data.sort((a, b) => a.position - b.position));
@@ -67,7 +68,7 @@ export async function findDocByKey(key: string): Promise<IQuestionData> {
     .then((doc: IQuestionData) => doc);
 }
 
-export function updateDocumentState(key: string, updatedData: IQuestionData[]) {
+export function updateDocumentState(key: string, updatedData: IQuestionData) {
   let d: any = db
     .collection("450dsaArchive")
     .doc(formatKeys(key))
