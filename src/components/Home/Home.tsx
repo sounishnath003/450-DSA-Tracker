@@ -3,13 +3,18 @@ import { IQuestionData } from "../../Backend/model/Question-model";
 import { QuestionDataContext } from "../../context/QuestionDataContext";
 import QTopicCard from "../QTopicCard";
 
-const Home: React.FC<IQuestionData[]> = (questionData: IQuestionData[]) => {
+interface Props {
+  questionData: IQuestionData[];
+  updateData: Function;
+}
+
+const Home: React.FC<Props> = ({ questionData, updateData }) => {
   // let updatedQuestionTopicData
   let questionDataContext: IQuestionData[] = useContext(QuestionDataContext);
 
-  useEffect(() => {
-    questionDataContext = questionData;
-  }, [questionDataContext]);
+  // useEffect(() => {
+  //   questionDataContext = questionData;
+  // }, [questionDataContext]);
 
   return (
     <React.Fragment>
@@ -25,7 +30,11 @@ const Home: React.FC<IQuestionData[]> = (questionData: IQuestionData[]) => {
             {" "}
             {questionDataContext.map(
               (quesTopic: IQuestionData, index: number) => (
-                <QTopicCard {...quesTopic} key={index} />
+                <QTopicCard
+                  questionData={quesTopic}
+                  updateData={updateData}
+                  key={index}
+                />
               )
             )}
           </div>

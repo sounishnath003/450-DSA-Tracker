@@ -2,8 +2,13 @@ import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
 import QStatCard from "../components/QStatCard";
 
+interface Props {
+  questionData: IQuestionData;
+  updateData: Function;
+}
+
 export interface IRoute {
-  component: React.FC<IQuestionData>;
+  component: React.FC<Props>;
   path: string;
 }
 

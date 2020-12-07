@@ -5,10 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 
-const QStatCard: React.FC<IQuestionData> = (
-  questionDataProps: IQuestionData
-) => {
-  const { topicName, questions } = questionDataProps;
+interface Props {
+  questionData: IQuestionData;
+  updateData: Function;
+}
+
+const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
+  const { topicName, questions } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
