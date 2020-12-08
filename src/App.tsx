@@ -14,6 +14,7 @@ function App() {
 
   return (
     <QuestionDataContext.Provider value={questionData}>
+      <div className="p-1 bg-blue-100"></div>
       <div className="App bg-white mx-auto mt-10 p-8 max-w-4xl m-auto ">
         <Switch>
           <Route

@@ -1,5 +1,3 @@
-import { stat } from "fs";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
@@ -55,10 +53,9 @@ export function reducer(state: any, action: IAction) {
       },
       questionData.position
     );
-    toast.info("🎉 Hurray!! you made it🙌");
 
     return {
-      questionData: questionData,
+      questionData,
       ...state,
     };
   } else if (action.type === Types.RANDOM) {

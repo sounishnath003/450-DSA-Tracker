@@ -24,16 +24,11 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   useEffect(() => {
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
-
-      console.log(questionData);
-
       questionData.questions.map((question: IQuestion, index: number) => {
         if (question.Done === true) {
           doneQuestions.push(index);
         }
       });
-
-      // setTopicName(questionData.topicName);
       setSelected(doneQuestions);
     }
   }, [questionData]);
@@ -86,6 +81,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   }
 
   function whenQuestionCompleted(key: string, index: number) {
+    toast.info("🎉 Hurray!! you made it🙌");
     dispatch({
       type: "COMPLETED",
       payload: {
@@ -95,8 +91,6 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         updateData,
       },
     });
-    console.log(state);
-    toast.info("🎉 Hurray!! you made it🙌");
   }
 
   function QTable() {
