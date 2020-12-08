@@ -2,13 +2,13 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { QuestionData } from "../../Backend/db-store/data";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
+import { tableRowLogic } from "./utils/utility";
 
 interface Props {
-  questionData: IQuestionData;
-  updateData: Function;
+  questionData: IQuestionData; // data: IQuestion
+  updateData: Function; // updatedData()
 }
 
 const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
@@ -19,14 +19,23 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
 
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
+  // const [ttopicName, setTopicName] = useState<string>("");
 
   // @TODO - useEffect questionCompleted Update
 
   useEffect(() => {
-    if(questionData !== undefined) {
-      let doneQuestions = [];
-      console.log('question clicked status..');
-      
+    if (questionData !== undefined) {
+      let doneQuestions: number[] = [];
+      console.log("question clicked status..");
+
+      questionData.questions.map((question: IQuestion, index: number) => {
+        if (question.Done === true) {
+          doneQuestions.push(index);
+        }
+      });
+
+      // setTopicName(questionData.topicName);
+      setSelected(doneQuestions);
     }
   }, [questionData]);
 
@@ -77,25 +86,24 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     );
   }
 
-  function questionCompleted(
+  function whenQuestionCompleted(
     key: string,
     index: number,
     questionSelected: IQuestion
   ) {
-    dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
+    // dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
     toast.info("🎉 Hurray!! you made it🙌");
 
-    updateData(key, QuestionData[index], index);
-
+    dispatch({
+      type: "COMPLETED",
+      payload: {
+        index,
+        selected,
+        questionData,
+        updateData,
+      },
+    });
     console.log(state);
-  }
-
-  // utility function()
-  function tableRowLogic(index: number, question: IQuestion): string {
-    if (question.Done === true) {
-      return `#5AFFA8`;
-    }
-    return index % 2 === 0 ? "white" : "#fff5fb";
   }
 
   function QTable() {
@@ -143,7 +151,11 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
                         onClick={() => {
-                          return questionCompleted(topicName, index, question);
+                          return whenQuestionCompleted(
+                            topicName,
+                            index,
+                            question
+                          );
                         }}
                       />
                     </td>
