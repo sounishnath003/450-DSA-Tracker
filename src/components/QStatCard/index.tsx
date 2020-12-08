@@ -16,17 +16,16 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
-
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
-  // const [ttopicName, setTopicName] = useState<string>("");
 
   // @TODO - useEffect questionCompleted Update
 
   useEffect(() => {
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
-      console.log("question clicked status..");
+
+      console.log(questionData);
 
       questionData.questions.map((question: IQuestion, index: number) => {
         if (question.Done === true) {
@@ -44,7 +43,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     function handleSearch() {
       const searchTxt: string = searchTxtRef.current.value;
       if (searchTxt !== "") {
-        const nques: IQuestion[] = questionsState.filter(
+        const nques: IQuestion[] = questions.filter(
           (ques: IQuestion, index: number) =>
             ques.Problem.toLowerCase().includes(searchTxt)
         );
@@ -86,14 +85,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     );
   }
 
-  function whenQuestionCompleted(
-    key: string,
-    index: number,
-    questionSelected: IQuestion
-  ) {
-    // dispatch({ type: "COMPLETED", payload: { key, index, questionSelected } });
-    toast.info("🎉 Hurray!! you made it🙌");
-
+  function whenQuestionCompleted(key: string, index: number) {
     dispatch({
       type: "COMPLETED",
       payload: {
@@ -104,6 +96,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
       },
     });
     console.log(state);
+    toast.info("🎉 Hurray!! you made it🙌");
   }
 
   function QTable() {
@@ -151,11 +144,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
                         onClick={() => {
-                          return whenQuestionCompleted(
-                            topicName,
-                            index,
-                            question
-                          );
+                          return whenQuestionCompleted(topicName, index);
                         }}
                       />
                     </td>

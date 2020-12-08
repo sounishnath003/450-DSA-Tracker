@@ -1,16 +1,10 @@
+import { stat } from "fs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
-import {
-  findDocByKey,
-  getData,
-  updateDocumentState,
-} from "../Backend/services/database";
-
 export const defaultQuesStat = {
-  isSelected: false,
-  questionTableData: [],
+  questionData: [],
 };
 
 interface IAction {
@@ -54,19 +48,18 @@ export function reducer(state: any, action: IAction) {
     updateData(
       key,
       {
+        topicName: questionData.topicName,
         started: newQuestion.length > 0 ? true : false,
         doneQuestions: newQuestion.length,
         questions: updatedQuestionStats,
       },
       questionData.position
     );
-    toast.success("Awesome Done✨🎉");
+    toast.info("🎉 Hurray!! you made it🙌");
 
     return {
+      questionData: questionData,
       ...state,
-      isSelected: true,
-      questionTableData: [...state.questionTableData],
-      payload: "",
     };
   } else if (action.type === Types.RANDOM) {
     return state;
