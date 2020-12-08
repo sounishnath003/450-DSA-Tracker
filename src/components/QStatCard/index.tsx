@@ -19,9 +19,10 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
-  // @TODO - useEffect questionCompleted Update
+  // @COMPLETED_ACTION - useEffect questionCompleted Update
 
   useEffect(() => {
+    toast.success("🎉 Hurray!! you made it🙌");
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
       questionData.questions.map((question: IQuestion, index: number) => {
@@ -81,7 +82,8 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   }
 
   function whenQuestionCompleted(key: string, index: number) {
-    toast.info("🎉 Hurray!! you made it🙌");
+    toast.success("🎉 Hurray!! you made it🙌");
+
     dispatch({
       type: "COMPLETED",
       payload: {
@@ -138,7 +140,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
                         onClick={() => {
-                          return whenQuestionCompleted(topicName, index);
+                         return  whenQuestionCompleted(topicName, index);
                         }}
                       />
                     </td>

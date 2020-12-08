@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
@@ -25,6 +26,8 @@ export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
     const { selected, questionData, updateData, index } = action.payload;
     const key: string = questionData.topicName;
+
+    toast.info("🎉 Hurray!! you made it🙌");
 
     let newQuestion = [...selected];
     let updatedQuestionStats = questionData.questions.map(

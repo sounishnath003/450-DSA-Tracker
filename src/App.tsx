@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import { IQuestionData } from "./Backend/model/Question-model";
-import { getData } from "./Backend/services/database";
 import Home from "./components/Home/Home";
 import QStatCard from "./components/QStatCard";
 import { QuestionDataContext } from "./context/QuestionDataContext";
