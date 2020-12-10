@@ -8,10 +8,12 @@ import { useQuestionData } from "./hooks/useQuestionData";
 import { IRoute, routes } from "./routes/routes";
 
 function App() {
-  const [questionData, _, updateData] = useQuestionData();
+  const [questionData, , updateData] = useQuestionData();
 
   return (
-    <QuestionDataContext.Provider value={questionData}>
+    // <QuestionDataContext.Provider value={questionData}>
+    // </QuestionDataContext.Provider>
+    <>
       <div className="p-1 bg-blue-100"></div>
       <div className="App bg-white mx-auto mt-10 p-8 max-w-4xl m-auto ">
         <Switch>
@@ -22,7 +24,7 @@ function App() {
               <Home questionData={questionData} updateData={updateData} />
             )}
           />
-          {/* mapping all app routes */}
+
           {routes.map((route: IRoute, index: number) => (
             <Route
               key={index}
@@ -39,7 +41,7 @@ function App() {
           ))}
         </Switch>
       </div>
-    </QuestionDataContext.Provider>
+    </>
   );
 }
 

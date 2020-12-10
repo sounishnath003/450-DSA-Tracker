@@ -17,7 +17,7 @@ export function useQuestionData(): TQuestionData {
       (topic: IQuestionData, index: number) => {
         if (index === topicPosition) {
           updateDocumentState(key, topicData);
-          return { ...topicData };
+          return topicData;
         } else {
           return topic;
         }
