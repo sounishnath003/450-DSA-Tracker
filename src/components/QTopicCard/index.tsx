@@ -8,7 +8,7 @@ interface Props {
   updateData: Function;
 }
 
-const QTopicCard: React.FC<Props> = ({ questionData, updateData }) => {
+const QTopicCard: React.FC<Props> = ({ questionData }) => {
   const { topicName, started, questions, doneQuestions } = questionData;
   let remainingQuestions = questions.length - doneQuestions;
   let percentageDone = findPercentageCompleted(questions.length, doneQuestions);
@@ -17,7 +17,7 @@ const QTopicCard: React.FC<Props> = ({ questionData, updateData }) => {
       <Link to={`/${topicName.replace(" & ", "-").toLowerCase()}`}>
         <div
           className="flex mx-auto hover:bg-gray-100 border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300"
-          style={{ background: remainingQuestions == 0 ? "#e0ffe9" : "" }}
+          style={{ background: remainingQuestions === 0 ? "#e0ffe9" : "" }}
         >
           <div className="flex items-center  justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
             <svg

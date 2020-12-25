@@ -1,10 +1,22 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { QuestionDataContext } from "../../context/QuestionDataContext";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
+
+/*
+  questionData: IQuestionData; // data: IQuestion
+  updateData: Function; // updatedData()
+ */
 
 interface Props {
   questionData: IQuestionData; // data: IQuestion
@@ -12,6 +24,7 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
+  
   const { topicName, questions } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
@@ -30,7 +43,9 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         }
       });
       setSelected(doneQuestions);
-      toast.success(`🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`);
+      toast.success(
+        `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
+      );
     }
   }, [questionData]);
 

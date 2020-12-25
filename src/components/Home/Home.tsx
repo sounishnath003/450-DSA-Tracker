@@ -1,19 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IQuestionData } from "../../Backend/model/Question-model";
+import { QuestionDataContext } from "../../context/QuestionDataContext";
 import QTopicCard from "../QTopicCard";
 
-interface Props {
-  questionData: IQuestionData[];
-  updateData: Function;
-}
-
-const Home: React.FC<Props> = ({ questionData, updateData }) => {
-  // let updatedQuestionTopicData
-  // let questionData: IQuestionData[] = useContext(QuestionDataContext);
-
-  // useEffect(() => {
-  //   questionDataContext = questionData;
-  // }, [questionDataContext]);
+const Home: React.FC = () => {
+  const { questionData, updateData } = useContext(QuestionDataContext);
 
   return (
     <React.Fragment>

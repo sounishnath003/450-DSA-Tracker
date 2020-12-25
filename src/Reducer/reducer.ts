@@ -22,7 +22,12 @@ enum Types {
 
 export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
-    const { selected, questionData, updateData, index } = action.payload;
+    const {
+      selected,
+      questionData: questionData,
+      updateData,
+      index,
+    } = action.payload;
     const key: string = questionData.topicName;
 
     let newQuestion = [...selected];
