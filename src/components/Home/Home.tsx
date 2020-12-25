@@ -12,6 +12,7 @@ const Home: React.FC = () => {
       <div className="text-indigo-700 text-center text-xl tracking-wide uppercase my-4">
         your gateway to crack product based
       </div>
+
       <div className="mt-8">
         {questionData.length < 1 ? (
           <div>loading....</div>
