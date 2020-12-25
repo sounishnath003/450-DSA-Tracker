@@ -30,7 +30,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         }
       });
       setSelected(doneQuestions);
-      toast.success(`🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}`);
+      toast.success(`🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`);
     }
   }, [questionData]);
 

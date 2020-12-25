@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import { QuestionData } from "./Backend/db-store/data";
 import Home from "./components/Home/Home";
 import QStatCard from "./components/QStatCard";
 import { useQuestionData } from "./hooks/useQuestionData";
@@ -30,7 +31,7 @@ function App() {
               component={() => (
                 <QStatCard
                   key={index}
-                  questionData={questionData[index]}
+                  questionData={QuestionData[index]}
                   updateData={updateData}
                 />
               )}
