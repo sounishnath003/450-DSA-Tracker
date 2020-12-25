@@ -22,7 +22,6 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   // @COMPLETED_ACTION - useEffect questionCompleted Update
 
   useEffect(() => {
-    toast.success("🎉 Hurray!! you made it🙌");
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
       questionData.questions.map((question: IQuestion, index: number) => {
@@ -31,6 +30,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         }
       });
       setSelected(doneQuestions);
+      toast.success(`🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}`);
     }
   }, [questionData]);
 
@@ -82,8 +82,6 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   }
 
   function whenQuestionCompleted(key: string, index: number) {
-    toast.success("🎉 Hurray!! you made it🙌");
-
     dispatch({
       type: "COMPLETED",
       payload: {
@@ -139,9 +137,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() => {
-                         return  whenQuestionCompleted(topicName, index);
-                        }}
+                        onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
                   </tr>
