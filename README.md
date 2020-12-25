@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Showcase - 450DSA-Tracker
+![HomePage](./git-assets/450-dsa.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -13,6 +16,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Project Showcase - 4About -Section
+![AboutPage](./git-assets/about.png)
 
 ### `npm test`
 
