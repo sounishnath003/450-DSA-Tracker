@@ -31,7 +31,7 @@ function App() {
               component={() => (
                 <QStatCard
                   key={index}
-                  questionData={QuestionData[index]}
+                  questionData={questionData[index]}
                   updateData={updateData}
                 />
               )}

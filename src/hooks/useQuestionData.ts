@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
 import { getData, updateDocumentState } from "../Backend/services/database";
 
@@ -9,7 +10,7 @@ type TQuestionData = [
 ];
 
 export function useQuestionData(): TQuestionData {
-  const [questionData, setQuestionData] = useState<IQuestionData[]>([]);
+  const [questionData, setQuestionData] = useState<IQuestionData[]>(QuestionData);
 
   function updateData(key: any, topicData: any, topicPosition: any) {
     let reGeneratedQData: IQuestionData[] = questionData.map(
