@@ -10,9 +10,7 @@ interface Props {
 const QTopicCard: React.FC<Props> = ({ questionData, updateData }) => {
   const {
     topicName,
-    position,
     started,
-    doneQuestions,
     questions,
   } = questionData;
 

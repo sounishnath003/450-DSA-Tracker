@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
 import { getData, updateDocumentState } from "../Backend/services/database";
 
@@ -17,7 +16,12 @@ export function useQuestionData(): TQuestionData {
       (topic: IQuestionData, index: number) => {
         if (index === topicPosition) {
           updateDocumentState(key, topicData);
-          return topicData;
+          // return topicData;
+          return {
+            topicName: topic.topicName,
+            position: topic.position,
+            ...topicData,
+          };
         } else {
           return topic;
         }
