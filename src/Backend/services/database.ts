@@ -1,8 +1,9 @@
 import { QuestionData } from "../db-store/data";
-import Localbase from "localbase";
 import { IQuestionData } from "../model/Question-model";
 
-const db: any = new Localbase("db");
+// Typescript Module - Production requirement
+const LBase = require("localbase");
+const db: any = new LBase.default("db");
 
 function formatKeys(key: string): string {
   return key.replace(/[^A-Z0-9]+/gi, "_").toLowerCase();
@@ -40,9 +41,6 @@ export async function findDocByKey(key: string): Promise<IQuestionData> {
 }
 
 export function updateDocumentState(key: string, updatedData: IQuestionData) {
-  db
-    .collection("450dsaArchive")
-    .doc(formatKeys(key))
-    .update(updatedData);
+  db.collection("450dsaArchive").doc(formatKeys(key)).update(updatedData);
   // getData();
 }
