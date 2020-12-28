@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import { About } from "./components/About/About";
@@ -8,12 +8,30 @@ import QStatCard from "./components/QStatCard";
 import { QuestionDataContext } from "./context/QuestionDataContext";
 import { useQuestionData } from "./hooks/useQuestionData";
 import { IRoute, routes } from "./routes/routes";
+import FirstVisit from "./util/FirstVisit/FirstVisit";
 
 function App() {
   const [questionData, _, updateData] = useQuestionData();
 
+  let firstVisited: boolean = sessionStorage["alreadyVisited"];
+  const [showPopUp, setShowPopUp] = useState(false);
+  useEffect(() => {
+    if (firstVisited) {
+      setShowPopUp(false);
+    } else {
+      sessionStorage["alreadyVisited"] = true;
+      setShowPopUp(true);
+    }
+  }, []);
+
+  console.log({ firstVisited: firstVisited, showPopUp });
+
   return (
     <>
+      {showPopUp && (
+        <FirstVisit showupState={showPopUp} setShowUp={setShowPopUp} />
+      )}
+
       <QuestionDataContext.Provider value={{ questionData, updateData }}>
         <div className="p-1 bg-blue-100"></div>
         <div className="App bg-white mx-auto mt-10 p-8 max-w-4xl m-auto ">
