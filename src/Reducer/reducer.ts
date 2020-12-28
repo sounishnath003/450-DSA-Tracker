@@ -24,7 +24,7 @@ export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
     const {
       selected,
-      questionData: questionData,
+      questionData,
       updateData,
       index,
     } = action.payload;
@@ -34,7 +34,7 @@ export function reducer(state: any, action: IAction) {
     let updatedQuestionStats = questionData.questions.map(
       (question: IQuestion, qIndex: number) => {
         if (index === qIndex) {
-          question.Done = true;
+          question.Done = !question.Done;
           if (question.Done === true) {
             newQuestion.push(qIndex);
           } else {
