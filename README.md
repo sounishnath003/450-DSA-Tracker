@@ -1,8 +1,10 @@
 # ❤️ 450DSA-Tracker - React + IndexedDB
 Have you cached your answers?
 
-## Pending Jobs:
-[x] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
+
+## Updated Notes
+- [X] Update Notifications where you left off!
+- [X] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
