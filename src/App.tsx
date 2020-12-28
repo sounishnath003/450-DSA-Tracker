@@ -6,30 +6,19 @@ import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import QStatCard from "./components/QStatCard";
 import { QuestionDataContext } from "./context/QuestionDataContext";
+import { useFirstVisit } from "./hooks/useFirstVisit";
 import { useQuestionData } from "./hooks/useQuestionData";
 import { IRoute, routes } from "./routes/routes";
-import FirstVisit from "./util/FirstVisit/FirstVisit";
+import FirstVisit from "./components/util/FirstVisit/FirstVisit";
 
 function App() {
   const [questionData, _, updateData] = useQuestionData();
-
-  let firstVisited: boolean = sessionStorage["alreadyVisited"];
-  const [showPopUp, setShowPopUp] = useState(false);
-  useEffect(() => {
-    if (firstVisited) {
-      setShowPopUp(false);
-    } else {
-      sessionStorage["alreadyVisited"] = true;
-      setShowPopUp(true);
-    }
-  }, []);
-
-  console.log({ firstVisited: firstVisited, showPopUp });
+  const [showPopUp, setshowPopUp] = useFirstVisit();
 
   return (
     <>
       {showPopUp && (
-        <FirstVisit showupState={showPopUp} setShowUp={setShowPopUp} />
+        <FirstVisit showupState={showPopUp} setShowUp={setshowPopUp} />
       )}
 
       <QuestionDataContext.Provider value={{ questionData, updateData }}>
