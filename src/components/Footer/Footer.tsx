@@ -10,6 +10,7 @@ function Footer() {
           <span className="text-gray-600">LinkedIn:</span>{" "}
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://www.linkedin.com/in/sounish-nath-897b30186/"
           >
             Sounish Nath
@@ -23,6 +24,7 @@ function Footer() {
           Made With Love ❤️ | Copyright © {year} |{" "}
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://github.com/sounishnath003"
             className="decoration-none outline-none text-blue-700"
           >

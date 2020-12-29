@@ -1,4 +1,3 @@
-import { type } from "os";
 import React, { useEffect, useState } from "react";
 
 type IUseFirstVisit = [

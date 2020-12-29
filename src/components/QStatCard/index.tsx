@@ -35,11 +35,13 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         }
       });
       setSelected(doneQuestions);
-      toast.success(
-        `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
-      );
+      if (doneQuestions.length > 0) {
+        toast.success(
+          `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
+        );
+      }
     }
-  }, [questionData]);
+  }, [questionData, questions.length]);
 
   // searchBar component()
   function SearchBar(this: undefined) {

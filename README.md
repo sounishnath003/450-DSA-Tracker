@@ -1,6 +1,10 @@
 # ❤️ 450DSA-Tracker - React + IndexedDB
 Have you cached your answers?
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 352b6fae1be24f172b22d7e330150a61390a3d5a
 ## Updated Notes
 - [X] Update Notifications where you left off!
 - [X] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
