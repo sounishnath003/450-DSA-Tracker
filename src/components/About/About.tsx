@@ -26,12 +26,13 @@ export const About: React.FC = () => {
           </ul>
         </p>
         <div className="leading-none  text-2xl- my-6">
-          <a href="/" className="text-blue-800" target="_blank">
+          <a href="/" className="text-blue-800" rel="noreferrer" target="_blank">
             450-DSA
           </a>{" "}
           is your personal web-based progress tracker based on{" "}
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://drive.google.com/file/d/1FMdN_OCfOI0iAeDlqswCiC2DZzD4nPsb/view"
             className="text-indigo-700 bg-red-200"
           >
@@ -40,6 +41,7 @@ export const About: React.FC = () => {
           by{" "}
           <a
             target="_blank"
+            rel="noreferrer"
             href="https://in.linkedin.com/in/love-babbar-38ab2887"
             className="text-red-800 bg-yellow-400 px-2 rounded"
           >
@@ -68,6 +70,7 @@ export const About: React.FC = () => {
                 <div className="text-cyan-600">Sounish Nath</div>
                 <div className="text-gray-500 hover:text-indigo-700">
                   <a
+                    rel="noreferrer"
                     target="_blank"
                     href="https://www.linkedin.com/in/sounish-nath-897b30186/"
                   >
