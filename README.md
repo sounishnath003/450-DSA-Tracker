@@ -3,6 +3,10 @@ Have you cached your answers?
 
 
 ## Updated Notes
+- Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
+
+- [X] UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
+
 - [X] Update Notifications where you left off!
 - [X] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
 
