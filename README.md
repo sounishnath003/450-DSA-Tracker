@@ -2,7 +2,7 @@
 Have you cached your answers?
 
 ## Updated Notes
-- Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
+- [X] Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
 
 - [X] UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
 
