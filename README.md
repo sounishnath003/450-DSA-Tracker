@@ -1,7 +1,6 @@
 # ❤️ 450DSA-Tracker - React + IndexedDB
 Have you cached your answers?
 
-
 ## Updated Notes
 - Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
 
