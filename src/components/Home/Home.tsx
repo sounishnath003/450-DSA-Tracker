@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         {questionData.length < 1 ? (
           <div>loading....</div>
         ) : (
-          <div className="flex d-flex flex-row flex-wrap justify-evenly m-2">
+          <div className="flex d-flex flex-row flex-wrap justify-around m-2">
             {" "}
             {questionData.map((quesTopic: IQuestionData, index: number) => (
               <QTopicCard
