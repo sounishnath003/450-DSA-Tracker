@@ -47,7 +47,7 @@ Sounish Nath
 
 ### Credit + References ❤️ :
  - Curated questions-sheet: **Love Babbar** sir's 450DSA List.
- - Project Idea & Influenced: ![**V Ashish Raju**](http://450dsa.com/)
+ - Project Idea & Influenced: [**V Ashish Raju**](http://450dsa.com/)
 
 
 
