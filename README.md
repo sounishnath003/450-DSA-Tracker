@@ -42,8 +42,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Data Structures and Algorithms are used to test the analytical skills of the candidates as they are a useful tool to pick out the underlying algorithms in real-world problems and solve them efficiently. ❤️
 
 ## Author
+Sounish Nath
 
-flock.sinasini@gmail.com
+
+### Credit + References ❤️ :
+ - Curated questions-sheet: **Love Babbar** sir's 450DSA List.
+ - Project Idea & Influenced: ![**V Ashish Raju**](http://450dsa.com/)
+
+
 
 
 ## **Prerequisite(s)**
@@ -84,9 +90,4 @@ With a sufficient understanding of data structure data can be organized and stor
 <br>
 
 You will this project with React using Typescript. I learned to react for a few months and very much influenced, yet simple project using Context and reducer, and use Browser realtime IndexDB, that means the app does not have a physical database, it caches.
-
-
-### Credit + References ❤️ :
- - Curated questions-sheet: **Love Babbar** sir's 450DSA List.
- - Project Idea & Influenced: ![**450DSA by V Ashish Raju**](http://450dsa.com/)
 
