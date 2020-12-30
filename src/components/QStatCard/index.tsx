@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
+import UploadCode from "./UploadCode";
 import { tableRowLogic } from "./utils/utility";
 
 /*
@@ -17,12 +18,15 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
-  const { topicName, questions } = questionData;
+  const { topicName, questions, started } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
+
+  //Modal Open for upload solution
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // @COMPLETED_ACTION - useEffect questionCompleted Update
 
@@ -112,6 +116,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
               <th className="px-4 py-2">Question(s)</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Done</th>
+              {started && <th className="px-4 py-2">View Solution</th>}
             </tr>
           </thead>
           <tbody key={"tbody"}>
@@ -149,6 +154,17 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
+                    {started && <td className="text-center py-2">
+                      {question.Done ? (
+                        <>
+                          <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs" onClick={() => setModalIsOpen(!modalIsOpen)} >{question.haveSolution ? "View solution" : "Upload Solution"}</button>
+                            <UploadCode index={index} updateData={updateData} questionData={questionData} hasSolution={question.haveSolution} solutionCode={question.solutionCode} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+                        </>
+                      ) : (
+                          <div className="text-red-700">N/A</div>
+                        )}
+                    </td>
+                    }
                   </tr>
                 </>
               );

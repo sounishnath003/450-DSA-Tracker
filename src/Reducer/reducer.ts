@@ -1,7 +1,7 @@
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
 export const defaultQuesStat = {
-  questionData: [],
+  questions: [],
 };
 
 interface IAction {
@@ -34,7 +34,7 @@ export function reducer(state: any, action: IAction) {
     let updatedQuestionStats = questionData.questions.map(
       (question: IQuestion, qIndex: number) => {
         if (index === qIndex) {
-          question.Done = true ;
+          question.Done = true;
           if (question.Done === true) {
             newQuestion.push(qIndex);
           } else {
