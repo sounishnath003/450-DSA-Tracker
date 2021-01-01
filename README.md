@@ -2,6 +2,9 @@
 Have you cached your answers?
 
 ## Updated Notes
+
+- **❤️ Dark Mode is Now Supported Officially ❤️ **, System Default Enable no need to toggle!! [#13](https://github.com/sounishnath003/450-DSA-Tracker/pull/13)
+
 - [X] Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
 
 - [X] UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)

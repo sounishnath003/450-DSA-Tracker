@@ -10,6 +10,7 @@
     "@types/node": "^12.19.4",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
+    "netlify-cli": "^2.69.11",
     "postcss": "^8.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
