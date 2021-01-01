@@ -22,19 +22,14 @@ enum Types {
 
 export function reducer(state: any, action: IAction) {
   if (Types.COMPLETED === action.type) {
-    const {
-      selected,
-      questionData,
-      updateData,
-      index,
-    } = action.payload;
+    const { selected, questionData, updateData, index } = action.payload;
     const key: string = questionData.topicName;
 
     let newQuestion = [...selected];
     let updatedQuestionStats = questionData.questions.map(
       (question: IQuestion, qIndex: number) => {
         if (index === qIndex) {
-          question.Done = true ;
+          question.Done = !question.Done;
           if (question.Done === true) {
             newQuestion.push(qIndex);
           } else {
