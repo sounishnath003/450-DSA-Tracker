@@ -6,12 +6,12 @@ Have you cached your answers?
 - **❤️ Dark Mode is Now Supported Officially ❤️**
 <br> System Default Enable no need to toggle!! [#13](https://github.com/sounishnath003/450-DSA-Tracker/pull/13)
 
-- [X] Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
+* Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
 
-- [X] UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
+* UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
 
-- [X] Update Notifications where you left off!
-- [X] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
+* Update Notifications where you left off!
+* Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
