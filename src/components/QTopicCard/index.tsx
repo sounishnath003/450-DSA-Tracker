@@ -16,7 +16,7 @@ const QTopicCard: React.FC<Props> = ({ questionData }) => {
     <>
       <Link to={`/${topicName.replace(" & ", "-").toLowerCase()}`}>
         <div
-          className="flex mx-auto hover:bg-gray-100 border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300"
+          className="flex mx-auto dark:bg-indigo-600 hover:bg-gray-100 dark:hover:bg-blue-700 dark:hover:border-white border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300"
           style={{ background: remainingQuestions === 0 ? "#e0ffe9" : "" }}
         >
           <div className="flex items-center  justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
@@ -36,10 +36,12 @@ const QTopicCard: React.FC<Props> = ({ questionData }) => {
             </svg>
           </div>
           <div className="flex  flex-col  flex-grow ml-4">
-            <div className="text-xl text-gray-800">{topicName}</div>
+            <div className="text-xl dark:text-white  text-gray-800">
+              {topicName}
+            </div>
             <span>
               {" "}
-              Total Questions:{" "}
+              <span className="dark:text-gray-100">Total Questions: </span>
               <div className="font-bold text-indigo-600 text-lg inline">
                 {" "}
                 {questions.length}{" "}
