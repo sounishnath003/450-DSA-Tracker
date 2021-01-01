@@ -10,7 +10,7 @@ Modal.setAppElement("#root");
 interface Props {
   modalIsOpen: boolean;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  hasSolution: boolean | undefined;
+  haveSolution: boolean | undefined;
   solutionCode: string | undefined;
   questionData: IQuestionData;
   updateData: Function;
@@ -20,7 +20,7 @@ interface Props {
 const UploadCode: React.FC<Props> = ({
   index,
   updateData,
-  hasSolution,
+  haveSolution,
   solutionCode,
   modalIsOpen,
   setModalIsOpen,
@@ -29,6 +29,8 @@ const UploadCode: React.FC<Props> = ({
   const [updateCode, setUpdateCode] = useState<string | undefined>(
     solutionCode
   );
+
+  console.log({ solutionCode });
 
   function saveCodeTrigger(e: any) {
     e.preventDefault();
@@ -39,23 +41,18 @@ const UploadCode: React.FC<Props> = ({
       ...questionData.questions[index],
     };
 
-    let fqs: IQuestionData = {
-      topicName: questionData.topicName,
-      started: questionData.started,
-      doneQuestions: questionData.doneQuestions,
-      questions: [...questionData.questions, qs],
-      position: questionData.position,
-    };
-
-    console.log({ fqs });
-
     updateData(
       questionData.topicName,
-      { ...questionData, fqs },
+      {
+        topicName: questionData.topicName,
+        started: questionData.started,
+        doneQuestions: questionData.doneQuestions,
+        questions: [qs, ...questionData.questions],
+        position: questionData.position,
+      },
       questionData.position
     );
-
-    // setModalIsOpen(false);
+    setModalIsOpen(true);
   }
 
   return (
@@ -64,7 +61,7 @@ const UploadCode: React.FC<Props> = ({
         <h2 className="m-3 text-indigo-700 leadning-none">
           Upload Solution Code
         </h2>
-        {hasSolution ? (
+        {haveSolution ? (
           <code>
             <pre dangerouslySetInnerHTML={{ __html: `${solutionCode}` }}></pre>
           </code>
@@ -74,7 +71,8 @@ const UploadCode: React.FC<Props> = ({
               onChange={(e) => setUpdateCode(e.target.value)}
               value={updateCode}
               name="uploadCode"
-              className="resize bg-gray-100 p-2 border rounded-md"
+              className="resize bg-gray-100 w-3/5 p-2 border rounded-md"
+              style={{ height: "80%" }}
               id="uploadCode"
               placeholder="Copy and Paste your code"
             ></textarea>

@@ -154,17 +154,33 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
-                    {started && <td className="text-center py-2">
-                      {question.Done ? (
-                        <>
-                          <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs" onClick={() => setModalIsOpen(!modalIsOpen)} >{question.haveSolution ? "View solution" : "Upload Solution"}</button>
-                            <UploadCode index={index} updateData={updateData} questionData={questionData} hasSolution={question.haveSolution} solutionCode={question.solutionCode} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-                        </>
-                      ) : (
+                    {started && (
+                      <td className="text-center py-2">
+                        {question.Done ? (
+                          <>
+                            <button
+                              className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs"
+                              onClick={() => setModalIsOpen(!modalIsOpen)}
+                            >
+                              {question.haveSolution
+                                ? "View solution"
+                                : "Upload Solution"}
+                            </button>
+                            <UploadCode
+                              index={index}
+                              updateData={updateData}
+                              questionData={questionData}
+                              haveSolution={question.haveSolution}
+                              solutionCode={question.solutionCode}
+                              modalIsOpen={modalIsOpen}
+                              setModalIsOpen={setModalIsOpen}
+                            />
+                          </>
+                        ) : (
                           <div className="text-red-700">N/A</div>
                         )}
-                    </td>
-                    }
+                      </td>
+                    )}
                   </tr>
                 </>
               );
