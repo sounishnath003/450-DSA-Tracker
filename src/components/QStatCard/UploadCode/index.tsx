@@ -39,19 +39,21 @@ const UploadCode: React.FC<Props> = ({
       haveSolution: true,
     };
 
-    // updateData(
-    //   questionData.topicName,
-    //   {
-    //     topicName: questionData.topicName,
-    //     started: questionData.started,
-    //     doneQuestions: questionData.doneQuestions,
-    //     questions: [qs, ...questionData.questions],
-    //     position: questionData.position,
-    //   },
-    //   questionData.position
-    // );
+    const uquestions = questionData.questions.map((question, ind) =>
+      ind === index ? qs : question
+    );
 
-    console.log(qs);
+    updateData(
+      questionData.topicName,
+      {
+        topicName: questionData.topicName,
+        started: questionData.started,
+        doneQuestions: questionData.doneQuestions,
+        questions: uquestions,
+        position: questionData.position,
+      },
+      questionData.position
+    );
 
     setModalIsOpen(true);
   }

@@ -29,11 +29,7 @@ export function reducer(state: any, action: IAction) {
     let updatedQuestionStats = questionData.questions.map(
       (question: IQuestion, qIndex: number) => {
         if (index === qIndex) {
-<<<<<<< HEAD
-          question.Done = true;
-=======
-          question.Done = !question.Done;
->>>>>>> 2412fbb696cd8c89ffcff0a1579d621b74f31660
+          question.Done = true; //!question.Done;
           if (question.Done === true) {
             newQuestion.push(qIndex);
           } else {
