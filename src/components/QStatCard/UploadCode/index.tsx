@@ -30,28 +30,29 @@ const UploadCode: React.FC<Props> = ({
     solutionCode
   );
 
-  console.log({ solutionCode });
-
   function saveCodeTrigger(e: any) {
     e.preventDefault();
 
     let qs: IQuestion = {
+      ...questionData.questions[index],
       solutionCode: updateCode,
       haveSolution: true,
-      ...questionData.questions[index],
     };
 
-    updateData(
-      questionData.topicName,
-      {
-        topicName: questionData.topicName,
-        started: questionData.started,
-        doneQuestions: questionData.doneQuestions,
-        questions: [qs, ...questionData.questions],
-        position: questionData.position,
-      },
-      questionData.position
-    );
+    // updateData(
+    //   questionData.topicName,
+    //   {
+    //     topicName: questionData.topicName,
+    //     started: questionData.started,
+    //     doneQuestions: questionData.doneQuestions,
+    //     questions: [qs, ...questionData.questions],
+    //     position: questionData.position,
+    //   },
+    //   questionData.position
+    // );
+
+    console.log(qs);
+
     setModalIsOpen(true);
   }
 
@@ -71,7 +72,7 @@ const UploadCode: React.FC<Props> = ({
               onChange={(e) => setUpdateCode(e.target.value)}
               value={updateCode}
               name="uploadCode"
-              className="resize bg-gray-100 w-3/5 p-2 border rounded-md"
+              className="resize font-mono bg-gray-100 w-3/5 p-2 border rounded-md"
               style={{ height: "80%" }}
               id="uploadCode"
               placeholder="Copy and Paste your code"
