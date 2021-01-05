@@ -125,9 +125,12 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                 <>
                   <tr
                     key={index}
-                    style={{
-                      backgroundColor: tableRowLogic(index, question),
-                    }}
+                    className={
+                      "dark:bg-gray-300 " + tableRowLogic(index, question)
+                    }
+                    // style={{
+                    //   backgroundColor: tableRowLogic(index, question),
+                    // }}
                   >
                     <td className="border px-4 py-2"> {index + 1} </td>
                     <td className="border px-4 py-2">
@@ -194,7 +197,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   return (
     <>
       <ToastContainer />
-      <div className="text-4xl text-center text-gray-800">
+      <div className="text-4xl dark:text-white text-center text-gray-800">
         {" "}
         ✨ {topicName} Problems{" "}
       </div>

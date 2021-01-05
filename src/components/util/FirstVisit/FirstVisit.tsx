@@ -31,9 +31,8 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-gray-600 text-lg leading-relaxed">
                     <ol>
-                      <li>1. Unnecessary push-notifications removed.</li>
-                      <li>2. Little UI improvment.</li>
-                      <li>3. Check/Uncheck option added.</li>
+                      <li>1. Dark-mode Enabled by System Default. 🎉</li>
+                      <li>2. Check/Uncheck option added.</li>
                     </ol>
                   </div>
                 </div>

@@ -2,12 +2,16 @@
 Have you cached your answers?
 
 ## Updated Notes
-- [X] Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
 
-- [X] UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
+- **❤️ Dark Mode is Now Supported Officially ❤️**
+<br> System Default Enable no need to toggle!! [#13](https://github.com/sounishnath003/450-DSA-Tracker/pull/13)
 
-- [X] Update Notifications where you left off!
-- [X] Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
+* Redirect issues solved by `./public/_redirects` by [dsouzadyn](https://github.com/dsouzadyn)
+
+* UI Fix Overlays of `QTopicCard`. Kudos to [RohitChattopadhayay](https://github.com/RohitChattopadhyay)
+
+* Update Notifications where you left off!
+* Uncheck questions  also works! Kudos to [Vaibav](https://github.com/vaibhavmehra9)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -42,8 +46,14 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Data Structures and Algorithms are used to test the analytical skills of the candidates as they are a useful tool to pick out the underlying algorithms in real-world problems and solve them efficiently. ❤️
 
 ## Author
+Sounish Nath
 
-flock.sinasini@gmail.com
+
+### Credit + References ❤️ :
+ - Curated questions-sheet: **Love Babbar** sir's 450DSA List.
+ - Project Idea & Influenced: [**V Ashish Raju**](http://450dsa.com/)
+
+
 
 
 ## **Prerequisite(s)**
@@ -84,6 +94,4 @@ With a sufficient understanding of data structure data can be organized and stor
 <br>
 
 You will this project with React using Typescript. I learned to react for a few months and very much influenced, yet simple project using Context and reducer, and use Browser realtime IndexDB, that means the app does not have a physical database, it caches.
-
-
 

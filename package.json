@@ -10,6 +10,8 @@
     "@types/node": "^12.19.4",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
+    "netlify-cli": "^2.69.11",
+    "postcss": "^8.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-modal": "^3.12.1",
@@ -18,10 +20,12 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "yarn run watch:css && react-scripts start",
+    "build": "yarn run build:css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/tailwind.css -o src/assets/design-style.css",
+    "watch:css": "postcss src/assets/tailwind.css -o src/assets/design-style.css"
   },
   "eslintConfig": {
     "extends": [
@@ -43,8 +47,11 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
+    "autoprefixer": "^10.1.0",
     "localbase": "^0.7.4",
+    "postcss-cli": "^8.3.1",
     "react-router-dom": "^5.2.0",
-    "react-toastify": "^6.1.0"
+    "react-toastify": "^6.1.0",
+    "tailwindcss": "^2.0.2"
   }
 }
