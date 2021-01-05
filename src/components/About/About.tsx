@@ -1,4 +1,5 @@
 import React from "react";
+import OCredit from "./Credits/OCredit";
 
 export const About: React.FC = () => {
   return (
@@ -8,6 +9,7 @@ export const About: React.FC = () => {
         your gateway to crack product based
       </div>
       <div className="div mt-3 text-center p-6 border border-black rounded-lg shadow">
+        <OCredit />
         <div className="text-3xl">🤷 ❤️ About The Project</div>
         <p className="leading-wide text-indigo-800 tracking-loose my-3">
           <ul>
@@ -26,7 +28,12 @@ export const About: React.FC = () => {
           </ul>
         </p>
         <div className="leading-none  text-2xl- my-6">
-          <a href="/" className="text-blue-800" rel="noreferrer" target="_blank">
+          <a
+            href="/"
+            className="text-blue-800"
+            rel="noreferrer"
+            target="_blank"
+          >
             450-DSA
           </a>{" "}
           is your personal web-based progress tracker based on{" "}
