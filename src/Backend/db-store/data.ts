@@ -362,7 +362,7 @@ export const QuestionData: IQuestionData[] = [
         Topic: "String",
         Problem: "Why strings are immutable in Java?",
         Done: false,
-        URL: "<->",
+        URL: "https://www.baeldung.com/java-string-immutable",
       },
       {
         Topic: "String",
