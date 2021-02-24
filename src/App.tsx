@@ -10,6 +10,7 @@ import { useFirstVisit } from "./hooks/useFirstVisit";
 import { useQuestionData } from "./hooks/useQuestionData";
 import { IRoute, routes } from "./routes/routes";
 import FirstVisit from "./components/util/FirstVisit/FirstVisit";
+import UploadCode from "./components/QStatCard/UploadCode";
 
 function App() {
   const [questionData, _, updateData] = useQuestionData();
@@ -42,6 +43,20 @@ function App() {
                 )}
               />
             ))}
+
+            {questionData.map((questiond) =>
+              questiond.questions.map((question) => (
+                <Route
+                  exact
+                  key={question.Problem}
+                  path={`/${questiond.topicName.toLowerCase()}/${question.Problem.replaceAll(
+                    " ",
+                    "-"
+                  )}/solution`}
+                  component={UploadCode}
+                />
+              ))
+            )}
           </Switch>
         </div>
         <Footer />

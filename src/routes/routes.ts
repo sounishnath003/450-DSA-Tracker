@@ -1,6 +1,7 @@
 import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
 import QStatCard from "../components/QStatCard";
+import UploadCode from "../components/QStatCard/UploadCode";
 
 interface Props {
   questionData: IQuestionData;
@@ -73,4 +74,5 @@ export const routes: IRoute[] = [
     component: QStatCard,
     path: `/${QuestionData[14].topicName.replace(" & ", " ").toLowerCase()}`,
   },
+  
 ];

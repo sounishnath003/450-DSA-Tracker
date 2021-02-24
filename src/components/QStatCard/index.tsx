@@ -1,9 +1,10 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
+import UploadCode from "./UploadCode";
 import { tableRowLogic } from "./utils/utility";
 
 /*
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
-  const { topicName, questions } = questionData;
+  const { topicName, questions, started } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
@@ -112,6 +113,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
               <th className="px-4 py-2">Question(s)</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Done</th>
+              {started && <th className="px-4 py-2">Solution</th>}
             </tr>
           </thead>
           <tbody key={"tbody"}>
@@ -152,6 +154,23 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
+                    <td className="text-center py-2">
+                      <Link
+                        to={`/${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                          " ",
+                          "-"
+                        )}/solution`}
+                      >
+                        {question.haveSolution ? (
+                          <> </>
+                        ) : (
+                          <>
+                            {" "}
+                            <p>Upload Code</p>{" "}
+                          </>
+                        )}
+                      </Link>
+                    </td>
                   </tr>
                 </>
               );
@@ -184,6 +203,21 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         <SearchBar />
         <QTable />
       </div>
+
+      {/* <Switch>
+        {questions.map((question) => {
+          return (
+            <Route
+              key={question.Problem}
+              path={`${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                " ",
+                "-"
+              )}/solution`}
+              component={UploadCode}
+            />
+          );
+        })}
+      </Switch> */}
     </>
   );
 };
