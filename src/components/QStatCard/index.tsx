@@ -17,7 +17,7 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
-  const { topicName, questions } = questionData;
+  const { topicName, questions, started } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
@@ -112,6 +112,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
               <th className="px-4 py-2">Question(s)</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Done</th>
+              {started && <th className="px-4 py-2">Solution</th>}
             </tr>
           </thead>
           <tbody key={"tbody"}>
@@ -152,6 +153,33 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
+                    {started && <td className="text-center py-2">
+                      <Link
+                        to={{
+                          pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                            " ",
+                            "-"
+                          )}/solution`,
+                          state: {
+                            index,
+                            question,
+                            questionData,
+                          },
+                        }}
+                      >
+                        {question.Done ? (
+                          <>
+                            <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
+                              {question.code
+                                ? "View solution"
+                                : "Upload Solution"}
+                            </button>
+                          </>
+                        ) : (
+                          <div className="text-red-700">N/A</div>
+                        )}
+                      </Link>
+                    </td>}
                   </tr>
                 </>
               );

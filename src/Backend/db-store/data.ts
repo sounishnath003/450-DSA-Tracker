@@ -362,7 +362,7 @@ export const QuestionData: IQuestionData[] = [
         Topic: "String",
         Problem: "Why strings are immutable in Java?",
         Done: false,
-        URL: "<->",
+        URL: "https://www.baeldung.com/java-string-immutable",
       },
       {
         Topic: "String",
@@ -685,7 +685,7 @@ export const QuestionData: IQuestionData[] = [
           "Maximum and minimum of an array using minimum number of comparisons",
         Done: false,
         URL:
-          "https://practice.geeksforgeeks.org/problems/middle-of-three2926/1",
+          "https://www.geeksforgeeks.org/maximum-and-minimum-in-an-array/",
       },
       {
         Topic: "Searching & Sorting",

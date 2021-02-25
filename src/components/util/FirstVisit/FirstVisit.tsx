@@ -31,8 +31,8 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-gray-600 text-lg leading-relaxed">
                     <ol>
-                      <li>1. Dark-mode Enabled by System Default. 🎉</li>
-                      <li>2. Check/Uncheck option added.</li>
+                      <li>1. Broken question link fixed</li>
+                      <li>2. Dark-mode by System Default. 🎉</li>
                     </ol>
                   </div>
                 </div>

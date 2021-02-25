@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mb-0 p-3 bg-blue-100">
+    <footer className="bottom-0 p-3 bg-blue-100">
       <div className="text-center text-sm">
         <p className="text-indigo-600">
           <span className="text-gray-600">LinkedIn:</span>{" "}
