@@ -12976,6 +12976,11 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
+remarkable-react@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/remarkable-react/-/remarkable-react-1.4.3.tgz#dca1a2add6ecc6f9111cfdee80f6ef0c3044b04a"
+  integrity sha512-CFxh/VKM/a5SWHu9woY+wK5Y1KrFqMep0s8LS3Wuc2fDMS+eA0T3Y75fZXtKawwCLtT4+tR4ileBm2a7KnTaGQ==
+
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"

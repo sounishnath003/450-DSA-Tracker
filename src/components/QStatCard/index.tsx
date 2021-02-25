@@ -1,10 +1,9 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
-import UploadCode from "./UploadCode";
 import { tableRowLogic } from "./utils/utility";
 
 /*
@@ -154,23 +153,33 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
-                    <td className="text-center py-2">
+                    {started && <td className="text-center py-2">
                       <Link
-                        to={`/${topicName.toLowerCase()}/${question.Problem.replaceAll(
-                          " ",
-                          "-"
-                        )}/solution`}
+                        to={{
+                          pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                            " ",
+                            "-"
+                          )}/solution`,
+                          state: {
+                            index,
+                            question,
+                            questionData,
+                          },
+                        }}
                       >
-                        {question.haveSolution ? (
-                          <> </>
-                        ) : (
+                        {question.Done ? (
                           <>
-                            {" "}
-                            <p>Upload Code</p>{" "}
+                            <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
+                              {question.code
+                                ? "View solution"
+                                : "Upload Solution"}
+                            </button>
                           </>
+                        ) : (
+                          <div className="text-red-700">N/A</div>
                         )}
                       </Link>
-                    </td>
+                    </td>}
                   </tr>
                 </>
               );
@@ -203,21 +212,6 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         <SearchBar />
         <QTable />
       </div>
-
-      {/* <Switch>
-        {questions.map((question) => {
-          return (
-            <Route
-              key={question.Problem}
-              path={`${topicName.toLowerCase()}/${question.Problem.replaceAll(
-                " ",
-                "-"
-              )}/solution`}
-              component={UploadCode}
-            />
-          );
-        })}
-      </Switch> */}
     </>
   );
 };
