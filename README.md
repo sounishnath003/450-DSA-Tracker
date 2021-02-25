@@ -1,7 +1,14 @@
 # ❤️ 450DSA-Tracker - React + IndexedDB
 Have you cached your answers?
 
+## ❤️ 🙌 Now You Can Solution
+![UPLOAD_CODE_FEATURE_450_DSA_TRACKER_SOUNISH_NATH](git-assets/upload-code-feature.png)
+
+[Note: Please don't take serious of the image question solution. I just put a dumb react-component just for testing working or not! ~ Thankyou | SounishNath]
+
 ## Updated Notes
+
+- **You can now easily upload Solutions of your code:**
 
 - **Question Link Updated - String in JAVA Immutable** [#16](https://github.com/sounishnath003/450-DSA-Tracker/commit/f755d20d5a9ca77ad6c292667bf73ed20c010784)
 
