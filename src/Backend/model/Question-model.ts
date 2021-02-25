@@ -3,6 +3,8 @@ export interface IQuestion {
   Problem: string;
   Done: boolean;
   URL: string;
+  haveSolution?: boolean | null;
+  code?: string | null;
 }
 
 export interface IQuestionData {
