@@ -31,8 +31,12 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-gray-600 text-lg leading-relaxed">
                     <ol>
-                      <li>1. Broken question link fixed</li>
-                      <li>2. Dark-mode by System Default. 🎉</li>
+                      <li>
+                        1. 😜🐱‍ You can now <b>upload Solution.</b>{" "}
+                      </li>
+                      <li className="text-blue-600">
+                        2. 🐱‍🏍😜 Custom Category Drag and Drop is coming.
+                      </li>
                     </ol>
                   </div>
                 </div>
