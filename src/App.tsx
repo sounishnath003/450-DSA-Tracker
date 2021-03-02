@@ -11,6 +11,9 @@ import { useQuestionData } from "./hooks/useQuestionData";
 import { IRoute, routes } from "./routes/routes";
 import FirstVisit from "./components/util/FirstVisit/FirstVisit";
 import UploadCode from "./components/QStatCard/UploadCode";
+import EasyCategory from "./components/Category/EasyCategory";
+import MediumCategory from "./components/Category/MediumCategory";
+import HardCategory from "./components/Category/HardCategory";
 
 function App() {
   const [questionData, _, updateData] = useQuestionData();
@@ -28,6 +31,14 @@ function App() {
           <Switch>
             <Route path="/" exact component={() => <Home />} />
             <Route path="/about" exact component={About} />
+            <Route path="/category-lists/easy" exact component={EasyCategory} />
+            <Route
+              path="/category-lists/medium"
+              exact
+              component={MediumCategory}
+            />
+            <Route path="/category-lists/hard" exact component={HardCategory} />
+            
 
             {routes.map((route: IRoute, index: number) => (
               <Route

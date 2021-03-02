@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
+import CategoryList from "../Category/CategoryList";
 import { tableRowLogic } from "./utils/utility";
 
 /*
@@ -153,33 +154,35 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         onClick={() => whenQuestionCompleted(topicName, index)}
                       />
                     </td>
-                    {started && <td className="text-center py-2">
-                      <Link
-                        to={{
-                          pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
-                            " ",
-                            "-"
-                          )}/solution`,
-                          state: {
-                            index,
-                            question,
-                            questionData,
-                          },
-                        }}
-                      >
-                        {question.Done ? (
-                          <>
-                            <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
-                              {question.code
-                                ? "View solution"
-                                : "Upload Solution"}
-                            </button>
-                          </>
-                        ) : (
-                          <div className="text-red-700">N/A</div>
-                        )}
-                      </Link>
-                    </td>}
+                    {started && (
+                      <td className="text-center py-2">
+                        <Link
+                          to={{
+                            pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                              " ",
+                              "-"
+                            )}/solution`,
+                            state: {
+                              index,
+                              question,
+                              questionData,
+                            },
+                          }}
+                        >
+                          {question.Done ? (
+                            <>
+                              <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
+                                {question.code
+                                  ? "View solution"
+                                  : "Upload Solution"}
+                              </button>
+                            </>
+                          ) : (
+                            <div className="text-red-700">N/A</div>
+                          )}
+                        </Link>
+                      </td>
+                    )}
                   </tr>
                 </>
               );
@@ -210,6 +213,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
       </div>
       <div className="my-8 ">
         <SearchBar />
+          <CategoryList />
         <QTable />
       </div>
     </>
