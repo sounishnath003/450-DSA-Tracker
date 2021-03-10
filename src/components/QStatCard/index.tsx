@@ -103,6 +103,21 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     });
   }
 
+  // draggable events start
+
+  function onDragStart(
+    e: React.DragEvent<HTMLTableRowElement>,
+    payload: IQuestion
+  ) {
+    console.log(payload);
+  }
+
+  function onDragOver(e: React.DragEvent<HTMLTableRowElement>) {
+    e.preventDefault();
+  }
+
+  // draggable events end
+
   function QTable() {
     return (
       <>
@@ -121,9 +136,12 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
               return (
                 <>
                   <tr
+                    id={`${question.Problem}-${index}`}
+                    draggable={true}
+                    onDrag={(e) => onDragStart(e, question)}
                     key={index}
                     className={
-                      "dark:bg-gray-300 " + tableRowLogic(index, question)
+                      "dark:bg-gray-300 " + tableRowLogic(index, question) + " cursor-pointer"
                     }
                     // style={{
                     //   backgroundColor: tableRowLogic(index, question),
@@ -213,7 +231,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
       </div>
       <div className="my-8 ">
         <SearchBar />
-          <CategoryList />
+        <CategoryList />
         <QTable />
       </div>
     </>
