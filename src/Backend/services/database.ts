@@ -32,6 +32,17 @@ export function getData(callback: Function) {
     });
 }
 
+export function countOfQuestionsCompletion(callback: Function) {
+  let totalCompleted = 0;
+  db.collection("450dsaArchive")
+    .get()
+    .then((data: IQuestionData[]) => {
+      data.map((q) => (totalCompleted += q.doneQuestions));
+      callback(totalCompleted);
+      return totalCompleted;
+    });
+}
+
 export async function findDocByKey(key: string): Promise<IQuestionData> {
   return await db
     .collection("450dsaArchive")

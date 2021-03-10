@@ -1,15 +1,16 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
 
-/*
-  questionData: IQuestionData; // data: IQuestion
-  updateData: Function; // updatedData()
+/* *
+  * questionData: IQuestionData; // data: IQuestion
+  * updateData: Function; // updatedData()
+  * 
  */
 
 type ICategoryRoute = { path: string; categoryType: string };

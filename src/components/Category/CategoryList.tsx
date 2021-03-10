@@ -1,14 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { countOfQuestionsCompletion } from "../../Backend/services/database";
+import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
 
 type ICategoryRoute = { path: string; categoryType: string };
 
 const CategoryList = () => {
+  const [count, setCount] = React.useState(0);
+  const { easyQuestions, mediumQuestions, hardQuestions } = React.useContext(
+    CustomCategoryFilterContext
+  );
   const routes: ICategoryRoute[] = [
-    { path: "category-lists/easy", categoryType: "Easy" },
-    { path: "category-lists/medium", categoryType: "Medium" },
-    { path: "category-lists/hard", categoryType: "Hard" },
+    {
+      path: "category-lists/easy",
+      categoryType: `Easy ${easyQuestions.length}`,
+    },
+    {
+      path: "category-lists/medium",
+      categoryType: `Medium ${mediumQuestions.length}`,
+    },
+    {
+      path: "category-lists/hard",
+      categoryType: `Hard ${hardQuestions.length}`,
+    },
+    {
+      path: "track/progress",
+      categoryType: `Solved ${count}/450`,
+    },
   ];
+
+  React.useEffect(() => {
+    return countOfQuestionsCompletion(setCount);
+  }, []);
 
   return (
     <div className="my-3">

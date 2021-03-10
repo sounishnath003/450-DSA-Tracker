@@ -48,6 +48,7 @@ function App() {
                 exact
                 component={HardCategory}
               />
+              <Route path='track/progress' exact  />
 
               {routes.map((route: IRoute, index: number) => (
                 <Route
