@@ -14,6 +14,7 @@ const HardCategory = () => {
           <span className="text-red-500 font-semibold underline">Hard</span>{" "}
           questions
         </div>
+        <div className="my-5 max-w-xl">{JSON.stringify(hardQuestions)}</div>
       </div>
     );
 }

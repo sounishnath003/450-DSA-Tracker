@@ -14,6 +14,7 @@ const MediumCategory = () => {
         <span className="text-blue-500 font-semibold underline">Medium</span>{" "}
         questions
       </div>
+      <div className="my-5 max-w-xl">{JSON.stringify(mediumQuestions)}</div>
     </div>
   );
 };

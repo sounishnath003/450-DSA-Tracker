@@ -15,6 +15,8 @@ const EasyCategory = () => {
         <span className="text-green-500 font-semibold underline">Easy</span>{" "}
         questions
       </div>
+
+      <div className="my-5 max-w-xl">{JSON.stringify(easyQuestions)}</div>
     </div>
   );
 };

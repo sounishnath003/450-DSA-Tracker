@@ -11,6 +11,10 @@ export interface CustomCategoryFilterState {
   dispatch: React.Dispatch<any>;
 }
 
+// TODO
+// ? **Needed to Store/call from IndexedStorage browser
+// ** Not implemenented Till Now :-()
+
 export const initialState: CustomCategoryFilterState = {
   easyQuestions: [],
   mediumQuestions: [],
@@ -18,25 +22,40 @@ export const initialState: CustomCategoryFilterState = {
   dispatch: (value: any) => {},
 };
 
+// * CustomFilterationReducer State Reducer
+// * @params {state: CustomCategoryFilterState, action: {type: any, payload: {data: any}}}
+
 export function customCategoryFilterReducer(
   state: CustomCategoryFilterState = initialState,
   action: any
 ): CustomCategoryFilterState {
+  console.log({ action });
   switch (action.type) {
     case SET_AS_EASY_QUESTION:
-      console.log({ action });
+      if (state.easyQuestions.indexOf(action.payload.data) !== -1) {
+        alert("question already added");
+        break;
+      }
       return {
         ...state,
         easyQuestions: [action.payload.data, ...state.easyQuestions],
       };
 
     case SET_AS_MEDIUM_QUESTION:
+      if (state.mediumQuestions.indexOf(action.payload.data) !== -1) {
+        alert("question already added");
+        break;
+      }
       return {
         ...state,
         mediumQuestions: [action.payload.data, ...state.mediumQuestions],
       };
 
     case SET_AS_HARD_QUESTION:
+      if (state.hardQuestions.indexOf(action.payload.data) !== -1) {
+        alert("question already added");
+        break;
+      }
       return {
         ...state,
         hardQuestions: [action.payload.data, ...state.hardQuestions],
@@ -45,4 +64,5 @@ export function customCategoryFilterReducer(
     default:
       return state;
   }
+  return state;
 }
