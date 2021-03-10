@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
+import {
+  SET_AS_EASY_QUESTION,
+  SET_AS_HARD_QUESTION,
+  SET_AS_MEDIUM_QUESTION,
+} from "../../Reducer/customCategoryFilterReducer";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
 
@@ -27,6 +33,9 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   const [selected, setSelected] = useState<number[]>([]);
 
   // @COMPLETED_ACTION - useEffect questionCompleted Update
+
+  // *** Dragable questionState ***
+  const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
   useEffect(() => {
     if (questionData !== undefined) {
@@ -105,6 +114,8 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   }
 
   const CategoryList = () => {
+    const { dispatch } = React.useContext(CustomCategoryFilterContext);
+
     const routes: ICategoryRoute[] = [
       { path: "category-lists/easy", categoryType: "Easy" },
       { path: "category-lists/medium", categoryType: "Medium" },
@@ -113,15 +124,30 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
 
     // draggable events start
     function onDragOver(e: React.DragEvent<HTMLDivElement>) {
+      e.stopPropagation();
       e.preventDefault();
     }
 
     function onDrop(e: React.DragEvent<HTMLDivElement>) {
-      const id = e.dataTransfer.getData("text");
-      const draggableElement = document.getElementById(id);
-
-      const dropZone = e.target;
-      console.log({ draggableElement, dropZone });
+      e.stopPropagation();
+      const dropZone = e.currentTarget.id;
+      console.log({ dropZone });
+      if (dropZone === "easy") {
+        dispatch({
+          type: SET_AS_EASY_QUESTION,
+          payload: { data: draggedQuestion },
+        });
+      } else if (dropZone === "medium") {
+        dispatch({
+          type: SET_AS_MEDIUM_QUESTION,
+          payload: { data: draggedQuestion },
+        });
+      } else if (dropZone === "hard") {
+        dispatch({
+          type: SET_AS_HARD_QUESTION,
+          payload: { data: draggedQuestion },
+        });
+      }
     }
 
     // draggable events end
@@ -217,8 +243,8 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     e: React.DragEvent<HTMLTableRowElement>,
     payload: IQuestion
   ) {
-    // console.log(payload);
-    e.dataTransfer.setData('text/plain', e.currentTarget.innerHTML);
+    e.stopPropagation();
+    setDraggedQuestion(payload);
   }
 
   function QTable() {

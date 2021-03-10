@@ -1,6 +1,9 @@
 import React from 'react'
+import { CustomCategoryFilterContext } from '../../context/CustomCategoryFilterContext';
 
 const HardCategory = () => {
+    const { hardQuestions } = React.useContext(CustomCategoryFilterContext);
+    console.log(hardQuestions);
     return (
       <div>
         <h2 className="text-4xl dark:text-gray-200 text-center">

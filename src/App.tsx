@@ -14,6 +14,7 @@ import UploadCode from "./components/QStatCard/UploadCode";
 import EasyCategory from "./components/Category/EasyCategory";
 import MediumCategory from "./components/Category/MediumCategory";
 import HardCategory from "./components/Category/HardCategory";
+import { CustomCategoryFilterProvider } from "./context/CustomCategoryFilterContext";
 
 function App() {
   const [questionData, _, updateData] = useQuestionData();
@@ -26,51 +27,60 @@ function App() {
       )}
 
       <QuestionDataContext.Provider value={{ questionData, updateData }}>
-        <div className="p-1 bg-blue-100"></div>
-        <div className="App bg-white dark:bg-gray-800 mx-auto mt-10 p-8 max-w-4xl m-auto ">
-          <Switch>
-            <Route path="/" exact component={() => <Home />} />
-            <Route path="/about" exact component={About} />
-            <Route path="/category-lists/easy" exact component={EasyCategory} />
-            <Route
-              path="/category-lists/medium"
-              exact
-              component={MediumCategory}
-            />
-            <Route path="/category-lists/hard" exact component={HardCategory} />
-            
-
-            {routes.map((route: IRoute, index: number) => (
+        <CustomCategoryFilterProvider>
+          <div className="p-1 bg-blue-100"></div>
+          <div className="App bg-white dark:bg-gray-800 mx-auto mt-10 p-8 max-w-4xl m-auto ">
+            <Switch>
+              <Route path="/" exact component={() => <Home />} />
+              <Route path="/about" exact component={About} />
               <Route
-                key={index}
+                path="/category-lists/easy"
                 exact
-                path={route.path}
-                component={() => (
-                  <QStatCard
-                    key={index}
-                    questionData={questionData[index]}
-                    updateData={updateData}
-                  />
-                )}
+                component={EasyCategory}
               />
-            ))}
+              <Route
+                path="/category-lists/medium"
+                exact
+                component={MediumCategory}
+              />
+              <Route
+                path="/category-lists/hard"
+                exact
+                component={HardCategory}
+              />
 
-            {questionData.map((questiond) =>
-              questiond.questions.map((question) => (
+              {routes.map((route: IRoute, index: number) => (
                 <Route
+                  key={index}
                   exact
-                  key={question.Problem}
-                  path={`/${questiond.topicName.toLowerCase()}/${question.Problem.replaceAll(
-                    " ",
-                    "-"
-                  )}/solution`}
-                  component={UploadCode}
+                  path={route.path}
+                  component={() => (
+                    <QStatCard
+                      key={index}
+                      questionData={questionData[index]}
+                      updateData={updateData}
+                    />
+                  )}
                 />
-              ))
-            )}
-          </Switch>
-        </div>
-        <Footer />
+              ))}
+
+              {questionData.map((questiond) =>
+                questiond.questions.map((question) => (
+                  <Route
+                    exact
+                    key={question.Problem}
+                    path={`/${questiond.topicName.toLowerCase()}/${question.Problem.replaceAll(
+                      " ",
+                      "-"
+                    )}/solution`}
+                    component={UploadCode}
+                  />
+                ))
+              )}
+            </Switch>
+          </div>
+          <Footer />
+        </CustomCategoryFilterProvider>
       </QuestionDataContext.Provider>
     </>
   );
