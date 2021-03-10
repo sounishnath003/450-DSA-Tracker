@@ -215,7 +215,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   function QTable() {
     return (
       <>
-        <table className="table-auto max-w-3xl mx-auto my-6">
+        <table className="table-auto max-w-3xl mx-auto  my-6">
           <thead key={"thred"}>
             <tr className="bg-indigo-700 text-white tracking-wide">
               <th className="px-4 py-2">ID</th>
