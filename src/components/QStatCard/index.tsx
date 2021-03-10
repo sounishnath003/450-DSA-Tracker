@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
-import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
-import {
-  SET_AS_EASY_QUESTION,
-  SET_AS_HARD_QUESTION,
-  SET_AS_MEDIUM_QUESTION,
-} from "../../Reducer/customCategoryFilterReducer";
+import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
 
@@ -34,7 +29,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
 
   // @COMPLETED_ACTION - useEffect questionCompleted Update
 
-  // *** Dragable questionState ***
+  // *** Dragable questionState hooking onto it***
   const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
   useEffect(() => {
@@ -114,43 +109,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   }
 
   const CategoryList = () => {
-    const { dispatch } = React.useContext(CustomCategoryFilterContext);
-
-    const routes: ICategoryRoute[] = [
-      { path: "category-lists/easy", categoryType: "Easy" },
-      { path: "category-lists/medium", categoryType: "Medium" },
-      { path: "category-lists/hard", categoryType: "Hard" },
-    ];
-
-    // draggable events start
-    function onDragOver(e: React.DragEvent<HTMLDivElement>) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-
-    function onDrop(e: React.DragEvent<HTMLDivElement>) {
-      e.stopPropagation();
-      const dropZone = e.currentTarget.id;
-      console.log({ dropZone });
-      if (dropZone === "easy") {
-        dispatch({
-          type: SET_AS_EASY_QUESTION,
-          payload: { data: draggedQuestion },
-        });
-      } else if (dropZone === "medium") {
-        dispatch({
-          type: SET_AS_MEDIUM_QUESTION,
-          payload: { data: draggedQuestion },
-        });
-      } else if (dropZone === "hard") {
-        dispatch({
-          type: SET_AS_HARD_QUESTION,
-          payload: { data: draggedQuestion },
-        });
-      }
-    }
-
-    // draggable events end
+    const { onDragOver, onDrop, routes } = useCustomFilterDragAndDropper();
 
     return (
       <div className="my-3">
@@ -167,8 +126,12 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                       : `border-red-400 hover:bg-red-200`
                   } cursor-pointer rounded-lg shadow-lg`}
                   id={index === 0 ? `easy` : index === 1 ? `medium` : `hard`}
-                  onDragOver={(event) => onDragOver(event)}
-                  onDrop={(event) => onDrop(event)}
+                  onDragOver={(event) =>
+                    onDragOver(event, draggedQuestion as IQuestion)
+                  }
+                  onDrop={(event) =>
+                    onDrop(event, draggedQuestion as IQuestion)
+                  }
                 >
                   <div className="flex space-x-1">
                     <div>
@@ -239,11 +202,13 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     );
   };
 
+  // ** OnDragStart Event - user start dragging...
   function onDragStart(
     e: React.DragEvent<HTMLTableRowElement>,
     payload: IQuestion
   ) {
     e.stopPropagation();
+    e.preventDefault();
     setDraggedQuestion(payload);
   }
 
