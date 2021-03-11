@@ -25,12 +25,13 @@ const CategoryList = () => {
     },
     {
       path: "track/progress",
-      categoryType: `Solved ${count}/450`,
+      categoryType: `Solved ${count}`,
     },
   ];
 
   React.useEffect(() => {
-    return countOfQuestionsCompletion(setCount);
+    countOfQuestionsCompletion(setCount);
+    return () => {};
   }, []);
 
   return (

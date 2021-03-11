@@ -5,7 +5,7 @@ import { CustomCategoryFilterContext } from "../context/CustomCategoryFilterCont
 import {
   SET_AS_EASY_QUESTION,
   SET_AS_HARD_QUESTION,
-  SET_AS_MEDIUM_QUESTION
+  SET_AS_MEDIUM_QUESTION,
 } from "../Reducer/customCategoryFilterReducer";
 
 type IReturnUseCustomFilterDnDHook = {
@@ -25,7 +25,7 @@ export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
   } = React.useContext(CustomCategoryFilterContext);
 
   // *** Dragable questionState ***
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState<string>("-");
 
   // ** Important routes for CustomCategory...
   const routes: ICategoryRoute[] = [
@@ -41,12 +41,12 @@ export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
       path: "category-lists/hard",
       categoryType: `Hard ${hardQuestions.length}`,
     },
-    { path: "track/progress", categoryType: `Solved ${count}/450` },
+    { path: "track/progress", categoryType: `Solved ${count}` },
   ];
 
   React.useEffect(() => {
     return countOfQuestionsCompletion(setCount);
-  }, []);
+  }, [count]);
 
   // * draggable events start
 
