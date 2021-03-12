@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IQuestionData } from "../../Backend/model/Question-model";
-import { QuestionDataContext } from "../../context/QuestionDataContext";
+import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
 import CategoryList from "../Category/CategoryList";
 import QTopicCard from "../QTopicCard";
 
 const Home: React.FC = () => {
-  const { questionData, updateData } = useContext(QuestionDataContext);
+  const { allTopicsData } = React.useContext(QuestionDataContext2);
 
   return (
     <React.Fragment>
@@ -19,17 +19,13 @@ const Home: React.FC = () => {
       <CategoryList />
 
       <div className="mt-8">
-        {questionData.length < 1 ? (
+        {allTopicsData.length < 1 ? (
           <div>loading....</div>
         ) : (
           <div className="flex d-flex flex-row flex-wrap justify-around m-2">
             {" "}
-            {questionData.map((quesTopic: IQuestionData, index: number) => (
-              <QTopicCard
-                questionData={quesTopic}
-                updateData={updateData}
-                key={index}
-              />
+            {allTopicsData.map((quesTopic: IQuestionData, index: number) => (
+              <QTopicCard questionData={quesTopic} key={index} />
             ))}
           </div>
         )}

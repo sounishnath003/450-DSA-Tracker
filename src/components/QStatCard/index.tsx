@@ -1,34 +1,36 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MARK_AS_COMPLETE } from "../../actions";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
 import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
-import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
 
 /* *
-  * questionData: IQuestionData; // data: IQuestion
-  * updateData: Function; // updatedData()
-  * 
+ * questionData: IQuestionData; // data: IQuestion
+ * updateData: Function; // updatedData()
+ *
  */
 
 type ICategoryRoute = { path: string; categoryType: string };
 
 interface Props {
   questionData: IQuestionData; // data: IQuestion
-  updateData: Function; // updatedData()
 }
 
-const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
+const QStatCard: React.FC<Props> = ({ questionData }) => {
+  const { updateData, questionActionDispatcher } = React.useContext(
+    QuestionDataContext2
+  );
   const { topicName, questions, started } = questionData;
-  const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
-  // @COMPLETED_ACTION - useEffect questionCompleted Update
+  // ? @COMPLETED_ACTION - useEffect questionCompleted Update
 
   // *** Dragable questionState hooking onto it***
   const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
@@ -36,6 +38,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
   useEffect(() => {
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
+      // eslint-disable-next-line array-callback-return
       questionData.questions.map((question: IQuestion, index: number) => {
         if (question.Done === true) {
           doneQuestions.push(index);
@@ -97,15 +100,20 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     );
   }
 
-  function whenQuestionCompleted(key: string, index: number) {
-    dispatch({
-      type: "COMPLETED",
-      payload: {
-        index,
-        selected,
-        questionData,
-        updateData,
-      },
+  function whenQuestionCompleted(index: number) {
+    type Ipayload = {
+      index: number;
+      selected: number[];
+      questionData: IQuestionData;
+      updateData: (
+        key: string,
+        topicData: IQuestionData,
+        topicPosition: number
+      ) => void;
+    };
+    questionActionDispatcher({
+      type: MARK_AS_COMPLETE,
+      payload: { index, selected, questionData, updateData } as Ipayload,
     });
   }
 
@@ -169,7 +177,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                             d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
                           ></path>
                         </svg>
-                      ) : (
+                      ) : index === 2 ? (
                         <svg
                           className="w-6 h-6"
                           fill="none"
@@ -189,6 +197,21 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                             stroke-width="2"
                             d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
                           ></path>
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="crimson"
+                          stroke="crimson"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                          <line x1="4" y1="22" x2="4" y2="15"></line>
                         </svg>
                       )}
                     </div>
@@ -266,7 +289,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() => whenQuestionCompleted(topicName, index)}
+                        onClick={() => whenQuestionCompleted(index)}
                       />
                     </td>
                     {started && (
@@ -328,11 +351,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
       </div>
       <div className="my-8 ">
         <SearchBar />
-
-        {/* category List start */}
         <CategoryList />
-        {/* category List end */}
-
         <QTable />
       </div>
     </>

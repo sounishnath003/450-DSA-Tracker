@@ -46,7 +46,7 @@ export function countOfQuestionsCompletion(callback: Function) {
         callback(`${totalCompleted}/${totalCount}`);
         return totalCompleted;
       });
-  }, 300);
+  }, 400);
 }
 
 export async function findDocByKey(key: string): Promise<IQuestionData> {
@@ -57,7 +57,10 @@ export async function findDocByKey(key: string): Promise<IQuestionData> {
     .then((doc: IQuestionData) => doc);
 }
 
-export function updateDocumentState(key: string, updatedData: IQuestionData) {
+export function updateDocumentStateInDB(
+  key: string,
+  updatedData: IQuestionData
+) {
   db.collection("450dsaArchive").doc(formatKeys(key)).update(updatedData);
   // getData();
 }

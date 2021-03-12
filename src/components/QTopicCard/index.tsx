@@ -5,7 +5,6 @@ import { findPercentageCompleted } from "./utils/utility";
 
 interface Props {
   questionData: IQuestionData;
-  updateData: Function;
 }
 
 const QTopicCard: React.FC<Props> = ({ questionData }) => {
