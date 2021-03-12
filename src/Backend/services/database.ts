@@ -35,18 +35,17 @@ export function getData(callback: Function) {
 export function countOfQuestionsCompletion(callback: Function) {
   let totalCompleted = 0,
     totalCount = 0;
-  setTimeout(() => {
-    db.collection("450dsaArchive")
-      .get()
-      .then((data: IQuestionData[]) => {
-        data.map((q) => {
-          totalCompleted += q.doneQuestions;
-          totalCount += q.questions.length;
-        });
-        callback(`${totalCompleted}/${totalCount}`);
-        return totalCompleted;
-      });
-  }, 300);
+  setTimeout(() => {}, 780);
+  // db.collection("450dsaArchive")
+  //   .get()
+  //   .then((data: IQuestionData[]) => {
+  //     data.map((q) => {
+  //       totalCompleted += q.doneQuestions;
+  //       totalCount += q.questions.length;
+  //     });
+  //     callback(`${totalCompleted}/${totalCount}`);
+  //     return totalCompleted;
+  //   });
 }
 
 export async function findDocByKey(key: string): Promise<IQuestionData> {
@@ -57,7 +56,10 @@ export async function findDocByKey(key: string): Promise<IQuestionData> {
     .then((doc: IQuestionData) => doc);
 }
 
-export function updateDocumentState(key: string, updatedData: IQuestionData) {
+export function updateDocumentStateInDB(
+  key: string,
+  updatedData: IQuestionData
+) {
   db.collection("450dsaArchive").doc(formatKeys(key)).update(updatedData);
   // getData();
 }

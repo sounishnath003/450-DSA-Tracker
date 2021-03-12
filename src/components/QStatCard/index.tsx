@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MARK_AS_COMPLETE } from "../../actions";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
 import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
@@ -9,9 +10,9 @@ import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
 
 /* *
-  * questionData: IQuestionData; // data: IQuestion
-  * updateData: Function; // updatedData()
-  * 
+ * questionData: IQuestionData; // data: IQuestion
+ * updateData: Function; // updatedData()
+ *
  */
 
 type ICategoryRoute = { path: string; categoryType: string };
@@ -21,7 +22,9 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData }) => {
-  const {updateData} = React.useContext(QuestionDataContext2);
+  const { updateData, questionActionDispatcher } = React.useContext(
+    QuestionDataContext2
+  );
   const { topicName, questions, started } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
@@ -29,7 +32,7 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
-  // @COMPLETED_ACTION - useEffect questionCompleted Update
+  // ? @COMPLETED_ACTION - useEffect questionCompleted Update
 
   // *** Dragable questionState hooking onto it***
   const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
@@ -48,6 +51,9 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
           `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
         );
       }
+    }
+    else {
+      alert(`Hey I am NOT - NO QUESTION_DATA`)
     }
   }, [questionData, questions.length]);
 
@@ -99,14 +105,19 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
   }
 
   function whenQuestionCompleted(key: string, index: number) {
-    dispatch({
-      type: "COMPLETED",
-      payload: {
-        index,
-        selected,
-        questionData,
-        updateData,
-      },
+    // dispatch({
+    //   type: "COMPLETED",
+    //   payload: {
+    //     index,
+    //     selected,
+    //     questionData,
+    //     updateData,
+    //   },
+    // });
+
+    questionActionDispatcher({
+      type: MARK_AS_COMPLETE,
+      payload: { index, selected, questionData, updateData },
     });
   }
 
@@ -329,11 +340,7 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
       </div>
       <div className="my-8 ">
         <SearchBar />
-
-        {/* category List start */}
         <CategoryList />
-        {/* category List end */}
-
         <QTable />
       </div>
     </>

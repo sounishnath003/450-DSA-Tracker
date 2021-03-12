@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
-import { getData, updateDocumentState } from "../Backend/services/database";
+import { getData, updateDocumentStateInDB } from "../Backend/services/database";
 import { About } from "../components/About/About";
 import EasyCategory from "../components/Category/EasyCategory";
 import HardCategory from "../components/Category/HardCategory";
@@ -14,9 +14,9 @@ import UploadCode from "../components/QStatCard/UploadCode";
 import FirstVisit from "../components/util/FirstVisit/FirstVisit";
 import { useFirstVisit } from "../hooks/useFirstVisit";
 import {
-  initialState,
-  IQuestionDataContextState,
-  questionDataReducer,
+    initialState,
+    IQuestionDataContextState,
+    questionDataReducer
 } from "../Reducer/questionDataReducer";
 import { IRoute, routes } from "../routes/routes";
 import { CustomCategoryFilterProvider } from "./CustomCategoryFilterContext";
@@ -47,7 +47,7 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
     let reGeneratedQData: IQuestionData[] = allTopicsData.map(
       (topic: IQuestionData, index: number) => {
         if (index === topicPosition) {
-          updateDocumentState(key, topicData);
+          updateDocumentStateInDB(key, topicData);
           return { ...topicData };
           //   return {
           //     topicName: topic.topicName,
