@@ -25,7 +25,7 @@ export const QuestionDataContext2 = React.createContext<IQuestionDataContextStat
   initialState
 );
 
-export function QuestionDataContext2Provider({ children }: any): JSX.Element {
+export function QuestionDataContext2Provider(): JSX.Element {
   // * Globally declared the dummyData with all the 450Questions
   const [allTopicsData, setAllTopicsData] = React.useState<IQuestionData[]>(
     QuestionData
