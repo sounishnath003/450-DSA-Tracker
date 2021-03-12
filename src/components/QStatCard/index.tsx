@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
 import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
 import { defaultQuesStat, reducer } from "../../Reducer/reducer";
 import { tableRowLogic } from "./utils/utility";
@@ -17,10 +18,10 @@ type ICategoryRoute = { path: string; categoryType: string };
 
 interface Props {
   questionData: IQuestionData; // data: IQuestion
-  updateData: Function; // updatedData()
 }
 
-const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
+const QStatCard: React.FC<Props> = ({ questionData }) => {
+  const {updateData} = React.useContext(QuestionDataContext2);
   const { topicName, questions, started } = questionData;
   const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);

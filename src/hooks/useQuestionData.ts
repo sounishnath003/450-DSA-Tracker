@@ -33,9 +33,9 @@ export function useQuestionData(): TQuestionData {
   }
 
   useEffect(() => {
-    console.log("loaded from contextAPI");
+    // console.log("loaded from contextAPI");
 
-    getData((qData: IQuestionData[]) => setQuestionData(qData));
+    // getData((qData: IQuestionData[]) => setQuestionData(qData));
   }, []);
 
   return [questionData, setQuestionData, updateData];
