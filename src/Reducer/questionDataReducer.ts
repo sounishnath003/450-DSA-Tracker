@@ -1,4 +1,4 @@
-import { MARK_AS_COMPLETE } from "../actions";
+import { MARK_AS_COMPLETE, UPLOAD_CODE_SOLUTION } from "../actions";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
 type IAction = {
@@ -45,9 +45,9 @@ export function questionDataReducer(
             } else {
               newQuestion.splice(newQuestion.indexOf(qIndex), 1);
             }
-            return question;
+            return { ...question };
           } else {
-            return question;
+            return { ...question };
           }
         }
       );
@@ -55,7 +55,8 @@ export function questionDataReducer(
       updateData(
         key,
         {
-          topicName: questionData.topicName,
+          ...questionData,
+          // topicName: questionData.topicName,
           started: newQuestion.length > 0 ? true : false,
           doneQuestions: newQuestion.length,
           questions: updatedQuestionStats,
@@ -73,13 +74,25 @@ export function questionDataReducer(
         position: questionData.position,
       });
 
-      console.log(`data updateddd!!!`);
-      
       return {
         ...state,
         allTopicsData: updateAllTopicData,
       };
 
+    case UPLOAD_CODE_SOLUTION: {
+      const { updateData, updatedQuestionState, questionData } = action.payload;
+
+      updateData(
+        questionData.topicName,
+        {
+          ...questionData,
+          questions: updatedQuestionState,
+        },
+        questionData.position
+      );
+
+      return state;
+    }
     default:
       return state;
   }

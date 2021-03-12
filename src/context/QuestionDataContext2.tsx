@@ -14,9 +14,9 @@ import UploadCode from "../components/QStatCard/UploadCode";
 import FirstVisit from "../components/util/FirstVisit/FirstVisit";
 import { useFirstVisit } from "../hooks/useFirstVisit";
 import {
-    initialState,
-    IQuestionDataContextState,
-    questionDataReducer
+  initialState,
+  IQuestionDataContextState,
+  questionDataReducer,
 } from "../Reducer/questionDataReducer";
 import { IRoute, routes } from "../routes/routes";
 import { CustomCategoryFilterProvider } from "./CustomCategoryFilterContext";
@@ -48,12 +48,12 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
       (topic: IQuestionData, index: number) => {
         if (index === topicPosition) {
           updateDocumentStateInDB(key, topicData);
-          return { ...topicData };
-          //   return {
-          //     topicName: topic.topicName,
-          //     position: topic.position,
-          //     ...topicData,
-          //   };
+          // return { ...topicData };
+          return {
+            topicName: topic.topicName,
+            position: topic.position,
+            ...topicData,
+          };
         } else {
           return topic;
         }
@@ -66,8 +66,11 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
   }
 
   React.useEffect(() => {
-    console.log(`loading from ReducerActionDispatcher State`);
-    getData((qData: IQuestionData[]) => setAllTopicsData(qData));
+    const funk = async () => {
+      console.log(`loading from ReducerActionDispatcher State`);
+      getData((qData: IQuestionData[]) => setAllTopicsData(qData));
+    };
+    funk();
   }, []);
 
   return (

@@ -35,17 +35,18 @@ export function getData(callback: Function) {
 export function countOfQuestionsCompletion(callback: Function) {
   let totalCompleted = 0,
     totalCount = 0;
-  setTimeout(() => {}, 780);
-  // db.collection("450dsaArchive")
-  //   .get()
-  //   .then((data: IQuestionData[]) => {
-  //     data.map((q) => {
-  //       totalCompleted += q.doneQuestions;
-  //       totalCount += q.questions.length;
-  //     });
-  //     callback(`${totalCompleted}/${totalCount}`);
-  //     return totalCompleted;
-  //   });
+  setTimeout(() => {
+    db.collection("450dsaArchive")
+      .get()
+      .then((data: IQuestionData[]) => {
+        data.map((q) => {
+          totalCompleted += q.doneQuestions;
+          totalCount += q.questions.length;
+        });
+        callback(`${totalCompleted}/${totalCount}`);
+        return totalCompleted;
+      });
+  }, 400);
 }
 
 export async function findDocByKey(key: string): Promise<IQuestionData> {
