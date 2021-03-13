@@ -31,11 +31,17 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-gray-600 text-lg leading-relaxed">
                     <ol>
-                      <li>
-                        1. 😜🐱‍ You can now <b>upload Solution.</b>{" "}
-                      </li>
                       <li className="text-blue-600">
-                        2. 🐱‍🏍😜 Custom Category Drag and Drop is coming.
+                        1. 🐱‍😜 Custom Category available.
+                      </li>
+                      <li className="text-gray-700">
+                        2. 💖🐱‍ Drag and Drop to Categories UI.{" "}
+                      </li>
+                      <li className="text-red-700">
+                        3. 😜🙌 Fullview of Filtered QuestionList.{" "}
+                      </li>
+                      <li className="text-blue-700">
+                        4. 😜🙌 Be Patience!! More to Come...{" "}
                       </li>
                     </ol>
                   </div>

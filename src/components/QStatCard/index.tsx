@@ -53,7 +53,7 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
     }
   }, [questionData, questions.length]);
 
-  // searchBar component()
+  // * searchBar component()
   function SearchBar(this: undefined) {
     function handleSearch() {
       const searchTxt: string = searchTxtRef.current.value;
@@ -65,7 +65,7 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
         if (nques.length === 0) {
           // setNoData(true);
         }
-        setTimeout(() => setQuestionsState(nques), 1505);
+        setTimeout(() => setQuestionsState(nques), 2400);
       } else {
         setQuestionsState(questions);
       }

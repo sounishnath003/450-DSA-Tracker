@@ -1,5 +1,6 @@
 import React from "react";
 import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
+import TableOrderListing from "./TableOrderListing";
 
 const MediumCategory = () => {
   const { mediumQuestions } = React.useContext(CustomCategoryFilterContext);
@@ -14,7 +15,8 @@ const MediumCategory = () => {
         <span className="text-blue-500 font-semibold underline">Medium</span>{" "}
         questions
       </div>
-      <div className="my-5 max-w-xl">{JSON.stringify(mediumQuestions)}</div>
+
+      <TableOrderListing questions={mediumQuestions} colorCode="blue" />
     </div>
   );
 };
