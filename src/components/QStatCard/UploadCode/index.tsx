@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UPLOAD_CODE_SOLUTION } from "../../../actions";
 import {
   IQuestion,
   IQuestionData,
 } from "../../../Backend/model/Question-model";
-import { QuestionDataContext } from "../../../context/QuestionDataContext";
+import { QuestionDataContext2 } from "../../../context/QuestionDataContext2";
 
 type IData = {
   index: number;
@@ -22,7 +23,9 @@ const UploadCode: React.FC = (Props: any) => {
   const [solutionCode, setSolutionCode] = React.useState<string>();
   const router = useHistory();
 
-  const { updateData } = React.useContext(QuestionDataContext);
+  const { updateData, questionActionDispatcher } = React.useContext(
+    QuestionDataContext2
+  );
 
   React.useEffect(() => {
     // toast.warn("solution has been updated");
@@ -92,14 +95,10 @@ const UploadCode: React.FC = (Props: any) => {
       return ques;
     });
 
-    updateData(
-      questionData.topicName,
-      {
-        ...questionData,
-        questions: updatedQuestionState,
-      },
-      questionData.position
-    );
+    questionActionDispatcher({
+      type: UPLOAD_CODE_SOLUTION,
+      payload: { updateData, updatedQuestionState, questionData },
+    });
 
     setvisible(false);
     setvisible2(true);
