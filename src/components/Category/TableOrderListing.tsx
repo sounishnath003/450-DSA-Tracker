@@ -10,8 +10,8 @@ interface Props {
 function TableOrderListing({ questions, colorCode }: Props) {
   return (
     <React.Fragment>
-      <div className="bg-white shadow-md max-w-full rounded my-6">
-        <table className="min-w-max w-full table-auto">
+      <div className={`bg-white border-b-2 border-${colorCode}-600 shadow-md max-w-full rounded my-6`}>
+        <table className="w-full table-auto">
           <thead>
             <tr
               className={`bg-${colorCode}-200 text-${colorCode}-700 uppercase text-sm leading-normal`}

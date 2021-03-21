@@ -1,9 +1,11 @@
+import {
+  ON_INITIAL_LOAD,
+  SET_AS_EASY_QUESTION,
+  SET_AS_HARD_QUESTION,
+  SET_AS_MEDIUM_QUESTION,
+} from "../actions";
 import { IQuestion } from "../Backend/model/Question-model";
 import { updatedCustomizedListOfQuestionsFor } from "../Backend/services/customizedList-db.functions";
-
-export const SET_AS_EASY_QUESTION = `[SET_AS_EASY_QUESTION] set as EASY level`;
-export const SET_AS_MEDIUM_QUESTION = `[SET_AS_MEDIUM_QUESTION] set as MEDIUM level`;
-export const SET_AS_HARD_QUESTION = `[SET_AS_HARD_QUESTION] set as HARD level`;
 
 export interface CustomCategoryFilterState {
   easyQuestions: IQuestion[];
@@ -31,6 +33,15 @@ export function customCategoryFilterReducer(
   action: any
 ): CustomCategoryFilterState {
   switch (action.type) {
+    case ON_INITIAL_LOAD:
+      const { easy, medium, hard } = action.payload;
+      return {
+        ...state,
+        easyQuestions: easy,
+        mediumQuestions: medium,
+        hardQuestions: hard,
+      };
+
     case SET_AS_EASY_QUESTION:
       if (state.easyQuestions.indexOf(action.payload.data) !== -1) {
         alert("Question was already pinned 📌.");

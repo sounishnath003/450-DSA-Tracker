@@ -8,7 +8,7 @@ export async function getCustomizedListOfQuestionsFor(
 ): Promise<IQuestion[]> {
   try {
     const questions: IQuestion[] = await (async () =>
-      await db.collection(CUSTOMIZED_LIST_TABLE).doc(type).get())();
+      await db.collection(CUSTOMIZED_LIST_TABLE).doc(type).get() ) ();
     return questions;
   } catch (err) {
     return (await db
@@ -29,8 +29,10 @@ export async function updatedCustomizedListOfQuestionsFor({
     await db
       .collection(CUSTOMIZED_LIST_TABLE)
       .doc(type)
-      .update({ ...payload });
+      .update({ questions: payload });
   } catch (error) {
-    await db.collection(CUSTOMIZED_LIST_TABLE).add({ ...payload }, type);
+    await db
+      .collection(CUSTOMIZED_LIST_TABLE)
+      .add({ questions: payload }, type);
   }
 }
