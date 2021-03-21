@@ -4,6 +4,8 @@ Have you cached your answers?
 ## ✌❤️ [RELEASED]: Drag and Drop Questions To Customize Choice List⭐⭐
 
 ### Screenshot of the Feature (UI)
+![image](https://user-images.githubusercontent.com/40270033/111912519-06dcf600-8a90-11eb-8fb6-317b700e9559.png)
+
 
 ### Feature in Action: GIF
 ![DSA Preparation 450 - Google Chrome 2021-03-10 17-34-09](https://user-images.githubusercontent.com/40270033/110634993-a10b8700-81d0-11eb-9cb9-650aa95d2721.gif)
