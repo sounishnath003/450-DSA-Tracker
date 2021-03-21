@@ -31,8 +31,15 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-gray-600 text-lg leading-relaxed">
                     <ol>
-                      <li>1. Broken question link fixed</li>
-                      <li>2. Dark-mode by System Default. 🎉</li>
+                      <li className="text-blue-600">
+                        1. 🐱‍😜 Custom Category available.
+                      </li>
+                      <li className="text-gray-700">
+                        2. 💖🐱‍ Drag and Drop to Categories UI.{" "}
+                      </li>
+                      <li className="text-red-700">
+                        3. 😜🙌 Create your own CategoryWise Lists
+                      </li>
                     </ol>
                   </div>
                 </div>

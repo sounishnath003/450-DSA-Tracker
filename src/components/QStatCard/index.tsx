@@ -1,34 +1,44 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MARK_AS_COMPLETE } from "../../actions";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
-import { defaultQuesStat, reducer } from "../../Reducer/reducer";
+import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
+import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
 import { tableRowLogic } from "./utils/utility";
 
-/*
-  questionData: IQuestionData; // data: IQuestion
-  updateData: Function; // updatedData()
+/* *
+ * questionData: IQuestionData; // data: IQuestion
+ * updateData: Function; // updatedData()
+ *
  */
+
+type ICategoryRoute = { path: string; categoryType: string; icon: JSX.Element };
 
 interface Props {
   questionData: IQuestionData; // data: IQuestion
-  updateData: Function; // updatedData()
 }
 
-const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
+const QStatCard: React.FC<Props> = ({ questionData }) => {
+  const { updateData, questionActionDispatcher } = React.useContext(
+    QuestionDataContext2
+  );
   const { topicName, questions, started } = questionData;
-  const [state, dispatch] = useReducer(reducer, defaultQuesStat);
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const searchTxtRef = useRef<any>();
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
-  // @COMPLETED_ACTION - useEffect questionCompleted Update
+  // ? @COMPLETED_ACTION - useEffect questionCompleted Update
+
+  // *** Dragable questionState hooking onto it***
+  const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
   useEffect(() => {
     if (questionData !== undefined) {
       let doneQuestions: number[] = [];
+      // eslint-disable-next-line array-callback-return
       questionData.questions.map((question: IQuestion, index: number) => {
         if (question.Done === true) {
           doneQuestions.push(index);
@@ -43,7 +53,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     }
   }, [questionData, questions.length]);
 
-  // searchBar component()
+  // * searchBar component()
   function SearchBar(this: undefined) {
     function handleSearch() {
       const searchTxt: string = searchTxtRef.current.value;
@@ -55,7 +65,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
         if (nques.length === 0) {
           // setNoData(true);
         }
-        setTimeout(() => setQuestionsState(nques), 1505);
+        setTimeout(() => setQuestionsState(nques), 2400);
       } else {
         setQuestionsState(questions);
       }
@@ -90,22 +100,75 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
     );
   }
 
-  function whenQuestionCompleted(key: string, index: number) {
-    dispatch({
-      type: "COMPLETED",
-      payload: {
-        index,
-        selected,
-        questionData,
-        updateData,
-      },
+  function whenQuestionCompleted(index: number) {
+    type Ipayload = {
+      index: number;
+      selected: number[];
+      questionData: IQuestionData;
+      updateData: (
+        key: string,
+        topicData: IQuestionData,
+        topicPosition: number
+      ) => void;
+    };
+    questionActionDispatcher({
+      type: MARK_AS_COMPLETE,
+      payload: { index, selected, questionData, updateData } as Ipayload,
     });
+  }
+
+  const CategoryList = () => {
+    const { onDragOver, onDrop, routes } = useCustomFilterDragAndDropper();
+
+    return (
+      <div className="my-3">
+        <div className="flex justify-evenly space-x-4">
+          {routes.map((route: ICategoryRoute, index) => (
+            <>
+              <Link to={route.path}>
+                <div
+                  className={`items-center px-6 py-2 border-2 ${
+                    index === 0
+                      ? `border-green-400 hover:bg-green-200`
+                      : index === 1
+                      ? "border-blue-400 hover:bg-blue-200"
+                      : `border-red-400 hover:bg-red-200`
+                  } cursor-pointer rounded-lg shadow-lg`}
+                  id={index === 0 ? `easy` : index === 1 ? `medium` : `hard`}
+                  onDragOver={(event) =>
+                    onDragOver(event, draggedQuestion as IQuestion)
+                  }
+                  onDrop={(event) =>
+                    onDrop(event, draggedQuestion as IQuestion)
+                  }
+                >
+                  <div className="flex space-x-1">
+                    <div>{route.icon}</div>
+                    <div>{route.categoryType}</div>
+                  </div>
+                </div>
+              </Link>
+            </>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // ** OnDragStart Event - user start dragging...
+  function onDragStart(
+    e: React.DragEvent<HTMLTableRowElement>,
+    payload: IQuestion
+  ) {
+    e.stopPropagation();
+    e.preventDefault();
+    setDraggedQuestion(payload);
   }
 
   function QTable() {
     return (
       <>
-        <table className="table-auto max-w-3xl mx-auto my-6">
+        <table className="table-auto max-w-3xl mx-auto  my-6">
           <thead key={"thred"}>
             <tr className="bg-indigo-700 text-white tracking-wide">
               <th className="px-4 py-2">ID</th>
@@ -120,9 +183,14 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
               return (
                 <>
                   <tr
+                    id={`${question.Problem}-${index}`}
+                    draggable={true}
+                    onDrag={(e) => onDragStart(e, question)}
                     key={index}
                     className={
-                      "dark:bg-gray-300 " + tableRowLogic(index, question)
+                      "dark:bg-gray-300 " +
+                      tableRowLogic(index, question) +
+                      " cursor-pointer"
                     }
                     // style={{
                     //   backgroundColor: tableRowLogic(index, question),
@@ -150,36 +218,38 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
                         type="checkbox"
                         onChange={(e) => question.Done}
                         checked={question.Done === true}
-                        onClick={() => whenQuestionCompleted(topicName, index)}
+                        onClick={() => whenQuestionCompleted(index)}
                       />
                     </td>
-                    {started && <td className="text-center py-2">
-                      <Link
-                        to={{
-                          pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
-                            " ",
-                            "-"
-                          )}/solution`,
-                          state: {
-                            index,
-                            question,
-                            questionData,
-                          },
-                        }}
-                      >
-                        {question.Done ? (
-                          <>
-                            <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
-                              {question.code
-                                ? "View solution"
-                                : "Upload Solution"}
-                            </button>
-                          </>
-                        ) : (
-                          <div className="text-red-700">N/A</div>
-                        )}
-                      </Link>
-                    </td>}
+                    {started && (
+                      <td className="text-center py-2">
+                        <Link
+                          to={{
+                            pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
+                              " ",
+                              "-"
+                            )}/solution`,
+                            state: {
+                              index,
+                              question,
+                              questionData,
+                            },
+                          }}
+                        >
+                          {question.Done ? (
+                            <>
+                              <button className="text-green-600 bg-white mx-2 font-bold rounded px-2 text-xs">
+                                {question.code
+                                  ? "View solution"
+                                  : "Upload Solution"}
+                              </button>
+                            </>
+                          ) : (
+                            <div className="text-red-700">N/A</div>
+                          )}
+                        </Link>
+                      </td>
+                    )}
                   </tr>
                 </>
               );
@@ -210,6 +280,7 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
       </div>
       <div className="my-8 ">
         <SearchBar />
+        <CategoryList />
         <QTable />
       </div>
     </>
@@ -217,3 +288,4 @@ const QStatCard: React.FC<Props> = ({ questionData, updateData }) => {
 };
 
 export default QStatCard;
+  

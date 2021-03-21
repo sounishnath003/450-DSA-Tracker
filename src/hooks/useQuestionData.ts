@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { QuestionData } from "../Backend/db-store/data";
 import { IQuestionData } from "../Backend/model/Question-model";
-import { getData, updateDocumentState } from "../Backend/services/database";
+import { getData, updateDocumentStateInDB } from "../Backend/services/database";
 
 type TQuestionData = [
   IQuestionData[],
@@ -16,7 +16,7 @@ export function useQuestionData(): TQuestionData {
     let reGeneratedQData: IQuestionData[] = questionData.map(
       (topic: IQuestionData, index: number) => {
         if (index === topicPosition) {
-          updateDocumentState(key, topicData);
+          updateDocumentStateInDB(key, topicData);
           // return topicData;
           return {
             topicName: topic.topicName,
@@ -33,9 +33,9 @@ export function useQuestionData(): TQuestionData {
   }
 
   useEffect(() => {
-    console.log("loaded from contextAPI");
+    // console.log("loaded from contextAPI");
 
-    getData((qData: IQuestionData[]) => setQuestionData(qData));
+    // getData((qData: IQuestionData[]) => setQuestionData(qData));
   }, []);
 
   return [questionData, setQuestionData, updateData];
