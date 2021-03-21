@@ -288,3 +288,4 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
 };
 
 export default QStatCard;
+  
