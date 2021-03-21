@@ -16,7 +16,7 @@ const Home: React.FC = () => {
         your gateway to crack product based
       </div>
 
-      <CategoryList />
+      <CategoryList key={2} />
 
       <div className="mt-8">
         {allTopicsData.length < 1 ? (

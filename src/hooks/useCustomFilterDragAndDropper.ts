@@ -1,4 +1,5 @@
 import React from "react";
+import { EasyIcon, HardIcon, MediumIcon, SavedIcon } from "../assets/icons";
 import { IQuestion } from "../Backend/model/Question-model";
 import { countOfQuestionsCompletion } from "../Backend/services/database";
 import { CustomCategoryFilterContext } from "../context/CustomCategoryFilterContext";
@@ -14,7 +15,7 @@ type IReturnUseCustomFilterDnDHook = {
   onDrop: (e: React.DragEvent<HTMLDivElement>, payload: IQuestion) => void;
 };
 
-type ICategoryRoute = { path: string; categoryType: string };
+type ICategoryRoute = { path: string; categoryType: string; icon: JSX.Element };
 
 export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
   const {
@@ -31,17 +32,24 @@ export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
   const routes: ICategoryRoute[] = [
     {
       path: "category-lists/easy",
+      icon: EasyIcon(),
       categoryType: `Easy ${easyQuestions.length}`,
     },
     {
       path: "category-lists/medium",
+      icon: MediumIcon(),
       categoryType: `Medium ${mediumQuestions.length}`,
     },
     {
       path: "category-lists/hard",
+      icon: HardIcon(),
       categoryType: `Hard ${hardQuestions.length}`,
     },
-    { path: "track/progress", categoryType: `Solved ${count}` },
+    {
+      path: "track/progress",
+      categoryType: `Solved ${count}`,
+      icon: SavedIcon(),
+    },
   ];
 
   React.useEffect(() => {
