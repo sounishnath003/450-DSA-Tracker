@@ -38,10 +38,7 @@ const FirstVisit: React.FC<Props> = ({ showupState, setShowUp }) => {
                         2. 💖🐱‍ Drag and Drop to Categories UI.{" "}
                       </li>
                       <li className="text-red-700">
-                        3. 😜🙌 Fullview of Filtered QuestionList.{" "}
-                      </li>
-                      <li className="text-blue-700">
-                        4. 😜🙌 Be Patience!! More to Come...{" "}
+                        3. 😜🙌 Create your own CategoryWise Lists
                       </li>
                     </ol>
                   </div>
