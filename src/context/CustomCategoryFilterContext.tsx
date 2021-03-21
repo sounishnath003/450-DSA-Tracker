@@ -21,6 +21,10 @@ export function CustomCategoryFilterProvider({ children }: any): JSX.Element {
     initialState
   );
 
+  React.useEffect(() => {
+    
+  }, [])
+
   return (
     <>
       <CustomCategoryFilterContext.Provider value={{ ...state, dispatch }}>

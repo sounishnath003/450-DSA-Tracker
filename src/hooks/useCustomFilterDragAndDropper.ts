@@ -1,12 +1,14 @@
 import React from "react";
 import { EasyIcon, HardIcon, MediumIcon, SavedIcon } from "../assets/icons";
 import { IQuestion } from "../Backend/model/Question-model";
-import { countOfQuestionsCompletion } from "../Backend/services/database";
+import {
+  countOfQuestionsCompletion
+} from "../Backend/services/database";
 import { CustomCategoryFilterContext } from "../context/CustomCategoryFilterContext";
 import {
   SET_AS_EASY_QUESTION,
   SET_AS_HARD_QUESTION,
-  SET_AS_MEDIUM_QUESTION,
+  SET_AS_MEDIUM_QUESTION
 } from "../Reducer/customCategoryFilterReducer";
 
 type IReturnUseCustomFilterDnDHook = {
