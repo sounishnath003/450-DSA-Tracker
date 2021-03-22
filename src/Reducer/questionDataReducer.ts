@@ -1,5 +1,11 @@
-import { MARK_AS_COMPLETE, UPLOAD_CODE_SOLUTION } from "../actions";
+import {
+  MARK_AS_COMPLETE,
+  RESET_ALL_PROGRESS,
+  UPLOAD_CODE_SOLUTION
+} from "../actions";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
+import { resetProgressDSATable } from "../Backend/services/450dsaArchive-db.functions";
+import { resetProgressCustomedTable } from "../Backend/services/customizedList-db.functions";
 
 type IAction = {
   type: string;
@@ -31,6 +37,14 @@ export function questionDataReducer(
   action: IAction
 ): IQuestionDataContextState {
   switch (action.type) {
+    case RESET_ALL_PROGRESS:
+      (async function () {
+        await resetProgressDSATable();
+        await resetProgressCustomedTable();
+        window.location.replace(window.location.origin);
+      })();
+      return initialState;
+
     case MARK_AS_COMPLETE:
       const { selected, questionData, updateData, index } = action.payload;
       const key: string = questionData.topicName;
