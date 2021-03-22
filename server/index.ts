@@ -1,1 +1,3 @@
-console.log(`Hello World From Backend!!`);
+import { serverStart } from "./server";
+
+serverStart();
