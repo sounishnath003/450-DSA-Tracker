@@ -1,9 +1,0 @@
-[build]
-command= 'yarn build'
-functions= 'functions'
-publish= 'build'
-
-[[redirects]]
-  from = "/"
-  to = "/.netlify/functions/index"
-  status = 200
