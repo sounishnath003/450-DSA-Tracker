@@ -1,7 +1,7 @@
 import {
   MARK_AS_COMPLETE,
   RESET_ALL_PROGRESS,
-  UPLOAD_CODE_SOLUTION
+  UPLOAD_CODE_SOLUTION,
 } from "../actions";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 import { resetProgressDSATable } from "../Backend/services/450dsaArchive-db.functions";
