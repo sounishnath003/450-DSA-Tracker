@@ -3,13 +3,17 @@ import { Types } from "mongoose";
 import { QuestionData } from "../data/450DSA-questions";
 import { AllTopicQuestions } from "../database/schema/allTopicQuestions-model";
 import { IAllTopicQuestion } from "../models/allTopicQuestion.model";
-import { INTERNAL_SERVER_ERROR, OK } from "../utils";
+import {
+  INTERNAL_SERVER_ERROR,
+  OK,
+  getUserIdFromRequestHeader,
+} from "../utils";
 
 const router = Router();
 
 // * [GET] All Topic Questions List
-router.get("/", async (req: any, res, next) => {
-  const userID = req.oidc.user.sub.split("|")[1];
+router.get("/", async (req, res, next) => {
+  const userID: string = getUserIdFromRequestHeader(req);
   try {
     res.setHeader("Content-Type", "application/json");
     await AllTopicQuestions.find((err: any, topics: IAllTopicQuestion) => {
@@ -27,7 +31,7 @@ router.get("/", async (req: any, res, next) => {
 
 // * [POST] INSERT DATA
 router.get("/create", async (req: any, res, next) => {
-  const userID: string = req.oidc.user.sub.split("|")[1];
+  const userID: string = getUserIdFromRequestHeader(req);
   const payload: IAllTopicQuestion = new AllTopicQuestions({
     questions: [...QuestionData],
     user: Types.ObjectId(userID),
