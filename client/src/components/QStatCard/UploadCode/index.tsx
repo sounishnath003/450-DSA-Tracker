@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { UPLOAD_CODE_SOLUTION } from "../../../actions";
 import {
   IQuestion,
-  IQuestionData,
+  IQuestionData
 } from "../../../Backend/model/Question-model";
 import { QuestionDataContext2 } from "../../../context/QuestionDataContext2";
 
@@ -102,7 +102,7 @@ const UploadCode: React.FC = (Props: any) => {
 
     setvisible(false);
     setvisible2(true);
-    router.goBack();
+    router.back();
   }
 
   function editCode() {

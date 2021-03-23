@@ -15,7 +15,7 @@ export function useFirstVisit(): IUseFirstVisit {
       sessionStorage["alreadyVisited"] = true;
       setShowPopUp(true);
     }
-  }, []);
+  }, [firstVisited]);
 
   return [showPopUp, setShowPopUp];
 }

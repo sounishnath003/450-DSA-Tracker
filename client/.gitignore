@@ -22,6 +22,8 @@
 .*.swp
 .env
 
+src/env/auth0-cred.json
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
