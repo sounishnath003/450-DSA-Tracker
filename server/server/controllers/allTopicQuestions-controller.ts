@@ -3,12 +3,13 @@ import { Types } from "mongoose";
 import { QuestionData } from "../data/450DSA-questions";
 import { AllTopicQuestions } from "../database/models/allTopicQuestions-model";
 import { IAllTopicQuestion } from "../models/allTopicQuestion.model";
-import { OK, INTERNAL_SERVER_ERROR } from "../utils";
+import { INTERNAL_SERVER_ERROR, OK } from "../utils";
 
 const router = Router();
 
 // * [GET] All Topic Questions List
-router.get("/", async (req, res, next) => {
+router.get("/", async (req: any, res, next) => {
+    const userID = req.oidc.user.sub.split('|')[1];
   try {
     res.setHeader("Content-Type", "application/json");
     await AllTopicQuestions.find((err: any, topics: IAllTopicQuestion) => {
@@ -25,12 +26,13 @@ router.get("/", async (req, res, next) => {
 });
 
 // * [POST] INSERT DATA
-router.get("/create", async (req, res, next) => {
-  const payload: IAllTopicQuestion = new AllTopicQuestions({
-    questions: [...QuestionData],
-    user: Types.ObjectId("6058e46c13f5490011b30d61"),
-  });
-  try {
+router.get("/create", async (req: any, res, next) => {
+    const userID: string = req.oidc.user.sub.split("|")[1];
+    const payload: IAllTopicQuestion = new AllTopicQuestions({
+        questions: [...QuestionData],
+        user: Types.ObjectId(userID),
+    });
+    try {
     res.setHeader("Content-Type", "application/json");
     payload.save((err, docs) => {
       if (!err) {

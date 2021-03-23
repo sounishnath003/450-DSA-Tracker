@@ -1,7 +1,7 @@
 const cors = require("cors");
 import env from "dotenv";
 import express, { json, urlencoded } from "express";
-import { auth } from "express-openid-connect";
+import { auth, requiresAuth } from "express-openid-connect";
 import morgan from "morgan";
 import { AllTopicQuestionController, AuthController } from "./controllers";
 import { connectToDatabase } from "./database";
@@ -16,7 +16,7 @@ export async function serverStart() {
     await connectToDatabase();
 
     app.use("/", AuthController);
-    app.use("/topics", AllTopicQuestionController);
+    app.use("/topics", requiresAuth(), AllTopicQuestionController);
 
     app.listen(PORT, () =>
       console.log(`server is running on http://localhost:${PORT}`)
