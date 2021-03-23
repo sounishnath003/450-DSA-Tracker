@@ -15,7 +15,7 @@ const router = Router();
 router.get("/", async (req, res, next) => {
   const userID: string = getUserIdFromRequestHeader(req);
   try {
-    // res.he
+    res.setHeader("Content-Type", "application/json");
     await AllTopicQuestions.find((err: any, topics: IAllTopicQuestion) => {
       if (!err) {
         res.status(OK).send({ topics });
