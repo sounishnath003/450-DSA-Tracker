@@ -17,4 +17,4 @@ const AllTopicQuestions = model<IAllTopicQuestion>(
   AllTopicQuestionsSchema
 );
 
-export = { AllTopicQuestions };
+export { AllTopicQuestions };

@@ -1,3 +1,4 @@
+// User Model;
 import { model, Schema } from "mongoose";
 import { IUser } from "../../models/user.model";
 

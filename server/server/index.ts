@@ -1,9 +1,9 @@
-const cors = require('cors');
+const cors = require("cors");
 import env from "dotenv";
 import express, { json, urlencoded } from "express";
 import { auth } from "express-openid-connect";
 import morgan from "morgan";
-import { AuthController } from "./controllers";
+import { AllTopicQuestionController, AuthController } from "./controllers";
 import { connectToDatabase } from "./database";
 
 env.config();
@@ -16,6 +16,7 @@ export async function serverStart() {
     await connectToDatabase();
 
     app.use("/", AuthController);
+    app.use("/topics", AllTopicQuestionController);
 
     app.listen(PORT, () =>
       console.log(`server is running on http://localhost:${PORT}`)
@@ -29,7 +30,7 @@ async function serverConfig() {
   // * AUTH middleware
   app.use(morgan("dev"));
   app.use(cors());
-  app.use(urlencoded({extended: true }))
+  app.use(urlencoded({ extended: true }));
   app.use(json());
   app.use(
     auth({
