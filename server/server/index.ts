@@ -1,8 +1,10 @@
+const cors = require('cors');
 import env from "dotenv";
-import express from "express";
+import express, { json, urlencoded } from "express";
 import { auth } from "express-openid-connect";
 import morgan from "morgan";
 import { AuthController } from "./controllers";
+import { connectToDatabase } from "./database";
 
 env.config();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +13,7 @@ const app = express();
 export async function serverStart() {
   try {
     await serverConfig();
+    await connectToDatabase();
 
     app.use("/", AuthController);
 
@@ -25,6 +28,9 @@ export async function serverStart() {
 async function serverConfig() {
   // * AUTH middleware
   app.use(morgan("dev"));
+  app.use(cors());
+  app.use(urlencoded({extended: true }))
+  app.use(json());
   app.use(
     auth({
       issuerBaseURL: process.env.ISSUER_BASE_URL,
