@@ -3,7 +3,11 @@ import env from "dotenv";
 import express, { json, urlencoded } from "express";
 import { auth, requiresAuth } from "express-openid-connect";
 import morgan from "morgan";
-import { AllTopicQuestionController, AuthController } from "./controllers";
+import {
+  AllTopicQuestionController,
+  AuthController,
+  CustomCategoryListController,
+} from "./controllers";
 import { connectToDatabase } from "./database";
 
 env.config();
@@ -17,6 +21,11 @@ export async function serverStart() {
 
     app.use("/", AuthController);
     app.use("/topics", requiresAuth(), AllTopicQuestionController);
+    app.use(
+      "/customCategoryLists",
+      requiresAuth(),
+      CustomCategoryListController
+    );
 
     app.listen(PORT, () =>
       console.log(`server is running on http://localhost:${PORT}`)

@@ -3,7 +3,7 @@
 import { model, Schema } from "mongoose";
 import { IAllTopicQuestion } from "../../models/allTopicQuestion.model";
 
-const AllTopicQuestionsSchema: Schema = new Schema({
+const AllTopicQuestionsSchema: Schema<IAllTopicQuestion> = new Schema({
   topicName: { type: Schema.Types.String },
   position: { type: Schema.Types.Number },
   started: { type: Schema.Types.Boolean },
