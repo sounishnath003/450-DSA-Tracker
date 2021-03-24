@@ -4,13 +4,9 @@ import React from "react";
 function AuthHome() {
   const { loginWithRedirect } = useAuth0();
 
-  function auth() {
-    loginWithRedirect();
-  }
-
   return (
     <div className="bg-blue-50 h-screen flex">
-      <div onClick={auth} className="max-w-md m-auto">
+      <div onClick={() => loginWithRedirect()} className="max-w-md m-auto">
         <div className="md:text-5xl text-3xl text-center my-6 text-gray-800">
           450 DSA Tracker
         </div>

@@ -15,7 +15,6 @@ const onRedirectCallback = (appState: any) => {
 export const providerConfig = {
   domain: auth0.domain,
   clientId: auth0.clientId,
-  redirectUri: window.location.origin,
   audience: auth0.audience,
   scope: auth0.scope,
   onRedirectCallback,

@@ -9,7 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider {...providerConfig}>
+    <Auth0Provider {...providerConfig} redirectUri={window.location.origin}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

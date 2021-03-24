@@ -5,11 +5,14 @@ import { AuthHome } from "./components/Auth";
 import { QuestionDataContext2Provider } from "./context/QuestionDataContext2";
 
 function App() {
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, logout } = useAuth0();
   console.log({ user, isAuthenticated });
 
   return (
-    <>{isAuthenticated ? <QuestionDataContext2Provider /> : <AuthHome />}</>
+    <>
+      {isAuthenticated ? <QuestionDataContext2Provider /> : <AuthHome />}
+      {isAuthenticated && <button onClick={() => logout()}> Logout </button>}
+    </>
   );
 }
 
