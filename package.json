@@ -6,9 +6,12 @@
   "author": "Sounish Nath <flock.sinasini@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "module:install": "concurrently -m=5 \"yarn server:install\" \"&&\" \"yarn client:install\"",
     "dev": "concurrently -m=3 \"yarn start:server\" \"yarn start:client\"",
     "start:server": "cd server && yarn dev",
-    "start:client": "cd client && yarn start"
+    "start:client": "cd client && yarn start",
+    "server:install": "cd server && yarn install",
+    "client:install": "cd client && yarn install"
   },
   "devDependencies": {
     "concurrently": "^6.0.0"

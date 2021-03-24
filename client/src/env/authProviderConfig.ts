@@ -5,9 +5,10 @@ const history = createBrowserHistory();
 
 // appState && appState.returnTo ? appState.returnTo : window.location.pathname
 const onRedirectCallback = (appState: any) => {
-  
   history.push(
-    appState && appState.returnTo ? window.location.origin : window.location.pathname
+    appState && appState.returnTo
+      ? window.location.origin
+      : window.location.pathname
   );
 };
 
