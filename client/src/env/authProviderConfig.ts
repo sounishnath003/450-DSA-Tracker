@@ -4,6 +4,7 @@ import auth0 from "./auth0-cred.json";
 const history = createBrowserHistory();
 
 // appState && appState.returnTo ? appState.returnTo : window.location.pathname
+// !! Things are suprimed erroish | use by reference
 const onRedirectCallback = (appState: any) => {
   history.push(
     appState && appState.returnTo
@@ -17,5 +18,4 @@ export const providerConfig = {
   clientId: auth0.clientId,
   audience: auth0.audience,
   scope: auth0.scope,
-  onRedirectCallback,
 };
