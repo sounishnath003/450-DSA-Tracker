@@ -1,17 +1,14 @@
-import { createBrowserHistory } from "history";
 import auth0 from "./auth0-cred.json";
-
-const history = createBrowserHistory();
 
 // appState && appState.returnTo ? appState.returnTo : window.location.pathname
 // !! Things are suprimed erroish | use by reference
-const onRedirectCallback = (appState: any) => {
-  history.push(
-    appState && appState.returnTo
-      ? window.location.origin
-      : window.location.pathname
-  );
-};
+// const onRedirectCallback = (appState: any) => {
+//   history.push(
+//     appState && appState.returnTo
+//       ? window.location.origin
+//       : window.location.pathname
+//   );
+// };
 
 export const providerConfig = {
   domain: auth0.domain,

@@ -8,6 +8,22 @@ function App() {
   const { isAuthenticated, user, logout } = useAuth0();
   console.log({ user, isAuthenticated });
 
+  React.useEffect(() => {
+    isAuthenticated &&
+      (async function () {
+        const resp = await (
+          await fetch(`/.netlify/functions/mango`, {
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${btoa(user.sub)}`,
+            },
+          })
+        ).json();
+        console.log({ resp });
+      })();
+  }, [isAuthenticated, user]);
+
   return (
     <>
       {isAuthenticated ? <QuestionDataContext2Provider /> : <AuthHome />}
