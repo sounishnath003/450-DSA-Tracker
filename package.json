@@ -26,10 +26,10 @@
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/assets/design-style.css",
     "watch:css": "postcss src/assets/tailwind.css -o src/assets/design-style.css",
-    "remove:config": "rm tsconfig.json"
+    "remove:config": "del tsconfig.json"
   },
   "eslintConfig": {
-    "extends": [
+    "extends": [  
       "react-app",
       "react-app/jest"
     ]

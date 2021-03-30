@@ -129,10 +129,10 @@ export function QuestionDataContext2Provider(): JSX.Element {
                   <Route
                     exact
                     key={question.Problem}
-                    path={`/${questiond.topicName.toLowerCase()}/${question.Problem.replaceAll(
-                      " ",
-                      "-"
-                    )}/solution`}
+                    path={`/${question.Topic.toLowerCase()}/${question.Problem.replace(
+                      /\(([^)]+)\)/,
+                      ""
+                    ).replaceAll(" ", "-")}/solution`}
                     component={UploadCode}
                   />
                 ))
