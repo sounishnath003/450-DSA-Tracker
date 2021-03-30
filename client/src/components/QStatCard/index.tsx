@@ -225,10 +225,10 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
                       <td className="text-center py-2">
                         <Link
                           to={{
-                            pathname: `/${topicName.toLowerCase()}/${question.Problem.replaceAll(
-                              " ",
-                              "-"
-                            )}/solution`,
+                            pathname: `/${topicName.toLowerCase()}/${question.Problem.replace(
+                              /\(([^)]+)\)/,
+                              ""
+                            ).replaceAll(" ", "-")}/solution`,
                             state: {
                               index,
                               question,
@@ -288,4 +288,3 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
 };
 
 export default QStatCard;
-  

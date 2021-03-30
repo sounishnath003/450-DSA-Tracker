@@ -2,6 +2,12 @@ import React from "react";
 import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
 import TableOrderListing from "./TableOrderListing";
 
+function NoQuestionAdded(): JSX.Element {
+  return <div className='m-6 p-5 text-xl text-center text-red-400'>
+    You Have not added any Questions to the list yet!
+  </div>;
+}
+
 const EasyCategory = () => {
   const { easyQuestions } = React.useContext(CustomCategoryFilterContext);
   console.log(easyQuestions);
@@ -17,10 +23,13 @@ const EasyCategory = () => {
         questions
       </div>
 
-      
       {/* table */}
 
-      <TableOrderListing questions={easyQuestions} colorCode="green" />
+      {easyQuestions.length > 0 ? (
+        <TableOrderListing questions={easyQuestions} colorCode="green" />
+      ) : (
+        <NoQuestionAdded />
+      )}
 
       {/* table end*/}
     </div>

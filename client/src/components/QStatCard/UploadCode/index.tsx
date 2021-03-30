@@ -18,6 +18,9 @@ type IData = {
 const UploadCode: React.FC = (Props: any) => {
   const { question, questionData, index } = Props.location.state as IData;
 
+  console.log({p: Props.location.state});
+  
+
   const [visible, setvisible] = React.useState<boolean>(false);
   const [visible2, setvisible2] = React.useState<boolean>(true);
   const [solutionCode, setSolutionCode] = React.useState<string>();
@@ -141,6 +144,7 @@ const UploadCode: React.FC = (Props: any) => {
                           id="codecopy"
                           style={{ display: "none" }}
                           value={question.code as string}
+                          onChange={e => setSolutionCode(e.target.innerText)}
                         ></textarea>
                         <pre className="font-mono font-bold bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">
                           {question.code}
