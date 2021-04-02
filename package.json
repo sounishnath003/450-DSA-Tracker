@@ -10,6 +10,7 @@
     "dev": "concurrently -m=3 \"yarn start:server\" \"yarn start:client\"",
     "start:server": "cd server && yarn dev",
     "start:client": "cd client && yarn start",
+    "dev:install": "concurrently -m=5 \"yarn server:install\" \"yarn client:install\"",
     "server:install": "cd server && yarn install",
     "client:install": "cd client && yarn install"
   },
