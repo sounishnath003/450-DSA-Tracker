@@ -1,6 +1,0 @@
-{
-  "domain": "",
-  "clientId": "",
-  "audience": "",
-  "scope": "read:current_user update:current_user_metadata"
-}

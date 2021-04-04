@@ -1,50 +1,42 @@
-.shown {
-  display: block;
+.App {
+  text-align: center;
 }
 
-.shown-hide {
-  display: none;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: #adc5eb;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-textarea::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #424a57;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.parent {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+.App-link {
+  color: #61dafb;
 }
 
-.div1 {
-  grid-area: 1 / 2 / 2 / 3;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.div2 {
-  grid-area: 1 / 1 / 2 / 2;
-}
 
-pre {
-  font-size: 20px;
-  border: 2px solid grey;
-  width: 620px;
-  border-left: 12px solid rgb(12, 23, 177);
-  border-radius: 5px;
-  padding: 14px;
-
-  line-height: 24px;
-
-  background-image: linear-gradient(180deg, #eee 50%, #fff 50%);
-
-  background-size: 100% 48px;
-
-  background-position: 0 14px;
+button {
+  font-size: calc(10px + 2vmin);
 }
