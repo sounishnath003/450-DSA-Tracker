@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div>
-      <h1 className='p-3 bg-red-50 '>Awesome @ViteJs + Tailwind</h1>
-    </div>
-  )
+  return <></>;
 }
 
-export default App
+export default App;
