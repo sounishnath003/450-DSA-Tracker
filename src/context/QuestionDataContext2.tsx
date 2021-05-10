@@ -18,7 +18,7 @@ import {
   IQuestionDataContextState,
   questionDataReducer,
 } from "../Reducer/questionDataReducer";
-import { IRoute, routes } from "../routes/routes";
+import {generateUrlForQuestion , IRoute , routes} from "../routes/routes";
 import { CustomCategoryFilterProvider } from "./CustomCategoryFilterContext";
 
 export const QuestionDataContext2 = React.createContext<IQuestionDataContextState>(
@@ -117,7 +117,6 @@ export function QuestionDataContext2Provider(): JSX.Element {
                   path={route.path}
                   component={() => (
                     <QStatCard
-                      key={index}
                       questionData={allTopicsData[index]}
                     />
                   )}
@@ -129,10 +128,7 @@ export function QuestionDataContext2Provider(): JSX.Element {
                   <Route
                     exact
                     key={question.Problem}
-                    path={`/${question.Topic.toLowerCase()}/${question.Problem.replace(
-                      /\(([^)]+)\)/,
-                      ""
-                    ).replaceAll(" ", "-")}/solution`}
+                    path={generateUrlForQuestion(questiond.topicName, question.Problem)}
                     component={UploadCode}
                   />
                 ))
