@@ -105,7 +105,7 @@ const UploadCode: React.FC = (Props: any) => {
 
     setvisible(false);
     setvisible2(true);
-    router.back();
+    router.goBack();
   }
 
   function editCode() {

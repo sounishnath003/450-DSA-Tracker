@@ -63,11 +63,3 @@ export function updateDocumentStateInDB(
   db.collection(DSA_450_TABLE).doc(formatKeys(key)).update(updatedData);
   // getData();
 }
-
-export async function resetProgressDSATable() {
-  try {
-    await db.collection(DSA_450_TABLE).delete();
-  } catch (err) {
-    alert(`something went wrong`);
-  }
-}
