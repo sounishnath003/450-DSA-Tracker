@@ -29,7 +29,7 @@
     "remove:config": "del tsconfig.json"
   },
   "eslintConfig": {
-    "extends": [  
+    "extends": [
       "react-app",
       "react-app/jest"
     ]
