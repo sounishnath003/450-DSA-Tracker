@@ -12,8 +12,10 @@ import {
 
 
 // Typescript Module - Production requirement
-const LBase = require("localbase");
-export const db: any = new LBase.default("db");
+// const LBase = require("localbase");
+
+import * as Lbase from 'localbase';
+export const db: any = new Lbase.default("db");
 
 export {
   countOfQuestionsCompletion,

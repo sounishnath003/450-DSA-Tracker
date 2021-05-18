@@ -1,4 +1,5 @@
 import { MARK_AS_COMPLETE, UPLOAD_CODE_SOLUTION } from "../actions";
+import { QuestionData } from "../Backend/db-store/data";
 import { IQuestion, IQuestionData } from "../Backend/model/Question-model";
 
 type IAction = {
@@ -17,7 +18,7 @@ export interface IQuestionDataContextState {
 }
 
 export const initialState: IQuestionDataContextState = {
-  allTopicsData: [],
+  allTopicsData: QuestionData,
   updateData: (
     key: string,
     topicData: IQuestionData,

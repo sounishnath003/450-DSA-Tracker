@@ -36,7 +36,7 @@ const CategoryList = () => {
 
   React.useEffect(() => {
     countOfQuestionsCompletion((c: number) => setCount(c));
-    return () => {};
+    return () => {setCount(count)};
   }, []);
 
   return (

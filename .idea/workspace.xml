@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="607bdeaf-4305-48cf-aee9-a611581e6c1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/env/auth0-cred.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/favicon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/client/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Dockerfile.dev" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/netlify.toml" beforeDir="false" afterPath="$PROJECT_DIR$/client/netlify.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/postcss.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/_redirects" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Backend/services/database.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Backend/services/database.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Reducer/questionDataReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Reducer/questionDataReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/icons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Auth/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Category/CategoryList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Category/CategoryList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/QStatCard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/QStatCard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/QuestionDataContext2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/QuestionDataContext2.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/env/auth0-cred.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/env/authProviderConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/env/authProviderConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/react-app-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reportWebVitals.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tailwind.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/utility/controllers/allTopicQuestions-controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/utility/controllers/allTopicQuestions-controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/utility/functions-utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/utility/function-utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/utility/functions-utils/mongoURI.sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/utility/function-utils/mongoURI.sample.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sJCTUg8j1t0m9Gt4K9stFum93H" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="E:\React\450-DSA-Tracker\client\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="607bdeaf-4305-48cf-aee9-a611581e6c1c" name="Default Changelist" comment="" />
+      <created>1620581339242</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620581339242</updated>
+      <workItem from="1620581387250" duration="1925000" />
+      <workItem from="1620617820602" duration="4535000" />
+      <workItem from="1620635546804" duration="1246000" />
+      <workItem from="1620754534702" duration="1786000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

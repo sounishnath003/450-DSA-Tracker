@@ -5,8 +5,6 @@ const m = require("mongodb").MongoClient;
 let cachedDB = null;
 
 async function connectToDatabase() {
-  const URI = `ANY_GOOD_URL_MONGO_DB_ATLAS`;
-
   if (cachedDB) {
     return cachedDB;
   }

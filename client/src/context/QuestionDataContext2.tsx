@@ -16,7 +16,7 @@ import { useFirstVisit } from "../hooks/useFirstVisit";
 import {
   initialState,
   IQuestionDataContextState,
-  questionDataReducer,
+  questionDataReducer
 } from "../Reducer/questionDataReducer";
 import {generateUrlForQuestion , IRoute , routes} from "../routes/routes";
 import { CustomCategoryFilterProvider } from "./CustomCategoryFilterContext";
@@ -25,7 +25,7 @@ export const QuestionDataContext2 = React.createContext<IQuestionDataContextStat
   initialState
 );
 
-export function QuestionDataContext2Provider(): JSX.Element {
+export function QuestionDataContext2Provider({children}:any): JSX.Element {
   // * Globally declared the dummyData with all the 450Questions
   const [allTopicsData, setAllTopicsData] = React.useState<IQuestionData[]>(
     QuestionData

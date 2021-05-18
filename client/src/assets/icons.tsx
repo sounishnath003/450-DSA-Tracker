@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 export const EasyIcon = () => (
   <svg
     className="w-6 h-6"

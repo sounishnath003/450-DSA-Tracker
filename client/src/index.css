@@ -1,6 +1,6 @@
-/* @import url("https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"); */
-
-@import url("./assets/design-style.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face {
   font-family: "Product Sans";
@@ -18,9 +18,4 @@
   font-family: "Product Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
