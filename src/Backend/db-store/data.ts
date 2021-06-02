@@ -2251,7 +2251,7 @@ export const QuestionData: IQuestionData[] = [
         Problem: "Maximum of all subarrays of size k.",
         Done: false,
         URL:
-          "https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/",
+          "https://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k3101/1",
       },
       {
         Topic: "Heap",
