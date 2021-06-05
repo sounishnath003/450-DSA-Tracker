@@ -9,7 +9,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^1.4.0",
     "history": "^5.0.0",
-    "mongodb": "^3.6.5",
+    "mongodb": "^3.6.9",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },

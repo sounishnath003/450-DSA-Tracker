@@ -1,25 +1,41 @@
-const { MONGODB_URI } = require("./mongoURI.json");
-const m = require("mongodb").MongoClient;
+var co = require('co');
+var mongoose = require('mongoose');
 
-// * thinks what to cache!!
-let cachedDB = null;
+let conn = null;
 
-async function connectToDatabase() {
-  if (cachedDB) {
-    return cachedDB;
-  }
+export
 
-  const client = await m.connect(MONGODB_URI, {
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useNewUrlParser: true,
-  });
 
-  cachedDB = client.db(`450DSATracker`);
 
-  return cachedDB;
-}
-
-module.exports = {
-  connectToDatabase,
-};
+// const { MONGODB_URI } = require("./mongoURI.json");
+// const m = require("mongoose");
+//
+// async function connectToDatabase() {
+//   m.connect(
+//     MONGODB_URI,
+//     { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true },
+//     (err) =>
+//       err
+//         ? console.error({ err })
+//         : console.log(`MongoDB Connection established!!`)
+//   );
+// }
+//
+// // connectToDatabase();
+//
+// const AllTopicQuestionsSchema = new m.Schema({
+//   topicName: { type: m.Schema.Types.String },
+//   position: { type: m.Schema.Types.Number },
+//   started: { type: m.Schema.Types.Boolean },
+//   doneQuestions: { type: m.Schema.Types.Number },
+//   questions: { type: m.Schema.Types.Array },
+//   user: { type: m.Schema.Types.ObjectId },
+// });
+//
+// const AllTopicQuestions =
+//   m.model < IAllTopicQuestion > ("alltopicquestions", AllTopicQuestionsSchema);
+//
+// module.exports = {
+//   connectToDatabase,
+//   AllTopicQuestions,
+// };

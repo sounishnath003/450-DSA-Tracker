@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {MARK_AS_COMPLETE} from "../../actions";
-import {IQuestion , IQuestionData} from "../../Backend/model/Question-model";
-import {QuestionDataContext2} from "../../context/QuestionDataContext2";
-import {useCustomFilterDragAndDropper} from "../../hooks/useCustomFilterDragAndDropper";
-import {tableRowLogic} from "./utils/utility";
-import {generateUrlForQuestion} from "../../routes/routes";
+import { MARK_AS_COMPLETE } from "../../actions";
+import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
+import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
+import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
+import { generateUrlForQuestion } from "../../routes/routes";
+import { tableRowLogic } from "./utils/utility";
 
 /* *
  * questionData: IQuestionData; // data: IQuestion
@@ -18,41 +18,40 @@ import {generateUrlForQuestion} from "../../routes/routes";
 type ICategoryRoute = { path: string; categoryType: string; icon: JSX.Element };
 
 interface Props {
-    questionData: IQuestionData; // data: IQuestion
+  questionData: IQuestionData; // data: IQuestion
 }
 
 const QStatCard: React.FC<Props> = ({ questionData }) => {
-  const { updateData, questionActionDispatcher } = React.useContext(
-    QuestionDataContext2
-  );
+  const { updateData, questionActionDispatcher } =
+    React.useContext(QuestionDataContext2);
   const { topicName, questions, started } = questionData;
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const [searchText, setSearchText] = React.useState<string>("");
   // no of question ~ selected realtime
   const [selected, setSelected] = useState<number[]>([]);
 
-    // ? @COMPLETED_ACTION - useEffect questionCompleted Update
+  // ? @COMPLETED_ACTION - useEffect questionCompleted Update
 
-    // *** Dragable questionState hooking onto it***
-    const [draggedQuestion , setDraggedQuestion] = React.useState<IQuestion> ();
+  // *** Dragable questionState hooking onto it***
+  const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
-    useEffect (() => {
-        if (questionData !== undefined) {
-            let doneQuestions: number[] = [];
-            // eslint-disable-next-line array-callback-return
-            questionData.questions.map ((question: IQuestion , index: number) => {
-                if (question.Done === true) {
-                    doneQuestions.push (index);
-                }
-            });
-            setSelected (doneQuestions);
-            if (doneQuestions.length > 0) {
-                toast.success (
-                    `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
-                );
-            }
+  useEffect(() => {
+    if (questionData !== undefined) {
+      let doneQuestions: number[] = [];
+      // eslint-disable-next-line array-callback-return
+      questionData.questions.map((question: IQuestion, index: number) => {
+        if (question.Done === true) {
+          doneQuestions.push(index);
         }
-    } , [questionData , questions.length]);
+      });
+      setSelected(doneQuestions);
+      if (doneQuestions.length > 0) {
+        toast.success(
+          `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
+        );
+      }
+    }
+  }, [questionData, questions.length]);
 
   // * searchBar component()
   function SearchBar(this: undefined) {
@@ -89,70 +88,70 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
     );
   }
 
-    function whenQuestionCompleted(index: number) {
-        type Ipayload = {
-            index: number;
-            selected: number[];
-            questionData: IQuestionData;
-            updateData: (
-                key: string ,
-                topicData: IQuestionData ,
-                topicPosition: number
-            ) => void;
-        };
-        questionActionDispatcher ({
-            type :MARK_AS_COMPLETE ,
-            payload :{index , selected , questionData , updateData} as Ipayload ,
-        });
-    }
-
-    const CategoryList = () => {
-        const {onDragOver , onDrop , routes} = useCustomFilterDragAndDropper ();
-
-        return (
-            <div className="my-3">
-                <div className="flex justify-evenly space-x-4">
-                    {routes.map ((route: ICategoryRoute , index) => (
-                        <>
-                            <Link to={route.path}>
-                                <div
-                                    className={`items-center px-6 py-2 border-2 ${
-                                        index === 0
-                                            ? `border-green-400 hover:bg-green-200`
-                                            : index === 1
-                                            ? "border-blue-400 hover:bg-blue-200"
-                                            : `border-red-400 hover:bg-red-200`
-                                    } cursor-pointer rounded-lg shadow-lg`}
-                                    id={index === 0 ? `easy` : index === 1 ? `medium` : `hard`}
-                                    onDragOver={(event) =>
-                                        onDragOver (event , draggedQuestion as IQuestion)
-                                    }
-                                    onDrop={(event) =>
-                                        onDrop (event , draggedQuestion as IQuestion)
-                                    }
-                                >
-                                    <div className="flex space-x-1">
-                                        <div>{route.icon}</div>
-                                        <div>{route.categoryType}</div>
-                                    </div>
-                                </div>
-                            </Link>
-                        </>
-                    ))}
-                </div>
-            </div>
-        );
+  function whenQuestionCompleted(index: number) {
+    type Ipayload = {
+      index: number;
+      selected: number[];
+      questionData: IQuestionData;
+      updateData: (
+        key: string,
+        topicData: IQuestionData,
+        topicPosition: number
+      ) => void;
     };
+    questionActionDispatcher({
+      type: MARK_AS_COMPLETE,
+      payload: { index, selected, questionData, updateData } as Ipayload,
+    });
+  }
 
-    // ** OnDragStart Event - user start dragging...
-    function onDragStart(
-        e: React.DragEvent<HTMLTableRowElement> ,
-        payload: IQuestion
-    ) {
-        e.stopPropagation ();
-        e.preventDefault ();
-        setDraggedQuestion (payload);
-    }
+  const CategoryList = () => {
+    const { onDragOver, onDrop, routes } = useCustomFilterDragAndDropper();
+
+    return (
+      <div className="my-3">
+        <div className="flex justify-evenly space-x-4">
+          {routes.map((route: ICategoryRoute, index) => (
+            <>
+              <Link to={route.path}>
+                <div
+                  className={`items-center px-6 py-2 border-2 ${
+                    index === 0
+                      ? `border-green-400 hover:bg-green-200`
+                      : index === 1
+                      ? "border-blue-400 hover:bg-blue-200"
+                      : `border-red-400 hover:bg-red-200`
+                  } cursor-pointer rounded-lg shadow-lg`}
+                  id={index === 0 ? `easy` : index === 1 ? `medium` : `hard`}
+                  onDragOver={(event) =>
+                    onDragOver(event, draggedQuestion as IQuestion)
+                  }
+                  onDrop={(event) =>
+                    onDrop(event, draggedQuestion as IQuestion)
+                  }
+                >
+                  <div className="flex space-x-1">
+                    <div>{route.icon}</div>
+                    <div>{route.categoryType}</div>
+                  </div>
+                </div>
+              </Link>
+            </>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // ** OnDragStart Event - user start dragging...
+  function onDragStart(
+    e: React.DragEvent<HTMLTableRowElement>,
+    payload: IQuestion
+  ) {
+    e.stopPropagation();
+    e.preventDefault();
+    setDraggedQuestion(payload);
+  }
 
   function QTable() {
     return (
@@ -216,10 +215,12 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
                         <td className="text-center py-2">
                           <Link
                             to={{
-                              pathname: `/${topicName.toLowerCase()}/${question.Problem.replace(
-                                /\(([^)]+)\)/,
-                                ""
-                              ).replaceAll(" ", "-")}/solution`,
+                              pathname: `/${topicName.toLocaleLowerCase()}/${question.Problem.substr(
+                                0,
+                                10
+                              )
+                                .toLocaleLowerCase()
+                                .replaceAll(" ", "-")}/solution`,
                               state: {
                                 index,
                                 question,
@@ -251,31 +252,31 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
     );
   }
 
-    return (
-        <>
-            <ToastContainer/>
-            <div className="text-4xl dark:text-white text-center text-gray-800">
-                {" "}
-                ✨ {topicName} Problems{" "}
-            </div>
-            <div className=" text-sm text-center mt-3">
+  return (
+    <>
+      <ToastContainer />
+      <div className="text-4xl dark:text-white text-center text-gray-800">
+        {" "}
+        ✨ {topicName} Problems{" "}
+      </div>
+      <div className=" text-sm text-center mt-3">
         <span>
           <Link to="/" className="text-blue-600">
             Topics
           </Link>{" "}
-            /{" "}
-            <span className="bg-black tracking-wide text-white px-2 mx-3 rounded-lg py-1">
+          /{" "}
+          <span className="bg-black tracking-wide text-white px-2 mx-3 rounded-lg py-1">
             {topicName}
           </span>
         </span>
-            </div>
-            <div className="my-8 ">
-                <SearchBar/>
-                <CategoryList/>
-                <QTable/>
-            </div>
-        </>
-    );
+      </div>
+      <div className="my-8 ">
+        <SearchBar />
+        <CategoryList />
+        <QTable />
+      </div>
+    </>
+  );
 };
 
 export default QStatCard;
