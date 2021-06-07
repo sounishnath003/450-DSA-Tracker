@@ -1,26 +1,40 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@types/express": "^4.17.11",
-    "@types/mongoose": "^5.10.4",
-    "@types/node": "^14.14.35",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-openid-connect": "^2.3.0",
-    "mongoose": "^5.12.2",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.3"
-  },
+  "description": "add some good description",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node index.ts",
-    "start": "ts-node index.ts"
+    "dev": "nodemon --exec ts-node ./src/index.ts",
+    "start": "ts-node ./src/index.ts"
+  },
+  "originalAuthor": "Sounish Nath",
+  "originalEmail": "flock.sinasini@gmail.com",
+  "github": "https://github.com/sounishnath003",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.13",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.3.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.1",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/http-errors": "^1.8.0",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.2",
+    "@types/node": "^15.12.1",
+    "@types/uuid": "^8.3.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7"
   }

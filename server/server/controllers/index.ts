@@ -1,10 +1,5 @@
-import AllTopicQuestionController from "./allTopicQuestions-controller";
-import AuthController from "./auth-controller";
-import CustomCategoryListController from "./customCategoryList-controller";
+import APIController from './api.controller';
 
 export {
-    AuthController,
-    AllTopicQuestionController,
-    CustomCategoryListController,
-};
-
+    APIController
+}

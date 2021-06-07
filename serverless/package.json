@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.11",
+    "@types/mongoose": "^5.10.4",
+    "@types/node": "^14.14.35",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-openid-connect": "^2.3.0",
+    "mongoose": "^5.12.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  },
+  "scripts": {
+    "dev": "nodemon --exec ts-node index.ts",
+    "start": "ts-node index.ts"
+  },
+  "devDependencies": {
+    "@types/morgan": "^1.9.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  }
+}

@@ -3,9 +3,6 @@ var mongoose = require('mongoose');
 
 let conn = null;
 
-export
-
-
 
 // const { MONGODB_URI } = require("./mongoURI.json");
 // const m = require("mongoose");

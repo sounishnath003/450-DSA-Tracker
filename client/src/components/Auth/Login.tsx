@@ -2,7 +2,12 @@ import {useAuth0} from "@auth0/auth0-react";
 import React from "react";
 
 function AuthHome() {
-    const { loginWithRedirect } = useAuth0();
+    // const { loginWithRedirect } = useAuth0();
+
+    async function loginWithRedirect() {
+        const resp = await (await fetch('http://localhost:5000/login')).json();
+        console.log({resp});
+    }
 
     return (
         <div className="bg-blue-50 h-screen flex">

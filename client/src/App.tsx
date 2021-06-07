@@ -11,12 +11,13 @@ function App() {
     isAuthenticated &&
       (async function () {
         if (user !== undefined) {
+          localStorage.setItem('uuid', `${user.sub}`);
           const resp = await (
             await fetch(`/.netlify/functions/mango`, {
               credentials: "same-origin",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user.sub}}`,
+                Authorization: `Bearer ${user.sub}`,
               },
             })
           ).json();
