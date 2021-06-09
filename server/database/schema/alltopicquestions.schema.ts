@@ -3,7 +3,7 @@
 import { model, Schema } from "mongoose";
 
 import { Document } from "mongoose";
-import { IUser } from "../../models/user.model";
+import { IUser } from "./users.schema";
 
 export interface IAllTopicQuestion extends Document {
   topicName: string;

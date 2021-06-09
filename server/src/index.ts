@@ -1,7 +1,11 @@
+import { connectToDatabase } from "../database";
 import { kickStartTheServer } from "../server";
 
 function main() {
-    kickStartTheServer();
+  connectToDatabase()
+    .then((m) => console.log(`Mongodb configurations loaded...`))
+    .catch((e) => console.error(e));
+  kickStartTheServer();
 }
 
 main();
