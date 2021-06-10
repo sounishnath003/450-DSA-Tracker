@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { Types } from "mongoose";
+import { AllTopicQuestions } from "../../../database/schema/alltopicquestions.schema";
 import { User } from "../../../database/schema/users.schema";
 import {
   createError,
@@ -9,6 +11,7 @@ import {
   ResponseInterface,
   SUCCESS,
 } from "../../utils";
+import { QuestionData } from "./data/450DSA-questions";
 
 const router = Router();
 
@@ -42,6 +45,18 @@ router.post(
 
       const user = new User(finalPayload);
       const savedUser = await user.save();
+
+      /**
+       * My duty is to populate all 450 question to the user
+       */
+
+      const userId: string = savedUser._id;
+      const ds450Payload = new AllTopicQuestions({
+        questions: [...QuestionData],
+        user: Types.ObjectId(userId),
+      });
+
+      await ds450Payload.save();
 
       const accessToken = await generateAccessToken(savedUser.id);
 

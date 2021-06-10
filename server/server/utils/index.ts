@@ -38,7 +38,7 @@ export function generateAccessToken(userId: string): Promise<string> {
     try {
       const payload = { userId };
       const token: string = sign(payload, JWT_ACCESS_SECRET, {
-        expiresIn: "5d",
+        expiresIn: "1d",
         audience: userId,
       });
 

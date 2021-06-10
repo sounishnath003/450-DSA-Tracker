@@ -11,7 +11,7 @@ export interface IAllTopicQuestion extends Document {
   started: boolean;
   doneQuestions: number;
   questions: IQuestion[];
-  user: IUser["_id"];
+  userId: IUser["_id"];
 }
 
 export interface IQuestion {
@@ -29,7 +29,7 @@ const AllTopicQuestionsSchema: Schema<IAllTopicQuestion> = new Schema({
   started: { type: Schema.Types.Boolean },
   doneQuestions: { type: Schema.Types.Number },
   questions: { type: Schema.Types.Array },
-  user: { type: Schema.Types.ObjectId },
+  userId: { type: Schema.Types.ObjectId },
 });
 
 const AllTopicQuestions = model<IAllTopicQuestion>(
