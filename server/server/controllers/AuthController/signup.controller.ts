@@ -50,10 +50,10 @@ router.post(
        * My duty is to populate all 450 question to the user
        */
 
-      const userId: string = savedUser._id;
+      const userId: string = savedUser.id;
       const ds450Payload = new AllTopicQuestions({
         questions: [...QuestionData],
-        user: Types.ObjectId(userId),
+        userId: Types.ObjectId(userId),
       });
 
       await ds450Payload.save();

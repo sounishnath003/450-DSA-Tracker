@@ -2,6 +2,7 @@ import {Router} from "express";
 import {Next , RequestInterface , ResponseInterface , SUCCESS} from "../utils";
 
 import AuthController from "./AuthController";
+import QuestionsController from './QuestionsController';
 
 const router = Router ();
 
@@ -22,5 +23,6 @@ router.get ("/data" , async (req: RequestInterface , res: ResponseInterface , ne
 // Controllers
 
 router.use('/auth', AuthController);
+router.use('/questions', QuestionsController);
 
 export default router;
