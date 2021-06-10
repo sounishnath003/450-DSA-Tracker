@@ -45,11 +45,23 @@ router.post(
 
       const accessToken = await generateAccessToken(savedUser.id);
 
-      return res.status(202).send({
-        ...SUCCESS,
-        accessToken,
-        isLoggedIn: true,
-      });
+      return res
+        .status(202)
+        .cookie("accessToken", accessToken, {
+          httpOnly: true,
+          sameSite: "strict",
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
+        .cookie("isLoggedIn", "true", {
+          httpOnly: true,
+          sameSite: "strict",
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
+        .send({
+          ...SUCCESS,
+          accessToken,
+          isLoggedIn: true,
+        });
     } catch (error) {
       next(error);
     }

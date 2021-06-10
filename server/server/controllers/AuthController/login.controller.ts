@@ -1,3 +1,4 @@
+import { compare } from "bcrypt";
 import { Router } from "express";
 import { User } from "../../../database/schema/users.schema";
 import {
@@ -14,6 +15,14 @@ interface LoginInterface {
   password: string;
 }
 
+const isPasswordCorrect = async function (plainPassword: string, hashedPassword: string) {
+  try {
+    return await compare(plainPassword, hashedPassword);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const router = Router();
 // [POST]: Login User
 router.post(
@@ -28,9 +37,7 @@ router.post(
           "You are not registed! Please Signup first!"
         );
 
-      const doesPasswordMatched = await (User as any).isPasswordCorrect(
-        payload.password
-      );
+      const doesPasswordMatched = await isPasswordCorrect(payload.password, isUserExists.password);
 
       if (!doesPasswordMatched) {
         throw new createError.Unauthorized(
@@ -40,11 +47,23 @@ router.post(
 
       const accessToken: string = await generateAccessToken(isUserExists.id);
 
-      return res.status(202).send({
-        ...SUCCESS,
-        isLoggedIn: true,
-        accessToken,
-      });
+      return res
+        .status(202)
+        .cookie("accessToken", accessToken, {
+          httpOnly: true,
+          sameSite: "strict",
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
+        .cookie("isLoggedIn", "true", {
+          httpOnly: true,
+          sameSite: "strict",
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
+        .send({
+          ...SUCCESS,
+          isLoggedIn: true,
+          accessToken,
+        });
     } catch (error) {
       next(error);
     }
