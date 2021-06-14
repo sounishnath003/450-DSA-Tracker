@@ -37,7 +37,7 @@ export class Server {
   private async serverConfig() {
     // express-file-upload setup middleware
     this.app.use(json());
-    this.app.use(cors());
+    this.app.use(cors({origin: 'http://localhost:3000'}));
     this.app.use(morgan("dev"));
     this.app.use(urlencoded({ extended: false }));
     this.app.use(cookieParser());

@@ -33,13 +33,12 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({
   children,
 }: AuthProviderProps) => {
-  const [error, setError] = React.useState<string | null>(null);
-  const [message, setMessage] = React.useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+  const [authState, setAuthState] =
+    React.useState<AuthContextState>(initalAuthState);
 
   function disappear(callback: any, seconds: number) {
     setTimeout(() => {
-      callback;
+      callback();
     }, seconds * 1000);
   }
 
@@ -47,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     username: string;
     password: string;
   }) {
-    if (payload.username && payload.password) {
+    if (payload.username.length > 0 && payload.password.length > 0) {
       const resp = await (
         await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
@@ -55,13 +54,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         })
       ).json();
 
+      console.log(payload);
+      console.log(resp);
+      
+
       if (resp.error) {
-        setError((error) => (error = resp.error.message as string));
+        setAuthState({ ...authState, error: resp.error.message as string });
+        disappear(() => setAuthState({ ...authState, error: null }), 3);
         return;
       }
 
-      setMessage((message) => (message = resp.message));
+      setAuthState({ ...authState, message: resp.message });
+      disappear(() => setAuthState({ ...authState, message: null }), 3);
       console.log({ resp });
+    } else {
+      setAuthState({
+        ...authState,
+        error: "Username / Password fields are empty!",
+      });
+      disappear(() => setAuthState({ ...authState, error: null }), 3);
     }
   }
 
@@ -71,51 +82,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   }) {
     try {
       const resp = await (
-        await fetch("http://localhost:5000/api/auth/login", {
+        await fetch("http://localhost:5000/api/auth/signup", {
           method: "POST",
           body: JSON.stringify(payload),
         })
       ).json();
 
       if (resp.error) {
-        setError((error) => (error = resp.error.message as string));
+        setAuthState({ ...authState, error: resp.error.message as string });
+        disappear(() => setAuthState({ ...authState, error: null }), 3);
         return;
       }
 
-      disappear(
-        setMessage((message) => (message = resp.message)),
-        4
-      );
-      disappear(
-        setIsLoggedIn((loggedIn) => (loggedIn = resp.isLoggedIn)),
-        4
-      );
+      setAuthState({ ...authState, message: resp.message });
+      disappear(() => setAuthState({ ...authState, message: null }), 3);
       console.log({ resp });
     } catch (error) {
-      disappear(setError("Some error occured while fetching! Hold on."), 4);
+      setAuthState({
+        ...authState,
+        error: "Some error occured while fetching! Hold on.",
+      });
+      disappear(() => setAuthState({ ...authState, error: null }), 3);
     }
   }
 
   async function logout() {
     try {
     } catch (error) {
-      disappear(setError("Could not able to log you out!"), 4);
+      setAuthState({ ...authState, error: "Could not able to log you out!" });
+      disappear(() => setAuthState({ ...authState, error: null }), 3);
     }
   }
 
   return (
     <AuthContext.Provider
-      value={{
-        loginWithRedirect,
-        logout,
-        error,
-        message,
-        signUpWithRedirect,
-        isLoggedIn,
-      }}
+      value={{ ...authState, loginWithRedirect, logout, signUpWithRedirect }}
     >
-      <Error error={error} />
-      <Success message={message} />
+      <Error error={authState.error} />
+      <Success message={authState.message} />
       {children}
     </AuthContext.Provider>
   );

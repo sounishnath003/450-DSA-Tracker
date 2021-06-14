@@ -8,17 +8,21 @@ interface PayloadInterface {
 }
 
 function AuthHome() {
-  const [username, setUsername] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [signupPressed, setSignupPressed] = React.useState<boolean>(false);
 
-  const { loginWithRedirect } = useAuth();
+  const [payload, setPayload] = React.useState<PayloadInterface>({
+    username: "",
+    password: "",
+  });
+  const { loginWithRedirect, signUpWithRedirect } = useAuth();
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.name === "username") {
-      setUsername((u) => event.target.value);
-    } else {
-      setPassword((u) => event.target.value);
-    }
+  function handleChange(e: any) {
+    setPayload((prevState: PayloadInterface) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
   }
 
   return (
@@ -43,7 +47,7 @@ function AuthHome() {
               </label>
               <input
                 onChange={handleChange}
-                value={username}
+                value={payload.username}
                 id="username"
                 name="username"
                 type="username"
@@ -59,7 +63,7 @@ function AuthHome() {
               </label>
               <input
                 onChange={handleChange}
-                value={password}
+                value={payload.password}
                 id="password"
                 name="password"
                 type="password"
@@ -72,12 +76,35 @@ function AuthHome() {
           </div>
         </div>
 
-        <div
-          onClick={loginWithRedirect({ username, password })}
-          className="text-xl w-30 items-center content-center font-thin text-gray-800- m-auto px-6 py-2 rounded cursor-pointer border  bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-xl"
-        >
-          <div className="m-auto text-sm tracking-wide md:text-base text-center">
-            Login &rarr;{" "}
+        {!signupPressed ? (
+          <div
+            onClick={() => loginWithRedirect(payload)}
+            className="text-xl w-30 items-center content-center font-thin text-gray-800- m-auto px-6 py-2 rounded cursor-pointer border  bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-xl"
+          >
+            <div className="m-auto text-sm tracking-wide md:text-base text-center">
+              Login &rarr;{" "}
+            </div>
+          </div>
+        ) : (
+          <div
+            onClick={() => signUpWithRedirect(payload)}
+            className="text-xl w-30 items-center content-center font-thin text-gray-800- m-auto px-6 py-2 rounded cursor-pointer border  bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-xl"
+          >
+            <div className="m-auto text-sm tracking-wide md:text-base text-center">
+              Signup &rarr;{" "}
+            </div>
+          </div>
+        )}
+
+        <div className="my-4 text-center">
+          <div className="text-sm">
+            Don't have an account?{" "}
+            <span
+              onClick={() => setSignupPressed((state: boolean) => !state)}
+              className="text-blue-600 cursor-pointer"
+            >
+              Signup
+            </span>{" "}
           </div>
         </div>
       </div>
