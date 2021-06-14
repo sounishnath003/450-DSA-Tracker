@@ -88,7 +88,7 @@ function AuthHome() {
         ) : (
           <div
             onClick={() => signUpWithRedirect(payload)}
-            className="text-xl w-30 items-center content-center font-thin text-gray-800- m-auto px-6 py-2 rounded cursor-pointer border  bg-indigo-600 hover:bg-indigo-700 text-white hover:shadow-xl"
+            className="text-xl w-30 items-center content-center font-thin text-gray-800- m-auto px-6 py-2 rounded cursor-pointer border bg-red-600 hover:bg-red-700 text-white hover:shadow-xl"
           >
             <div className="m-auto text-sm tracking-wide md:text-base text-center">
               Signup &rarr;{" "}

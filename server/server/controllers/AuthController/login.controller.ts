@@ -34,6 +34,8 @@ router.post(
     try {
       const payload: LoginInterface = req.body as LoginInterface;
       const isUserExists = await User.findOne({ username: payload.username });
+      console.log({payload});
+      
 
       if (isUserExists === null)
         throw new createError.NotFound(

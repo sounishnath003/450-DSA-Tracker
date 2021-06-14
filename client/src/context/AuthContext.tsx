@@ -47,24 +47,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     password: string;
   }) {
     if (payload.username.length > 0 && payload.password.length > 0) {
-      const resp = await (
+      const resp = await(
         await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
           body: JSON.stringify(payload),
         })
       ).json();
-
-      console.log(payload);
-      console.log(resp);
       
-
       if (resp.error) {
         setAuthState({ ...authState, error: resp.error.message as string });
         disappear(() => setAuthState({ ...authState, error: null }), 3);
         return;
       }
 
-      setAuthState({ ...authState, message: resp.message });
+      setAuthState({ ...authState, message: 'You have been succesfully loggedIn!' });
       disappear(() => setAuthState({ ...authState, message: null }), 3);
       console.log({ resp });
     } else {
@@ -108,6 +108,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 
   async function logout() {
     try {
+      const resp = await ( await fetch('http://localhost:5000/api/auth/logout') ).json();
+      if (resp.error) {
+        setAuthState({...authState, error: resp.error.message});
+        disappear(()=> setAuthState({...authState, error: null}), 3);
+        return ;
+      }
+
+      console.log(resp);
+      setAuthState({...authState, message: resp.message});
+      
+
     } catch (error) {
       setAuthState({ ...authState, error: "Could not able to log you out!" });
       disappear(() => setAuthState({ ...authState, error: null }), 3);
