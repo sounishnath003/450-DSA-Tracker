@@ -72,6 +72,9 @@ router.post(
           sameSite: "strict",
           expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
         })
+        .cookie("isAuthenticated", "true", {
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
         .send({
           ...SUCCESS,
           accessToken,

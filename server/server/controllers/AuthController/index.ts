@@ -24,6 +24,7 @@ router.get(
         .status(202)
         .clearCookie("accessToken")
         .clearCookie("isLoggedIn")
+        .clearCookie("isAuthenticated")
         .send({
           ...SUCCESS,
           message: "You have been Logout Successfully!",

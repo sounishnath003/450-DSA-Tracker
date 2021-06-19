@@ -1,6 +1,9 @@
+import Cookie from "js-cookie";
 import React from "react";
 import { Error } from "../components/Alert";
 import Success from "../components/Alert/Success";
+import { AuthHome } from "../components/Auth";
+import { QuestionDataContext2Provider } from "./QuestionDataContext2";
 
 interface AuthContextState {
   isLoggedIn: boolean;
@@ -36,6 +39,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const [authState, setAuthState] =
     React.useState<AuthContextState>(initalAuthState);
 
+  React.useEffect(() => {
+    const { isAuthenticated } = Cookie.getJSON();
+    if (isAuthenticated === true) {
+      setAuthState({ ...authState, isLoggedIn: true });
+    } else {
+      setAuthState(initalAuthState);
+    }
+  }, [authState.isLoggedIn]);
+
   function disappear(callback: any, seconds: number) {
     setTimeout(() => {
       callback();
@@ -47,24 +59,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     password: string;
   }) {
     if (payload.username.length > 0 && payload.password.length > 0) {
-      const resp = await(
+      const resp = await (
         await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          credentials: 'include',
+          credentials: "include",
           body: JSON.stringify(payload),
         })
       ).json();
-      
+
       if (resp.error) {
         setAuthState({ ...authState, error: resp.error.message as string });
         disappear(() => setAuthState({ ...authState, error: null }), 3);
         return;
       }
 
-      setAuthState({ ...authState, message: 'You have been succesfully loggedIn!' });
+      setAuthState({
+        ...authState,
+        isLoggedIn: resp.isLoggedIn,
+        message: "You have been succesfully loggedIn!",
+      });
       disappear(() => setAuthState({ ...authState, message: null }), 3);
       console.log({ resp });
     } else {
@@ -84,6 +100,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       const resp = await (
         await fetch("http://localhost:5000/api/auth/signup", {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
           body: JSON.stringify(payload),
         })
       ).json();
@@ -94,7 +114,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         return;
       }
 
-      setAuthState({ ...authState, message: resp.message });
+      setAuthState({
+        ...authState,
+        message: resp.message,
+        isLoggedIn: resp.isLoggedIn,
+      });
       disappear(() => setAuthState({ ...authState, message: null }), 3);
       console.log({ resp });
     } catch (error) {
@@ -108,17 +132,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 
   async function logout() {
     try {
-      const resp = await ( await fetch('http://localhost:5000/api/auth/logout') ).json();
+      const resp = await (
+        await fetch("http://localhost:5000/api/auth/logout")
+      ).json();
       if (resp.error) {
-        setAuthState({...authState, error: resp.error.message});
-        disappear(()=> setAuthState({...authState, error: null}), 3);
-        return ;
+        setAuthState({ ...authState, error: resp.error.message });
+        disappear(() => setAuthState({ ...authState, error: null }), 3);
+        return;
       }
 
       console.log(resp);
-      setAuthState({...authState, message: resp.message});
-      
-
+      setAuthState({
+        ...authState,
+        message: resp.message,
+        isLoggedIn: resp.isLoggedIn,
+      });
     } catch (error) {
       setAuthState({ ...authState, error: "Could not able to log you out!" });
       disappear(() => setAuthState({ ...authState, error: null }), 3);
@@ -132,6 +160,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       <Error error={authState.error} />
       <Success message={authState.message} />
       {children}
+      {authState.isLoggedIn ? <QuestionDataContext2Provider /> : <AuthHome />}
     </AuthContext.Provider>
   );
 };

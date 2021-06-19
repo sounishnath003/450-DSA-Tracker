@@ -34,8 +34,7 @@ router.post(
     try {
       const payload: LoginInterface = req.body as LoginInterface;
       const isUserExists = await User.findOne({ username: payload.username });
-      console.log({payload});
-      
+      console.log({ isUserExists });
 
       if (isUserExists === null)
         throw new createError.NotFound(
@@ -65,6 +64,9 @@ router.post(
         .cookie("isLoggedIn", "true", {
           httpOnly: true,
           sameSite: "strict",
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+        })
+        .cookie("isAuthenticated", "true", {
           expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
         })
         .send({
