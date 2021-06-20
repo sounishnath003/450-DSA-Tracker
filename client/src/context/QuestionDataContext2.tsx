@@ -75,7 +75,6 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
           credentials: "include",
         })
       ).json();
-      console.log({ resp });
       setAllTopicsData(resp.questions);
     };
 

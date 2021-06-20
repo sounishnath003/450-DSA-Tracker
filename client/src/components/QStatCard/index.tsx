@@ -35,23 +35,35 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
   // *** Dragable questionState hooking onto it***
   const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
-  useEffect(() => {
-    if (questionData !== undefined) {
-      let doneQuestions: number[] = [];
-      // eslint-disable-next-line array-callback-return
-      questionData.questions.map((question: IQuestion, index: number) => {
-        if (question.Done === true) {
-          doneQuestions.push(index);
-        }
-      });
-      setSelected(doneQuestions);
-      if (doneQuestions.length > 0) {
-        toast.success(
-          `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
-        );
-      }
-    }
-  }, [questionData, questions.length]);
+  React.useEffect(() => {
+    const funk = async () => {
+      const { questions } = await(
+        await fetch(`http://localhost:5000/api/questions/topic/${topicName}`, {
+          credentials: "include",
+        })
+      ).json();
+      setQuestionsState([...questions[0].questions]);
+    };
+    funk();
+  }, []);
+
+  // useEffect(() => {
+  //   if (questionData !== undefined) {
+  //     let doneQuestions: number[] = [];
+  //     // eslint-disable-next-line array-callback-return
+  //     questionData.questions.map((question: IQuestion, index: number) => {
+  //       if (question.Done === true) {
+  //         doneQuestions.push(index);
+  //       }
+  //     });
+  //     setSelected(doneQuestions);
+  //     if (doneQuestions.length > 0) {
+  //       toast.success(
+  //         `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
+  //       );
+  //     }
+  //   }
+  // }, [questionData, questions.length]);
 
   // * searchBar component()
   function SearchBar(this: undefined) {
@@ -274,6 +286,7 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
         <SearchBar />
         <CategoryList />
         <QTable />
+        {/* <pre> {JSON.stringify(questionsState, null, 3)} </pre> */}
       </div>
     </>
   );
