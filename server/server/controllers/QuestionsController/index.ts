@@ -1,6 +1,7 @@
 import { Router } from "express";
 import createHttpError from "http-errors";
 import { AllTopicQuestions } from "../../../database/schema/alltopicquestions.schema";
+import { AllTopicQuestion, Topic } from "../../interfaces";
 import {
   createError,
   Next,
@@ -20,7 +21,9 @@ router.get(
     try {
       const userId: string = (req as any).userId as string;
 
-      const allQuestions = (await AllTopicQuestions.findOne({ userId })) as any;
+      const allQuestions: AllTopicQuestion = (await AllTopicQuestions.findOne({
+        userId,
+      })) as unknown as AllTopicQuestion;
 
       if (allQuestions === null) {
       }
@@ -28,6 +31,36 @@ router.get(
       return res.status(202).send({
         ...SUCCESS,
         questions: allQuestions.questions,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/** Get Specific Topic Questions */
+router.get(
+  "/topic/:topicName",
+  requiresAuth,
+  async (req: RequestInterface, res: ResponseInterface, next: Next) => {
+    try {
+      const userId: string = (req as any).userId as string;
+      const allTopicData: AllTopicQuestion = (await AllTopicQuestions.findOne({
+        userId,
+      })) as unknown as AllTopicQuestion;
+
+      const topicName: string = req.params.topicName;
+
+      const questions: AllTopicQuestionInterface[] =
+        allTopicData.questions.filter(
+          (q: AllTopicQuestionInterface) => q.topicName === topicName
+        );
+
+      return res.status(202).send({
+        ...SUCCESS,
+        message: `All ${topicName} questions are listed!!`,
+        questions,
+        count: questions.length
       });
     } catch (error) {
       next(error);

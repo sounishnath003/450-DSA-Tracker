@@ -16,20 +16,18 @@ import { useFirstVisit } from "../hooks/useFirstVisit";
 import {
   initialState,
   IQuestionDataContextState,
-  questionDataReducer
+  questionDataReducer,
 } from "../Reducer/questionDataReducer";
-import {generateUrlForQuestion , IRoute , routes} from "../routes/routes";
+import { generateUrlForQuestion, IRoute, routes } from "../routes/routes";
 import { CustomCategoryFilterProvider } from "./CustomCategoryFilterContext";
 
-export const QuestionDataContext2 = React.createContext<IQuestionDataContextState>(
-  initialState
-);
+export const QuestionDataContext2 =
+  React.createContext<IQuestionDataContextState>(initialState);
 
-export function QuestionDataContext2Provider({children}:any): JSX.Element {
+export function QuestionDataContext2Provider({ children }: any): JSX.Element {
   // * Globally declared the dummyData with all the 450Questions
-  const [allTopicsData, setAllTopicsData] = React.useState<IQuestionData[]>(
-    QuestionData
-  );
+  const [allTopicsData, setAllTopicsData] =
+    React.useState<IQuestionData[]>(QuestionData);
 
   // * The Main ReducerActionDispatcher declared
   const [state, questionActionDispatcher] = React.useReducer(
@@ -68,9 +66,21 @@ export function QuestionDataContext2Provider({children}:any): JSX.Element {
   React.useEffect(() => {
     const funk = async () => {
       console.log(`loading from ReducerActionDispatcher State`);
-      getData((qData: IQuestionData[]) => setAllTopicsData(qData));
+      // getData((qData: IQuestionData[]) => setAllTopicsData(qData));
     };
+
+    const funk2 = async () => {
+      const resp = await (
+        await fetch(`http://localhost:5000/api/questions/all`, {
+          credentials: "include",
+        })
+      ).json();
+      console.log({ resp });
+      setAllTopicsData(resp.questions);
+    };
+
     funk();
+    funk2();
   }, []);
 
   return (
@@ -116,9 +126,7 @@ export function QuestionDataContext2Provider({children}:any): JSX.Element {
                   exact
                   path={route.path}
                   component={() => (
-                    <QStatCard
-                      questionData={allTopicsData[index]}
-                    />
+                    <QStatCard questionData={allTopicsData[index]} />
                   )}
                 />
               ))}
@@ -128,7 +136,10 @@ export function QuestionDataContext2Provider({children}:any): JSX.Element {
                   <Route
                     exact
                     key={question.Problem}
-                    path={generateUrlForQuestion(questiond.topicName, question.Problem)}
+                    path={generateUrlForQuestion(
+                      questiond.topicName,
+                      question.Problem
+                    )}
                     component={UploadCode}
                   />
                 ))
