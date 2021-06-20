@@ -2,12 +2,10 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UPLOAD_CODE_SOLUTION } from "../../../actions";
 import {
   IQuestion,
-  IQuestionData
+  IQuestionData,
 } from "../../../Backend/model/Question-model";
-import { QuestionDataContext2 } from "../../../context/QuestionDataContext2";
 
 type IData = {
   index: number;
@@ -18,17 +16,16 @@ type IData = {
 const UploadCode: React.FC = (Props: any) => {
   const { question, questionData, index } = Props.location.state as IData;
 
-  console.log({p: Props.location.state});
-  
+  console.log({ p: Props.location.state });
 
   const [visible, setvisible] = React.useState<boolean>(false);
   const [visible2, setvisible2] = React.useState<boolean>(true);
   const [solutionCode, setSolutionCode] = React.useState<string>();
   const router = useHistory();
 
-  const { updateData, questionActionDispatcher } = React.useContext(
-    QuestionDataContext2
-  );
+  // const { updateData, questionActionDispatcher } = React.useContext(
+
+  // );
 
   React.useEffect(() => {
     // toast.warn("solution has been updated");
@@ -98,10 +95,10 @@ const UploadCode: React.FC = (Props: any) => {
       return ques;
     });
 
-    questionActionDispatcher({
-      type: UPLOAD_CODE_SOLUTION,
-      payload: { updateData, updatedQuestionState, questionData },
-    });
+    // questionActionDispatcher({
+    //   type: UPLOAD_CODE_SOLUTION,
+    //   payload: { updateData, updatedQuestionState, questionData },
+    // });
 
     setvisible(false);
     setvisible2(true);
@@ -144,7 +141,7 @@ const UploadCode: React.FC = (Props: any) => {
                           id="codecopy"
                           style={{ display: "none" }}
                           value={question.code as string}
-                          onChange={e => setSolutionCode(e.target.innerText)}
+                          onChange={(e) => setSolutionCode(e.target.innerText)}
                         ></textarea>
                         <pre className="font-mono font-bold bg-gray-50 p-3 rounded-lg text-sm whitespace-pre-wrap">
                           {question.code}

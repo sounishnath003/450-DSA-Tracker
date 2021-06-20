@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TrashIcon, ViewIcon } from "../../assets/icons";
 import { IQuestion } from "../../Backend/model/Question-model";
-import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
+import { useQuestionDataContext } from "../../Reducer/questionDataReducer";
 
 interface IProps {
   question: IQuestion;
@@ -11,11 +11,12 @@ interface IProps {
 }
 
 const RowLists: React.FC<IProps> = ({ question, sl, color }) => {
-  const { allTopicsData } = React.useContext(QuestionDataContext2);
+  // const { allTopicsData } = useQuestionDataContext();
   // const [questionData, setQuestionData ] = React.useState();
   return (
     <React.Fragment>
-      <tr
+      <tr>123</tr>
+      {/* <tr
         className={`border-b border-gray-200 hover:bg-${color}-50 cursor-pointer`}
       >
         <td className="py-3 px-6 text-left whitespace-nowrap"> {sl} </td>
@@ -84,7 +85,7 @@ const RowLists: React.FC<IProps> = ({ question, sl, color }) => {
             </div>
           </div>
         </td>
-      </tr>
+      </tr> */}
     </React.Fragment>
   );
 };

@@ -6,7 +6,6 @@ import {
 } from "../actions";
 import { EasyIcon, HardIcon, MediumIcon, SavedIcon } from "../assets/icons";
 import { IQuestion } from "../Backend/model/Question-model";
-import { countOfQuestionsCompletion } from "../Backend/services/database";
 import { CustomCategoryFilterContext } from "../context/CustomCategoryFilterContext";
 
 type IReturnUseCustomFilterDnDHook = {
@@ -18,12 +17,8 @@ type IReturnUseCustomFilterDnDHook = {
 type ICategoryRoute = { path: string; categoryType: string; icon: JSX.Element };
 
 export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
-  const {
-    dispatch,
-    easyQuestions,
-    mediumQuestions,
-    hardQuestions,
-  } = React.useContext(CustomCategoryFilterContext);
+  const { dispatch, easyQuestions, mediumQuestions, hardQuestions } =
+    React.useContext(CustomCategoryFilterContext);
 
   // *** Dragable questionState ***
   const [count, setCount] = React.useState<string>("-");
@@ -53,7 +48,8 @@ export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
   ];
 
   React.useEffect(() => {
-    return countOfQuestionsCompletion(setCount);
+    return;
+    setCount;
   }, [count]);
 
   // * draggable events start

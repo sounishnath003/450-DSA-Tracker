@@ -1,12 +1,11 @@
 import React from "react";
 import { IQuestionData } from "../../Backend/model/Question-model";
-import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
+import { useQuestionDataContext } from "../../context/QuestionDataContext2";
 import CategoryList from "../Category/CategoryList";
 import QTopicCard from "../QTopicCard";
 
 const Home: React.FC = () => {
-  const { allTopicsData } = React.useContext(QuestionDataContext2);
-
+  const { allTopicsData } = useQuestionDataContext();
   return (
     <React.Fragment>
       <h2 className="text-4xl dark:text-gray-200 text-center">
@@ -29,6 +28,7 @@ const Home: React.FC = () => {
             ))}
           </div>
         )}
+        123
       </div>
     </React.Fragment>
   );

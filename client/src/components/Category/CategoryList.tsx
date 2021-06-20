@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { EasyIcon, HardIcon, MediumIcon, SavedIcon } from "../../assets/icons";
-import { countOfQuestionsCompletion } from "../../Backend/services/database";
 import { CustomCategoryFilterContext } from "../../context/CustomCategoryFilterContext";
 
 type ICategoryRoute = { path: string; categoryType: string; icon: JSX.Element };
@@ -35,8 +34,8 @@ const CategoryList = () => {
   ];
 
   React.useEffect(() => {
-    countOfQuestionsCompletion((c: number) => setCount(c));
-    return () => {setCount(count)};
+    // countOfQuestionsCompletion((c: number) => setCount(c));
+    // return () => {setCount(count)};
   }, []);
 
   return (

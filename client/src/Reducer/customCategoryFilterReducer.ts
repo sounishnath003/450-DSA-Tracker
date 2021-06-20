@@ -5,7 +5,6 @@ import {
   SET_AS_MEDIUM_QUESTION,
 } from "../actions";
 import { IQuestion } from "../Backend/model/Question-model";
-import { updatedCustomizedListOfQuestionsFor } from "../Backend/services/customizedList-db.functions";
 
 export interface CustomCategoryFilterState {
   easyQuestions: IQuestion[];
@@ -32,68 +31,69 @@ export function customCategoryFilterReducer(
   state: CustomCategoryFilterState = initialState,
   action: any
 ): CustomCategoryFilterState {
-  switch (action.type) {
-    case ON_INITIAL_LOAD:
-      const { easy, medium, hard } = action.payload;
-      return {
-        ...state,
-        easyQuestions: easy,
-        mediumQuestions: medium,
-        hardQuestions: hard,
-      };
+  return state;
+  // switch (action.type) {
+  // case ON_INITIAL_LOAD:
+  //   const { easy, medium, hard } = action.payload;
+  //   return {
+  //     ...state,
+  //     easyQuestions: easy,
+  //     mediumQuestions: medium,
+  //     hardQuestions: hard,
+  //   };
 
-    case SET_AS_EASY_QUESTION:
-      if (state.easyQuestions.indexOf(action.payload.data) !== -1) {
-        alert("Question was already pinned 📌.");
-        return state;
-      } else {
-        (async function () {
-          await updatedCustomizedListOfQuestionsFor({
-            type: `easy`,
-            payload: [action.payload.data, ...state.easyQuestions],
-          });
-        })();
-        return {
-          ...state,
-          easyQuestions: [action.payload.data, ...state.easyQuestions],
-        };
-      }
+  // case SET_AS_EASY_QUESTION:
+  //   if (state.easyQuestions.indexOf(action.payload.data) !== -1) {
+  //     alert("Question was already pinned 📌.");
+  //     return state;
+  //   } else {
+  //     (async function () {
+  //       await updatedCustomizedListOfQuestionsFor({
+  //         type: `easy`,
+  //         payload: [action.payload.data, ...state.easyQuestions],
+  //       });
+  //     })();
+  //     return {
+  //       ...state,
+  //       easyQuestions: [action.payload.data, ...state.easyQuestions],
+  //     };
+  //   }
 
-    case SET_AS_MEDIUM_QUESTION:
-      if (state.mediumQuestions.indexOf(action.payload.data) !== -1) {
-        alert("Question was already pinned 📌.");
-        return state;
-      } else {
-        (async function () {
-          await updatedCustomizedListOfQuestionsFor({
-            type: `medium`,
-            payload: [action.payload.data, ...state.mediumQuestions],
-          });
-        })();
-        return {
-          ...state,
-          mediumQuestions: [action.payload.data, ...state.mediumQuestions],
-        };
-      }
+  // case SET_AS_MEDIUM_QUESTION:
+  //   if (state.mediumQuestions.indexOf(action.payload.data) !== -1) {
+  //     alert("Question was already pinned 📌.");
+  //     return state;
+  //   } else {
+  //     (async function () {
+  //       await updatedCustomizedListOfQuestionsFor({
+  //         type: `medium`,
+  //         payload: [action.payload.data, ...state.mediumQuestions],
+  //       });
+  //     })();
+  //     return {
+  //       ...state,
+  //       mediumQuestions: [action.payload.data, ...state.mediumQuestions],
+  //     };
+  //   }
 
-    case SET_AS_HARD_QUESTION:
-      if (state.hardQuestions.indexOf(action.payload.data) !== -1) {
-        alert("Question was already pinned 📌.");
-        return state;
-      } else {
-        (async function () {
-          await updatedCustomizedListOfQuestionsFor({
-            type: `hard`,
-            payload: [action.payload.data, ...state.hardQuestions],
-          });
-        })();
-        return {
-          ...state,
-          hardQuestions: [action.payload.data, ...state.hardQuestions],
-        };
-      }
+  // case SET_AS_HARD_QUESTION:
+  //   if (state.hardQuestions.indexOf(action.payload.data) !== -1) {
+  //     alert("Question was already pinned 📌.");
+  //     return state;
+  //   } else {
+  //     (async function () {
+  //       await updatedCustomizedListOfQuestionsFor({
+  //         type: `hard`,
+  //         payload: [action.payload.data, ...state.hardQuestions],
+  //       });
+  //     })();
+  //     return {
+  //       ...state,
+  //       hardQuestions: [action.payload.data, ...state.hardQuestions],
+  //     };
+  //   }
 
-    default:
-      return state;
-  }
+  //   default:
+  //     return state;
+  // }
 }
