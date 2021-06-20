@@ -36,15 +36,24 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
   const [draggedQuestion, setDraggedQuestion] = React.useState<IQuestion>();
 
   React.useEffect(() => {
+    const abortController = new AbortController();
     const funk = async () => {
-      const { questions } = await(
+      const { questions } = await (
         await fetch(`http://localhost:5000/api/questions/topic/${topicName}`, {
           credentials: "include",
+          signal: abortController.signal,
         })
-      ).json();
+      )
+        .json()
+        .catch((err) => {
+          if (err.name !== "AbortController") {
+            window.alert(`Internet Connection Error! Please refresh page!`);
+          }
+        });
       setQuestionsState([...questions[0].questions]);
     };
     funk();
+    return () => abortController.abort();
   }, []);
 
   // useEffect(() => {

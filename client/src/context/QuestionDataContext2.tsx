@@ -64,6 +64,9 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
   }
 
   React.useEffect(() => {
+
+    const abortController = new AbortController();
+
     const funk = async () => {
       console.log(`loading from ReducerActionDispatcher State`);
       // getData((qData: IQuestionData[]) => setAllTopicsData(qData));
@@ -72,14 +75,21 @@ export function QuestionDataContext2Provider({ children }: any): JSX.Element {
     const funk2 = async () => {
       const resp = await (
         await fetch(`http://localhost:5000/api/questions/all`, {
+          signal: abortController.signal,
           credentials: "include",
         })
-      ).json();
+      ).json().catch((err) => {
+        if(err.name !== 'AbortError') {
+          window.alert(`Internet Connection Error! Please refresh page!`);
+        }
+      });
       setAllTopicsData(resp.questions);
     };
 
     funk();
     funk2();
+
+    return () => abortController.abort();
   }, []);
 
   return (
