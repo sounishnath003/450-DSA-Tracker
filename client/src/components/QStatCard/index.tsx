@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MARK_AS_COMPLETE } from "../../actions";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
-import { QuestionDataContext2 } from "../../context/QuestionDataContext2";
+import { useQuestionDataContext } from "../../context/QuestionDataContext2";
 import { useCustomFilterDragAndDropper } from "../../hooks/useCustomFilterDragAndDropper";
-import { generateUrlForQuestion } from "../../routes/routes";
 import { tableRowLogic } from "./utils/utility";
 
 /* *
@@ -22,8 +20,7 @@ interface Props {
 }
 
 const QStatCard: React.FC<Props> = ({ questionData }) => {
-  const { updateData, questionActionDispatcher } =
-    React.useContext(QuestionDataContext2);
+  const { allTopicsData } = useQuestionDataContext();
   const { topicName, questions, started } = questionData;
   const [questionsState, setQuestionsState] = useState<IQuestion[]>(questions);
   const [searchText, setSearchText] = React.useState<string>("");
@@ -55,24 +52,6 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
     funk();
     return () => abortController.abort();
   }, []);
-
-  // useEffect(() => {
-  //   if (questionData !== undefined) {
-  //     let doneQuestions: number[] = [];
-  //     // eslint-disable-next-line array-callback-return
-  //     questionData.questions.map((question: IQuestion, index: number) => {
-  //       if (question.Done === true) {
-  //         doneQuestions.push(index);
-  //       }
-  //     });
-  //     setSelected(doneQuestions);
-  //     if (doneQuestions.length > 0) {
-  //       toast.success(
-  //         `🎉 Hurray!! You've completed ${doneQuestions.length}/${questions.length}.`
-  //       );
-  //     }
-  //   }
-  // }, [questionData, questions.length]);
 
   // * searchBar component()
   function SearchBar(this: undefined) {
@@ -109,21 +88,42 @@ const QStatCard: React.FC<Props> = ({ questionData }) => {
     );
   }
 
-  function whenQuestionCompleted(index: number) {
-    type Ipayload = {
-      index: number;
-      selected: number[];
-      questionData: IQuestionData;
-      updateData: (
-        key: string,
-        topicData: IQuestionData,
-        topicPosition: number
-      ) => void;
-    };
-    questionActionDispatcher({
-      type: MARK_AS_COMPLETE,
-      payload: { index, selected, questionData, updateData } as Ipayload,
-    });
+  async function whenQuestionCompleted(index: number) {
+    const questions: IQuestionData[] = [];
+
+    for (const questionTopic of allTopicsData) {
+      if (questionTopic.topicName === topicName) {
+        const selectedQuestion: IQuestion = {
+          ...questions[index],
+          Done: !questionTopic.questions[index].Done,
+        };
+        const updatedQuestions: IQuestion[] = questionTopic.questions.map(
+          (ques: IQuestion, idx) => (idx === index ? selectedQuestion : ques)
+        );
+
+        const finalPayload: IQuestionData = {
+          ...questionTopic,
+          doneQuestions: questionTopic.doneQuestions + 1,
+          started: true,
+          questions: updatedQuestions,
+        };
+
+        questions.push(finalPayload);
+      } else {
+        questions.push(questionTopic);
+      }
+    }
+    
+    const resp = await (
+      await fetch(`http://localhost:5000/api/questions/update-progress`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(questions),
+      })
+    ).json();
   }
 
   const CategoryList = () => {

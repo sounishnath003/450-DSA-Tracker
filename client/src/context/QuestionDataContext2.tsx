@@ -104,40 +104,4 @@ export function QuestionDataContext2Provider(): JSX.Element {
       <Footer />
     </QuestionDataContext2.Provider>
   );
-
-  // * Globally declared the dummyData with all the 450Questions
-  // // * For Prompting User when
-  // // * he/she visits for the firstTym
-  // // * After Updating the site in production
-  // const [showPopUp, setshowPopUp] = useFirstVisit();
-
-  // React.useEffect(() => {
-  // const abortController = new AbortController();
-
-  //   const funk = async () => {
-  //     console.log(`loading from ReducerActionDispatcher State`);
-  //     // getData((qData: IQuestionData[]) => setAllTopicsData(qData));
-  //   };
-
-  //   const funk2 = async () => {
-  //     const resp: AllTopicQuestion = await (
-  //       await fetch(`http://localhost:5000/api/questions/all`, {
-  //         signal: abortController.signal,
-  //         credentials: "include",
-  //       })
-  //     )
-  //       .json()
-  //       .catch((err) => {
-  //         if (err.name !== "AbortError") {
-  //           window.alert(`Internet Connection Error! Please refresh page!`);
-  //         }
-  //       });
-  //     // setAllTopicsData(resp.questions);
-  //   };
-
-  //   funk();
-  //   funk2();
-
-  //   return () => abortController.abort();
-  // }, []);
 }

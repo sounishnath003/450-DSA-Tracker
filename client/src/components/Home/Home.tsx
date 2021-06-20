@@ -28,7 +28,6 @@ const Home: React.FC = () => {
             ))}
           </div>
         )}
-        123
       </div>
     </React.Fragment>
   );
