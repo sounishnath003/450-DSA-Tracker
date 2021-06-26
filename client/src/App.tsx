@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
-import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   React.useEffect(() => {
     console.log("App initialized");
   }, []);
 
-  return <AuthProvider>{/* dynamically serves  */}</AuthProvider>;
+  return <h2>A Fcukking new app</h2>;
 }
 
 export default App;
