@@ -29,21 +29,16 @@ const QuestionStatCard: React.FC<QuestionStatCardProps> = ({}: QuestionStatCardP
                         <Td>
                             <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">
-                                    <div className="ml-2 mt-2 text-indigo-800">{index}</div>
-                                </div>
-                                <div className="ml-4">
-                                    <div className="text-sm font-medium text-gray-900">
-                                        Jane Cooper
-                                    </div>
-                                    <div className="text-sm text-gray-500">
-                                        jane.cooper@example.com
-                                    </div>
+                                    <div className="ml-2 mt-2 text-gray-800">{index}</div>
                                 </div>
                             </div>
                         </Td>
                         <Td>
-                            <div className="text-sm text-gray-900">Regional Paradigm Technician</div>
-                            <div className="text-sm text-gray-500">Optimization</div>
+                            <div className={"cursor-pointer"}>
+                                <div
+                                    className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all"> {question.Problem} </div>
+                                <div className="text-sm text-gray-500"> {question.Topic} </div>
+                            </div>
                         </Td>
                         <Td>
                             <PendingPill/>
