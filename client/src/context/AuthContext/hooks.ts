@@ -1,7 +1,8 @@
 import env from "../../env";
 import React from "react";
-import {ActionType, authReducer, initialState} from "../../reducer/auth.reducer";
+import {authReducer, initialState} from "../../reducer/auth.reducer";
 import Cookie from "js-cookie";
+import {ActionType} from "../../reducer/action-type";
 
 interface useHookInterface {
     authState: { error: any, isLoggedIn: boolean, message: string | null },
@@ -48,16 +49,16 @@ export const useHook = (): useHookInterface => {
         username: string;
         password: string;
     }) {
-        try {
-            const resp = await (await fetch(`${env.API_URL}/api/auth/signup`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(payload),
-                credentials: "include",
-            })).json();
+        const resp = await (await fetch(`${env.API_URL}/api/auth/signup`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload),
+            credentials: "include",
+        })).json();
+        if (resp.error) {
+            dispatch({type: "ERROR", payload: resp.error.message});
+        } else {
             dispatch({type: "LOGIN", payload: resp});
-        } catch (e) {
-            dispatch({type: "ERROR", payload: e});
         }
         dismiss(() => dispatch({type: "RESET"}), 3);
     }

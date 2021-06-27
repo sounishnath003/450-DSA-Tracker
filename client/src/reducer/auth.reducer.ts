@@ -1,11 +1,4 @@
-export type LOGIN = "LOGIN";
-export type ERROR = "ERROR";
-export type RESET = "RESET";
-
-export interface ActionType {
-    type: LOGIN | ERROR | RESET;
-    payload?: any;
-}
+import {ActionType} from "./action-type";
 
 interface AuthState {
     isLoggedIn: boolean;

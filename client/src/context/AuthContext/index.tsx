@@ -20,7 +20,7 @@ interface AuthProviderProps {
     children: any;
 }
 
-export const AuthProvider = ({children}: AuthProviderProps) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}: AuthProviderProps) => {
     const {authState, dispatch, dismiss, loginWithRedirect, signupWithRedirect} = useHook();
     return (
         <AuthContext.Provider
