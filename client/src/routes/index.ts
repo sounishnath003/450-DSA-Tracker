@@ -13,6 +13,25 @@ export interface IRoute {
     path: string;
 }
 
+export const RouterMapTopicName = {
+    "array": "Array",
+    "matrix": "Matrix",
+    "string": "String",
+    "search-sort": "Search & Sort",
+    "linked list": "Linked List",
+    "binary trees": "Binary Trees",
+    "bst": "BST",
+    "greedy": "Greedy",
+    "backtracking": "BackTracking",
+    "stacks-queues": "Stacks & Queues",
+    "heap": "Heap",
+    "graph": "Graph",
+    "trie": "Trie",
+    "dynamic programming": "Dynamic Programming",
+    "bit manipulation": "Bit Manipulation"
+}
+
+
 export function generateUrlForQuestion(
     question: string,
     problem: string

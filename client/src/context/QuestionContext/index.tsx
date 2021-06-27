@@ -23,6 +23,7 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
         }, seconds * 1000);
     }
 
+
     async function getAllQuestions(abortController: AbortController) {
         dispatch({type: "LOADING"});
         const resp: AllTopicQuestionResponse = await (await fetch(`${env.API_URL}/api/questions/all`, {
@@ -44,7 +45,7 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
     }, [])
 
     return (
-        <QuestionContext.Provider value={{...allQuestionDataState, dispatch}}>
+        <QuestionContext.Provider value={{...allQuestionDataState, dispatch, dismiss}}>
             <Error error={allQuestionDataState.error}/>
             <Sucess message={allQuestionDataState.message}/>
             {children}

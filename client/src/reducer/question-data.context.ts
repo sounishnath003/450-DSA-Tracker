@@ -11,6 +11,7 @@ export interface QuestionDataState {
     selectedTopic: string | null;
     selectedTopicQuestions: IQuestion[] | null;
     dispatch: React.Dispatch<ActionType>;
+    dismiss: (callback: Function, seconds: number) => void;
 }
 
 export const initialQuestionData: QuestionDataState = {
@@ -22,7 +23,13 @@ export const initialQuestionData: QuestionDataState = {
     selectedTopic: null,
     selectedTopicQuestions: null,
     dispatch: ({}: ActionType) => {
+    },
+    dismiss: function (callback: Function, seconds: number) {
+        setTimeout(() => {
+            callback()
+        }, seconds * 1000);
     }
+
 }
 
 export function questionReducer(state: QuestionDataState = initialQuestionData, action: ActionType) {
@@ -58,6 +65,14 @@ export function questionReducer(state: QuestionDataState = initialQuestionData, 
             }
         }
 
+        case "UPDATE_PROGRESS": {
+            return {
+                ...state,
+                message: action.payload.message,
+                allQuestions: action.payload.allQuestions,
+                selectedTopicQuestions: action.payload.selectedTopicQuestions
+            }
+        }
 
         case "RESET": {
             return {
