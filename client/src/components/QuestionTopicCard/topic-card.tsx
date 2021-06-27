@@ -21,7 +21,7 @@ const TopicCard: React.FC<TopicCardProps> = ({questionData}: TopicCardProps) => 
 
     return (
         <React.Fragment>
-            <Link to={'/array'}>
+            <Link to={`${questionData.topicName.replace(" & ", "-").toLowerCase()}`}>
                 <div
                     className="flex mx-auto dark:bg-indigo-600 hover:bg-gray-100 dark:hover:bg-blue-700 dark:hover:border-white border shadow-lg border-indigo-600 m-3 flex-row bg-white shadow-sm rounded-lg p-4 transform hover:scale-110 ease-in-out delay-50 duration-300"
                     style={{background: remainingQuestions === 0 ? "#e0ffe9" : ""}}

@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../Header";
 import {QuestionsProvider} from "../../context/QuestionContext";
 import Container from "../Container";
 
@@ -11,7 +10,7 @@ const Home: React.FC = ({}: HomeProps) => {
     return (
         <Container>
             <QuestionsProvider>
-                <Header/>
+                {/*<Header/>*/}
             </QuestionsProvider>
         </Container>
     );

@@ -23,7 +23,7 @@ export function useCustomFilterDragAndDropper(): IReturnUseCustomFilterDnDHook {
   // *** Dragable questionState ***
   const [count, setCount] = React.useState<string>("-");
 
-  // ** Important routes for CustomCategory...
+  // ** Important index for CustomCategory...
   const routes: ICategoryRoute[] = [
     {
       path: "category-lists/easy",
