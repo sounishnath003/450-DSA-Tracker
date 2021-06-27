@@ -48,9 +48,9 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     ...question,
                     Done: !question.Done,
                 }
-                let doneCount = 0;
+                let doneCount = updatedQuestion.Done ? 1 : 0;
                 const updatedSelectedQuestionList: IQuestion[] = selectedTopicQuestions?.map((selectedQuestion: IQuestion, sIdx: number) => {
-                    if (updatedQuestion.Done === true || selectedQuestion.Done === true) doneCount++;
+                    if (selectedQuestion.Done) doneCount++;
                     if (sIdx === quesIndex) {
                         return updatedQuestion;
                     } else {
@@ -64,7 +64,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                             ...questionTopic,
                             questions: [...updatedSelectedQuestionList],
                             doneQuestions: doneCount,
-                            started: doneCount > 1 ? true : false
+                            started: doneCount > 0 ? true : false
                         }
                     } else {
                         return questionTopic;

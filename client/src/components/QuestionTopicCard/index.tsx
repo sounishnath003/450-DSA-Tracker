@@ -17,7 +17,6 @@ const QuestionTopicCard: React.FC = () => {
                             questionData={questionTopic}/>
                     </div>)}
             </div>
-            <pre> SELECTED TOPIC: {selectedTopic} </pre>
         </React.Fragment>
     )
 }

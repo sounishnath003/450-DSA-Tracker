@@ -5,6 +5,7 @@ import {Error, Sucess} from "../../components/Alert";
 import {AllTopicQuestionResponse} from "../../interfaces";
 import Loader from "../../components/Loader";
 import HomeRoot from "../../components/HomeRoot";
+import Container from "../../components/Container";
 
 const QuestionContext = React.createContext<QuestionDataState>({...initialQuestionData});
 
@@ -49,7 +50,9 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
             <Error error={allQuestionDataState.error}/>
             <Sucess message={allQuestionDataState.message}/>
             {children}
-            {allQuestionDataState.loading ? <Loader/> : <HomeRoot/>}
+            <Container>
+                {allQuestionDataState.loading ? <Loader/> : <HomeRoot/>}
+            </Container>
         </QuestionContext.Provider>
     )
 }
