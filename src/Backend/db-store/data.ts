@@ -2571,12 +2571,6 @@ export const QuestionData: IQuestionData[] = [
       },
       {
         Topic: "Graph",
-        Problem: "Water Jug problem using BFS",
-        Done: false,
-        URL: "https://www.geeksforgeeks.org/water-jug-problem-using-bfs/",
-      },
-      {
-        Topic: "Graph",
         Problem: "Find if there is a path of more thank length from a source",
         Done: false,
         URL:
