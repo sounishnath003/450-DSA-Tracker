@@ -49,6 +49,15 @@ export function questionReducer(state: QuestionDataState = initialQuestionData, 
             }
         }
 
+        case "SELECT_QUESTION_TOPIC": {
+            return {
+                ...state,
+                selectedTopicIndex: action.payload.index,
+                selectedTopic: action.payload.questionTopic.topicName,
+                selectedTopicQuestions: action.payload.questionTopic.questions
+            }
+        }
+
 
         case "RESET": {
             return {

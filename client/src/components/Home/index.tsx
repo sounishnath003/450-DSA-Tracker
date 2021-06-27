@@ -9,12 +9,11 @@ interface HomeProps {
 
 const Home: React.FC = ({}: HomeProps) => {
     return (
-        <QuestionsProvider>
-            <div className="p-1 bg-blue-100"></div>
-            <Container>
+        <Container>
+            <QuestionsProvider>
                 <Header/>
-            </Container>
-        </QuestionsProvider>
+            </QuestionsProvider>
+        </Container>
     );
 }
 
