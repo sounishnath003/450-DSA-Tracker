@@ -6,6 +6,7 @@ import {AllTopicQuestionResponse} from "../../interfaces";
 import Loader from "../../components/Loader";
 import HomeRoot from "../../components/HomeRoot";
 import Container from "../../components/Container";
+import Cookie from "js-cookie";
 
 const QuestionContext = React.createContext<QuestionDataState>({...initialQuestionData});
 
@@ -34,6 +35,12 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
         if (resp.error) {
             dispatch({type: "ERROR", payload: resp.error.message})
             dismiss(() => dispatch({type: "RESET"}), 5);
+            if (resp.error.message === "User is not registered!!") {
+                Cookie.remove('isAuthenticated');
+                window.location.replace('/');
+            } else setTimeout(() => {
+                window.location.reload()
+            }, 4)
         } else {
             dispatch({type: "GET_ALL_QUESTIONS", payload: resp});
         }

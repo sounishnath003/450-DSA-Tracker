@@ -1,5 +1,5 @@
 export interface AllTopicQuestionResponse {
-    error?: { message: string, statusCode: number },
+    error?: { message: string, status: number },
     status: boolean;
     statusCode: number;
     questions: AllTopicQuestionInterface[];

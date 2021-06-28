@@ -22,9 +22,9 @@
 }
 
 .error {
-  @apply p-2 bg-red-50 text-red-500 font-medium text-center ease-in;
+  @apply py-2 pl-4 bg-red-50 text-red-500 font-medium text-center ease-in;
 }
 
 .success {
-  @apply p-2 bg-green-50 text-green-700 font-medium text-center ease-in;
+  @apply py-2 pl-4 bg-green-50 text-green-700 font-medium text-center ease-in;
 }

@@ -1,19 +1,10 @@
-import React from "react";
-import {useQuestion} from "../../context/QuestionContext";
-import Table from "../Table";
-import Thead, {Th} from "../Table/Thead";
-import {Tbody, Td} from "../Table/Tbody";
-import {DonePill, PendingPill} from "../Pill";
-import {IQuestion, IQuestionData} from "../../Backend/model/Question-model";
-import Breadcrumb from "../Breadcums";
 import env from "../../env";
 import {RouterMapTopicName} from "../../routes";
+import React from "react";
+import {IQuestion, IQuestionData} from "../../Backend/model/Question-model";
+import {useQuestion} from "../../context/QuestionContext";
 
-interface QuestionStatCardProps {
-
-}
-
-function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
+export function useHook() {
     const {allQuestions, selectedTopic, selectedTopicQuestions, dispatch, dismiss} = useQuestion();
     const pathname: string = decodeURI(window.location.pathname).split("/")[1];
 
@@ -40,7 +31,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         if (selectedTopic === null)
             feedSelectQuestionData(abortController);
         return () => abortController.abort();
-    }, [allQuestions])
+    }, [])
 
     function whenPressedCheckBox(question: IQuestion, quesIndex: number) {
         return async function (p1: React.ChangeEvent<HTMLInputElement>) {
@@ -100,57 +91,5 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         };
     }
 
-    return (
-        <React.Fragment>
-            <div className="text-4xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {selectedTopic} Problems
-            </div>
-
-            <Breadcrumb root1={`${selectedTopic}`} root2={null} link1={pathname}/>
-
-            <Table>
-                <Thead>
-                    <Th title={"Sl.No"}/>
-                    <Th title={"Question(s)"}/>
-                    <Th title={"Status"}/>
-                    <Th title={"Done"}/>
-                    <Th title={"Solution"}/>
-                </Thead>
-                <Tbody>
-                    {selectedTopicQuestions?.map((question: IQuestion, index: number) => <tr
-                        className={` ${question.Done ? "bg-green-100" : ""} `} key={index}>
-                        <Td>
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10">
-                                    <div className="ml-2 mt-2 text-gray-800">{index}</div>
-                                </div>
-                            </div>
-                        </Td>
-                        <Td>
-                            <div className={"cursor-pointer"}>
-                                <div
-                                    className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
-                                    <a href={question.URL} target={"_blank"}>{question.Problem.substring(0, 70)}</a>
-                                </div>
-                                <div className="text-sm text-gray-500"> {question.Topic} </div>
-                            </div>
-                        </Td>
-                        <Td>
-                            {question.Done ? <DonePill/> : <PendingPill/>}
-                        </Td>
-                        <Td>
-                            <label className="inline-flex items-center">
-                                <input checked={question.Done} onChange={whenPressedCheckBox(question, index)}
-                                       type="checkbox" className="form-checkbox h-4 w-4 bg-green-500"/>
-                            </label>
-                        </Td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        </td>
-                    </tr>)}
-                </Tbody>
-            </Table>
-        </React.Fragment>
-    );
+    return {pathname, feedSelectQuestionData, whenPressedCheckBox};
 }
-
-export default QuestionStatCard;
