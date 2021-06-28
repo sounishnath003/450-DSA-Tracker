@@ -1,8 +1,10 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
-import {IQuestion} from "../../Backend/model/Question-model";
+import {IQuestion, IQuestionData} from "../../Backend/model/Question-model";
 import Breadcrumb from "../Breadcums";
 import Editor from "@monaco-editor/react";
+import {useQuestion} from "../../context/QuestionContext";
+import env from "../../env";
 
 const languages = [
     "Select Language",
@@ -73,11 +75,62 @@ const UploadCode = ({}: UploadCodeProps) => {
 
     function handleEditorChange(value: string, event: any) {
         setCode(value);
-        console.log(code)
     }
 
     function setLanguage(e: React.ChangeEvent<HTMLSelectElement>) {
         setProgLang(e.target.value);
+    }
+
+    const {allQuestions, selectedTopic, dispatch, dismiss, selectedTopicQuestions} = useQuestion();
+
+    async function saveCode() {
+        const updatedQuestion = {...question, code, haveSolution: true};
+
+        const updatedQuestionList: IQuestion[] = selectedTopicQuestions?.map((questn: IQuestion, qid: number) => {
+            if (questionIndex === qid) {
+                return updatedQuestion;
+            } else {
+                return questn;
+            }
+        }) as unknown as IQuestion[];
+
+        console.log(selectedTopicQuestions);
+
+        const finalPayload: IQuestionData[] = allQuestions.map((aquestion: IQuestionData, qiidx: number) => {
+            if (selectedTopic === aquestion.topicName) {
+                return {
+                    ...aquestion,
+                    questions: [...updatedQuestionList]
+                }
+            } else {
+                return aquestion;
+            }
+        })
+
+        const resp = await (await fetch(`${env.API_URL}/api/questions/update-progress`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify(finalPayload)
+        })).json();
+
+        if (resp.error) {
+            dispatch({type: "ERROR", payload: resp.error.message});
+            dismiss(() => dispatch({type: "RESET"}), 3);
+            if (resp.error.status === 401) window.location.reload();
+        } else {
+            dispatch({
+                type: "UPDATE_PROGRESS",
+                payload: {
+                    message: resp.message,
+                    allQuestions: finalPayload,
+                    selectedTopicQuestions: updatedQuestionList
+                }
+            });
+            dismiss(() => dispatch({type: "RESET"}), 3);
+        }
     }
 
     // @ts-ignore
@@ -88,7 +141,10 @@ const UploadCode = ({}: UploadCodeProps) => {
         <div className={'my-16'}>
             {question.haveSolution ?
                 <div className={'max-w-full'}>
-                    <Editor height={'90vh'} className={'font-sans'} defaultValue={question.code as string}/>
+                    <Editor defaultLanguage={'java'} height={'90vh'} options={{
+                        fontFamily: "rec mono linear, Cascadia Code, Consolas, monospace",
+                        readOnly: true
+                    }} defaultValue={question.code as string}/>
                 </div>
                 : <>
                     <div id="temp-0" onClick={toggleClass}
@@ -117,6 +173,7 @@ const UploadCode = ({}: UploadCodeProps) => {
 
                             <button
                                 type="button"
+                                onClick={saveCode}
                                 className="border border-gray-700 text-gray-700 rounded-md px-4 py-2 m-2 transition duration-200 ease select-none hover:text-white hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                             >
                                 Save Code

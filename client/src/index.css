@@ -15,8 +15,8 @@
     U+FEFF, U+FFFD;
 }
 
-* {
-  /*font-family: "Product Sans";*/
+html {
+  font-family: "Product Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -125,8 +125,21 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     }
 
     function UploadCodeButton({question, qindex}: { question: IQuestion, qindex: number }): JSX.Element {
-        if (question.Done === false && question.code) {
-            return <Link to={{
+        if (question.Done === true) {
+            if (question.code === undefined) {
+                return <Link to={{
+                    key: question.Problem,
+                    pathname: `/${pathname}/uploadCode`,
+                    state: {question, qindex, topicName: selectedTopic}
+                }}>
+                    <div
+                        className="flex cursor-pointer space-x-2 border border-green-500 text-green-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-green-600 focus:outline-none focus:shadow-outline"
+                    >
+                        <div><UploadIcon size={18} color={"green"}/></div>
+                        <div>Code</div>
+                    </div>
+                </Link>
+            } else return <Link to={{
                 key: question.Problem, pathname: `/${pathname}/uploadCode`,
                 state: {question, qindex, topicName: selectedTopic}
             }}>
@@ -138,18 +151,6 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                 </button>
             </Link>
         }
-        return <Link to={{
-            key: question.Problem,
-            pathname: `/${pathname}/uploadCode`,
-            state: {question, qindex, topicName: selectedTopic}
-        }}>
-            <div
-                className="flex cursor-pointer space-x-2 border border-green-500 text-green-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-green-600 focus:outline-none focus:shadow-outline"
-            >
-                <div><UploadIcon size={18} color={"green"}/></div>
-                <div>Code</div>
-            </div>
-        </Link>
     }
 
     function GenerateTableContent(): JSX.Element[] | undefined {
