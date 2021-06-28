@@ -3,6 +3,7 @@ import { Next, RequestInterface, ResponseInterface, SUCCESS } from "../utils";
 
 import AuthController from "./AuthController";
 import QuestionsController from "./QuestionsController";
+import CategoryController from './CaterogyController';
 
 const router = Router();
 
@@ -27,5 +28,6 @@ router.get(
 
 router.use("/auth", AuthController);
 router.use("/questions", QuestionsController);
+router.use('/category', CategoryController);
 
 export default router;
