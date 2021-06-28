@@ -40,7 +40,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         if (selectedTopic === null)
             feedSelectQuestionData(abortController);
         return () => abortController.abort();
-    }, [allQuestions])
+    }, [])
 
     function whenPressedCheckBox(question: IQuestion, quesIndex: number) {
         return async function (p1: React.ChangeEvent<HTMLInputElement>) {
@@ -50,6 +50,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     ...question,
                     Done: !question.Done,
                 }
+
+
                 const updatedSelectedQuestionList: IQuestion[] = selectedTopicQuestions?.map((selectedQuestion: IQuestion, sIdx: number) => {
                     if (selectedQuestion.Done) doneCount++;
                     if (sIdx === quesIndex) {
@@ -60,7 +62,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                 });
 
                 const finalPayload: IQuestionData[] = allQuestions.map((questionTopic: IQuestionData, qindex: number) => {
-                    if (questionTopic.topicName === updatedQuestion.Topic) {
+                    if (selectedTopic === questionTopic.topicName) {
                         return {
                             ...questionTopic,
                             questions: [...updatedSelectedQuestionList],
@@ -99,6 +101,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
             }
         };
     }
+
 
     return (
         <React.Fragment>

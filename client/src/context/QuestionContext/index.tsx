@@ -1,11 +1,11 @@
 import React from "react";
 import {initialQuestionData, QuestionDataState, questionReducer} from "../../reducer/question-data.context";
-import env from '../../env';
 import {Error, Sucess} from "../../components/Alert";
-import {AllTopicQuestionResponse} from "../../interfaces";
 import Loader from "../../components/Loader";
 import HomeRoot from "../../components/HomeRoot";
 import Container from "../../components/Container";
+import {AllTopicQuestionResponse} from "../../interfaces";
+import env from "../../env";
 import Cookie from "js-cookie";
 
 const QuestionContext = React.createContext<QuestionDataState>({...initialQuestionData});
@@ -24,7 +24,6 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
             callback()
         }, seconds * 1000);
     }
-
 
     async function getAllQuestions(abortController: AbortController) {
         dispatch({type: "LOADING"});
@@ -45,6 +44,7 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
             dispatch({type: "GET_ALL_QUESTIONS", payload: resp});
         }
     }
+
 
     React.useEffect(() => {
         const abortController: AbortController = new AbortController();
