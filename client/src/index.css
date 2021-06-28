@@ -16,7 +16,7 @@
 }
 
 * {
-  font-family: "Product Sans";
+  /*font-family: "Product Sans";*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -27,4 +27,12 @@
 
 .success {
   @apply py-2 pl-4 bg-green-50 text-green-700 font-medium text-center ease-in;
+}
+
+.shown {
+  display: block;
+}
+
+.shown-hide {
+  display: none;
 }
