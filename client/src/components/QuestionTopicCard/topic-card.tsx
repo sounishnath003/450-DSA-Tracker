@@ -16,8 +16,8 @@ function findPercentageCompleted(
 
 const TopicCard: React.FC<TopicCardProps> = ({questionData}: TopicCardProps) => {
 
-    let remainingQuestions: number = questionData.questions.length - questionData.doneQuestions;
-    let percentageDone = findPercentageCompleted(questionData.questions.length, questionData.doneQuestions);
+    const remainingQuestions: number = questionData.questions.length - questionData.doneQuestions;
+    const percentageDone = findPercentageCompleted(questionData.questions.length, questionData.doneQuestions);
 
     return (
         <React.Fragment>

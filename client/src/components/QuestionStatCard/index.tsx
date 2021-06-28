@@ -128,7 +128,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     <div className={"cursor-pointer"}>
                         <div
                             className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
-                            <a href={question.URL} target={"_blank"}>{question.Problem.substring(0, 70)}</a>
+                            <a href={question.URL} target={"_blank"} rel="noreferrer">{question.Problem.substring(0, 70)}</a>
                         </div>
                         <div className="text-sm text-gray-500"> {question.Topic} </div>
                     </div>
@@ -150,7 +150,6 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     }
 
     // @ts-ignore
-    // @ts-ignore
     return (
         <React.Fragment>
             <div className="text-4xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {selectedTopic} Problems
@@ -164,7 +163,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                       className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                     Search for
                   </span>
-                    <input type="text" name="search" id="searchBox"
+                    <input type="search" name="search" id="searchBox"
                            onChange={getOnChangeSearch()}
                            value={searchText}
                            className="focus:ring-indigo-500 border outline-none flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
