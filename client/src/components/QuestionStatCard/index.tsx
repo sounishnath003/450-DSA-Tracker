@@ -194,7 +194,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     // @ts-ignore
     return (
         <React.Fragment>
-            <div className="text-4xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {selectedTopic} Problems
+            <div className="text-4xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {selectedTopic} Problem
             </div>
 
             <Breadcrumb root1={`${selectedTopic}`} root2={null} link1={pathname}/>

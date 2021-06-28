@@ -135,7 +135,7 @@ const UploadCode = ({}: UploadCodeProps) => {
 
     // @ts-ignore
     return <React.Fragment>
-        <div className="text-3xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {question.Problem} Problems</div>
+        <div className="text-3xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {question.Problem} Problem Solution</div>
         <Breadcrumb root1={question.Topic} link1={getLink1()} root2={question.Problem}/>
 
         <div className={'my-16'}>
