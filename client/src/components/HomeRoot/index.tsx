@@ -2,6 +2,7 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 import QuestionTopicCard from "../QuestionTopicCard";
 import {categoriesRoutes, ICategoryRoutes, IRoute, questionTopicRoutes} from "../../routes";
+import UploadCode from "../UploadCode";
 
 const HomeRoot: React.FC = () => {
     return (
@@ -15,6 +16,10 @@ const HomeRoot: React.FC = () => {
                                                                                                 path={route.path}
                                                                                                 component={route.component}
                                                                                                 exact={true}/>)}
+                {questionTopicRoutes.map((route: IRoute, index: number) => <Route key={index} exact={true}
+                                                                                  path={`${route.path}/uploadCode`}
+                                                                                  component={UploadCode}/>)}
+
             </Switch>
         </React.Fragment>
     )

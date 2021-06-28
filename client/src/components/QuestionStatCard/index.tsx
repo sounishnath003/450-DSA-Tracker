@@ -9,6 +9,8 @@ import Breadcrumb from "../Breadcums";
 import env from "../../env";
 import {RouterMapTopicName} from "../../routes";
 import {SearchIcon, UploadIcon} from "../../assets/icons";
+import {Link} from "react-router-dom";
+import CategoryNavbar from "../Category/CategoryNavbar";
 
 interface QuestionStatCardProps {
 
@@ -105,7 +107,6 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         };
     }
 
-
     function getOnChangeSearch() {
         return (e: any) => setSearchText(e.target.value.toLowerCase());
     }
@@ -123,13 +124,32 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         </button>
     }
 
-    function UploadCodeButton(): JSX.Element {
-        return <div
-            className="flex cursor-pointer space-x-2 border border-green-500 text-green-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-green-600 focus:outline-none focus:shadow-outline"
-        >
-            <div><UploadIcon size={18} color={"green"}/></div>
-            <div>Code</div>
-        </div>
+    function UploadCodeButton({question, qindex}: { question: IQuestion, qindex: number }): JSX.Element {
+        if (question.Done === false && question.code) {
+            return <Link to={{
+                key: question.Problem, pathname: `/${pathname}/uploadCode`,
+                state: {question, qindex, topicName: selectedTopic}
+            }}>
+                <button
+                    type="button"
+                    className="rounded-md px-4 py-2 m-2 select-none text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:shadow-outline"
+                >
+                    View solution
+                </button>
+            </Link>
+        }
+        return <Link to={{
+            key: question.Problem,
+            pathname: `/${pathname}/uploadCode`,
+            state: {question, qindex, topicName: selectedTopic}
+        }}>
+            <div
+                className="flex cursor-pointer space-x-2 border border-green-500 text-green-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-green-600 focus:outline-none focus:shadow-outline"
+            >
+                <div><UploadIcon size={18} color={"green"}/></div>
+                <div>Code</div>
+            </div>
+        </Link>
     }
 
     function GenerateTableContent(): JSX.Element[] | undefined {
@@ -163,7 +183,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     </label>
                 </Td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    {question.Done ? <UploadCodeButton/> : <SolveButton/>}
+                    {question.Done ? <UploadCodeButton question={question} qindex={index}/> :
+                        <SolveButton/>}
                 </td>
             </tr>);
 
@@ -176,6 +197,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
             </div>
 
             <Breadcrumb root1={`${selectedTopic}`} root2={null} link1={pathname}/>
+            <CategoryNavbar/>
 
             <div className="mt-4">
                 <div className="m-auto max-w-md h-10 flex rounded-md shadow-xl">
