@@ -17,6 +17,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     const {allQuestions, selectedTopic, selectedTopicQuestions, dispatch, dismiss} = useQuestion();
     const pathname: string = decodeURI(window.location.pathname).split("/")[1];
 
+    const [searchText, setSearchText] = React.useState<string>("");
+
     async function feedSelectQuestionData(abortController: AbortController) {
         // @ts-ignore
         const resp = await (await fetch(`${env.API_URL}/api/questions/topic/${RouterMapTopicName[pathname]}`, {
@@ -103,12 +105,72 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     }
 
 
+    function getOnChangeSearch() {
+        return (e: any) => setSearchText(e.target.value.toLowerCase());
+    }
+
+    function getFilteredQuestionList(): IQuestion[] | undefined {
+        return selectedTopicQuestions?.filter((ques: IQuestion, index: number) => ques.Problem.toLowerCase().includes(searchText));
+    }
+
+    function GenerateTableContent(): JSX.Element[] | undefined {
+        return getFilteredQuestionList()?.map((question: IQuestion, index: number) =>
+            <tr
+                className={` ${question.Done ? "bg-green-100" : ""} `} key={index}>
+                <Td>
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10">
+                            <div className="ml-2 mt-2 text-gray-800">{index}</div>
+                        </div>
+                    </div>
+                </Td>
+                <Td>
+                    <div className={"cursor-pointer"}>
+                        <div
+                            className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
+                            <a href={question.URL} target={"_blank"}>{question.Problem.substring(0, 70)}</a>
+                        </div>
+                        <div className="text-sm text-gray-500"> {question.Topic} </div>
+                    </div>
+                </Td>
+                <Td>
+                    {question.Done ? <DonePill/> : <PendingPill/>}
+                </Td>
+                <Td>
+                    <label className="inline-flex items-center">
+                        <input checked={question.Done} onChange={whenPressedCheckBox(question, index)}
+                               type="checkbox" className="form-checkbox h-4 w-4 bg-green-500"/>
+                    </label>
+                </Td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+            </tr>);
+
+    }
+
+    // @ts-ignore
+    // @ts-ignore
     return (
         <React.Fragment>
             <div className="text-4xl dark:text-white text-center text-gray-800 mb-6"> 🪝🪙 {selectedTopic} Problems
             </div>
 
             <Breadcrumb root1={`${selectedTopic}`} root2={null} link1={pathname}/>
+
+            <div className="mt-4">
+                <div className="m-auto max-w-md h-10 flex rounded-md shadow-xl">
+                  <span
+                      className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                    Search for
+                  </span>
+                    <input type="text" name="search" id="searchBox"
+                           onChange={getOnChangeSearch()}
+                           value={searchText}
+                           className="focus:ring-indigo-500 border outline-none flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                           placeholder=" I want to search for ..."/>
+                </div>
+            </div>
 
             <Table>
                 <Thead>
@@ -119,41 +181,13 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     <Th title={"Solution"}/>
                 </Thead>
                 <Tbody>
-                    {selectedTopicQuestions?.map((question: IQuestion, index: number) => <tr
-                        className={` ${question.Done ? "bg-green-100" : ""} `} key={index}>
-                        <Td>
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10">
-                                    <div className="ml-2 mt-2 text-gray-800">{index}</div>
-                                </div>
-                            </div>
-                        </Td>
-                        <Td>
-                            <div className={"cursor-pointer"}>
-                                <div
-                                    className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
-                                    <a href={question.URL} target={"_blank"}>{question.Problem.substring(0, 70)}</a>
-                                </div>
-                                <div className="text-sm text-gray-500"> {question.Topic} </div>
-                            </div>
-                        </Td>
-                        <Td>
-                            {question.Done ? <DonePill/> : <PendingPill/>}
-                        </Td>
-                        <Td>
-                            <label className="inline-flex items-center">
-                                <input checked={question.Done} onChange={whenPressedCheckBox(question, index)}
-                                       type="checkbox" className="form-checkbox h-4 w-4 bg-green-500"/>
-                            </label>
-                        </Td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        </td>
-                    </tr>)}
+                    {GenerateTableContent() !== undefined ? <GenerateTableContent/> :
+                        <tr className={'text-red-600'}><Td>😵‍💫 No search results found! </Td></tr>}
                 </Tbody>
             </Table>
         </React.Fragment>
-    );
+    )
+
 }
 
 export default QuestionStatCard;
