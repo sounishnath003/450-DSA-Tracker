@@ -8,6 +8,7 @@ import {IQuestion, IQuestionData} from "../../Backend/model/Question-model";
 import Breadcrumb from "../Breadcums";
 import env from "../../env";
 import {RouterMapTopicName} from "../../routes";
+import {SearchIcon} from "../../assets/icons";
 
 interface QuestionStatCardProps {
 
@@ -161,7 +162,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                 <div className="m-auto max-w-md h-10 flex rounded-md shadow-xl">
                   <span
                       className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                    Search for
+                    Search  <SearchIcon size={20} color={'#333'}  />
                   </span>
                     <input type="search" name="search" id="searchBox"
                            onChange={getOnChangeSearch()}
