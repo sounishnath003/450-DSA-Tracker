@@ -8,7 +8,7 @@ import {IQuestion, IQuestionData} from "../../Backend/model/Question-model";
 import Breadcrumb from "../Breadcums";
 import env from "../../env";
 import {RouterMapTopicName} from "../../routes";
-import {SearchIcon} from "../../assets/icons";
+import {SearchIcon, UploadIcon} from "../../assets/icons";
 
 interface QuestionStatCardProps {
 
@@ -114,6 +114,24 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
         return selectedTopicQuestions?.filter((ques: IQuestion, index: number) => ques.Problem.toLowerCase().includes(searchText));
     }
 
+    function SolveButton(): JSX.Element {
+        return <button
+            type="button"
+            className="rounded-md px-4 py-2 m-2 select-none text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:shadow-outline"
+        >
+            Solve first
+        </button>
+    }
+
+    function UploadCodeButton(): JSX.Element {
+        return <div
+            className="flex cursor-pointer space-x-2 border border-green-500 text-green-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-green-600 focus:outline-none focus:shadow-outline"
+        >
+            <div><UploadIcon size={18} color={"green"}/></div>
+            <div>Code</div>
+        </div>
+    }
+
     function GenerateTableContent(): JSX.Element[] | undefined {
         return getFilteredQuestionList()?.map((question: IQuestion, index: number) =>
             <tr
@@ -129,7 +147,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     <div className={"cursor-pointer"}>
                         <div
                             className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
-                            <a href={question.URL} target={"_blank"} rel="noreferrer">{question.Problem.substring(0, 70)}</a>
+                            <a href={question.URL} target={"_blank"}
+                               rel="noreferrer">{question.Problem.substring(0, 70)}</a>
                         </div>
                         <div className="text-sm text-gray-500"> {question.Topic} </div>
                     </div>
@@ -144,7 +163,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                     </label>
                 </Td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    {question.Done ? <UploadCodeButton/> : <SolveButton/>}
                 </td>
             </tr>);
 
@@ -162,7 +181,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                 <div className="m-auto max-w-md h-10 flex rounded-md shadow-xl">
                   <span
                       className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                    Search  <SearchIcon size={20} color={'#333'}  />
+                    Search  <SearchIcon size={20} color={'#333'}/>
                   </span>
                     <input type="search" name="search" id="searchBox"
                            onChange={getOnChangeSearch()}
