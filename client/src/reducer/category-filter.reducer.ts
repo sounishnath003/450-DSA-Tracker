@@ -22,7 +22,7 @@ export const initialCategoryFilterState: CategoryFilterState = {
     hardQuestions: [],
     selectedCategoryType: null,
     selectedCategoryQuestions: null,
-    dispatch: function ({}: ActionType) {/*noting in here*/
+    dispatch: function ({}: ActionType) {
     },
     dismiss: function (callback: () => void, seconds: number) {
         setTimeout(() => {
@@ -41,6 +41,16 @@ export function categoryFilterReducer(state: CategoryFilterState, action: Action
                 hardQuestions: action.payload.hardQuestions
             }
         }
+
+        case "ON_CATEGORY_SELECT": {
+            console.log({payload: action.payload})
+            return {
+                ...state,
+                selectedCategoryType: action.payload.selectedCategoryType,
+                selectedCategoryQuestions: action.payload.selectedCategoryQuestions
+            }
+        }
+
         default: {
             return state
         }

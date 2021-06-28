@@ -17,7 +17,7 @@ const urls = [fetch(`${env.API_URL}/api/category/easy/all`, {
     signal: abortController.signal
 })]
 
-const CategoryContext = React.createContext({});
+const CategoryContext = React.createContext({...initialCategoryFilterState});
 export const useCategory = () => React.useContext(CategoryContext);
 
 interface CategoryContextProps {

@@ -7,6 +7,7 @@ import Container from "../../components/Container";
 import {AllTopicQuestionResponse} from "../../interfaces";
 import env from "../../env";
 import Cookie from "js-cookie";
+import CategoryFilterProvider from "../CategoryContext";
 
 const QuestionContext = React.createContext<QuestionDataState>({...initialQuestionData});
 
@@ -54,12 +55,14 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
 
     return (
         <QuestionContext.Provider value={{...allQuestionDataState, dispatch, dismiss}}>
-            <Error error={allQuestionDataState.error}/>
-            <Sucess message={allQuestionDataState.message}/>
-            {children}
-            <Container>
-                {allQuestionDataState.loading ? <Loader/> : <HomeRoot/>}
-            </Container>
+            <CategoryFilterProvider>
+                <Error error={allQuestionDataState.error}/>
+                <Sucess message={allQuestionDataState.message}/>
+                {children}
+                <Container>
+                    {allQuestionDataState.loading ? <Loader/> : <HomeRoot/>}
+                </Container>
+            </CategoryFilterProvider>
         </QuestionContext.Provider>
     )
 }

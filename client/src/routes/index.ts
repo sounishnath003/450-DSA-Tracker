@@ -115,5 +115,6 @@ export interface ICategoryRoutes<T> extends IRoute {
 export const categoriesRoutes: ICategoryRoutes<string>[] = [
     {key: "easy", path: "/category-lists/easy", component: Category},
     {key: "medium", path: "/category-lists/medium", component: Category},
-    {key: "hard", path: "/category-lists/hard", component: Category}
+    {key: "hard", path: "/category-lists/hard", component: Category},
+    {key: "progressStat", path: "/progress/stats", component: Category}
 ]
