@@ -17,7 +17,7 @@ interface QuestionStatCardProps {
 }
 
 function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
-    const {allQuestions, selectedTopic, selectedTopicQuestions, dispatch, dismiss} = useQuestion();
+    const {allQuestions, totalSolvedQuestion, selectedTopic, selectedTopicQuestions, dispatch, dismiss} = useQuestion();
     const pathname: string = decodeURI(window.location.pathname).split("/")[1];
 
     const [searchText, setSearchText] = React.useState<string>("");
@@ -65,7 +65,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                         return selectedQuestion;
                     }
                 });
-
+                const totalQuestionSolved: number = totalSolvedQuestion + doneCount;
                 const finalPayload: IQuestionData[] = allQuestions.map((questionTopic: IQuestionData, qindex: number) => {
                     if (selectedTopic === questionTopic.topicName) {
                         return {
@@ -98,7 +98,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
                         payload: {
                             message: resp.message,
                             allQuestions: finalPayload,
-                            selectedTopicQuestions: updatedSelectedQuestionList
+                            selectedTopicQuestions: updatedSelectedQuestionList,
+                            totalQuestionSolved
                         }
                     });
                     dismiss(() => dispatch({type: "RESET"}), 3);

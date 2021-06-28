@@ -42,7 +42,11 @@ export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionP
                 window.location.reload()
             }, 4)
         } else {
-            dispatch({type: "GET_ALL_QUESTIONS", payload: resp});
+            let tsq = 0;
+            for (const q of resp.questions){
+                tsq += q.doneQuestions;
+            }
+            dispatch({type: "GET_ALL_QUESTIONS", payload: {questions: resp.questions, tsq}});
         }
     }
 

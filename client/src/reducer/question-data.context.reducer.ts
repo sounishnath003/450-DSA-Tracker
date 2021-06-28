@@ -11,6 +11,7 @@ export interface QuestionDataState {
     selectedTopic: string | null;
     selectedTopicQuestions: IQuestion[] | null;
     dispatch: React.Dispatch<ActionType>;
+    totalSolvedQuestion: number;
     dismiss: (callback: ()=>void, seconds: number) => void;
 }
 
@@ -21,6 +22,7 @@ export const initialQuestionData: QuestionDataState = {
     allQuestions: [],
     selectedTopicIndex: null,
     selectedTopic: null,
+    totalSolvedQuestion: 0,
     selectedTopicQuestions: null,
     dispatch: ({}: ActionType) => {
     },
@@ -52,7 +54,8 @@ export function questionReducer(state: QuestionDataState = initialQuestionData, 
             return {
                 ...state,
                 loading: false,
-                allQuestions: action.payload.questions
+                allQuestions: action.payload.questions,
+                totalSolvedQuestion: action.payload.tsq
             }
         }
 
@@ -67,11 +70,12 @@ export function questionReducer(state: QuestionDataState = initialQuestionData, 
 
         case "UPDATE_PROGRESS": {
             return {
-                ...state,
-                message: action.payload.message,
-                allQuestions: action.payload.allQuestions,
-                selectedTopicQuestions: action.payload.selectedTopicQuestions
-            }
+              ...state,
+              message: action.payload.message,
+              allQuestions: action.payload.allQuestions,
+              selectedTopicQuestions: action.payload.selectedTopicQuestions,
+              totalSolvedQuestion: action.payload.totalQuestionSolved,
+            };
         }
 
         case "RESET": {

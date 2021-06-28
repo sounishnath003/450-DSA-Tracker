@@ -2,11 +2,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {EasyIcon, HardIcon, MediumIcon, SavedIcon} from "../../assets/icons";
 import {useCategory} from "../../context/CategoryContext";
+import { useQuestion } from "../../context/QuestionContext";
 
 type CategoryNavbarType = { path: string, categoryTypeWithNumber: string, icon: JSX.Element };
 
 const CategoryNavbar: React.FC = () => {
     const {easyQuestions, mediumQuestions, hardQuestions, dispatch} = useCategory();
+    const {totalSolvedQuestion} = useQuestion();
     const categories: CategoryNavbarType[] = [
         {path: '/category-lists/easy', icon: <EasyIcon/>, categoryTypeWithNumber: `Easy ${easyQuestions.length}`},
         {
@@ -15,7 +17,7 @@ const CategoryNavbar: React.FC = () => {
             categoryTypeWithNumber: `Medium ${mediumQuestions.length}`
         },
         {path: '/category-lists/hard', icon: <HardIcon/>, categoryTypeWithNumber: `Hard ${hardQuestions.length}`},
-        {path: '/progress/stats', icon: <SavedIcon/>, categoryTypeWithNumber: `Solved 15`}
+        {path: '/progress/stats', icon: <SavedIcon/>, categoryTypeWithNumber: `Solved ${totalSolvedQuestion}`}
     ]
 
     function generateDispatch(index: number) {
