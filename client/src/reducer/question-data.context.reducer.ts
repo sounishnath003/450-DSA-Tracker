@@ -11,7 +11,7 @@ export interface QuestionDataState {
     selectedTopic: string | null;
     selectedTopicQuestions: IQuestion[] | null;
     dispatch: React.Dispatch<ActionType>;
-    dismiss: (callback: Function, seconds: number) => void;
+    dismiss: (callback: ()=>void, seconds: number) => void;
 }
 
 export const initialQuestionData: QuestionDataState = {

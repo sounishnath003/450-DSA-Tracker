@@ -1,5 +1,6 @@
 import React from "react";
 import {QuestionsProvider} from "../../context/QuestionContext";
+import CategoryFilterProvider from "../../context/CategoryContext";
 
 interface HomeProps {
 
@@ -8,7 +9,9 @@ interface HomeProps {
 const Home: React.FC = ({}: HomeProps) => {
     return (
         <QuestionsProvider>
-            {/*<Header/>*/}
+            <CategoryFilterProvider>
+                {/*<Header/>*/}
+            </CategoryFilterProvider>
         </QuestionsProvider>
     );
 }

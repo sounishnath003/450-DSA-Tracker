@@ -1,5 +1,5 @@
 import React from "react";
-import {initialQuestionData, QuestionDataState, questionReducer} from "../../reducer/question-data.context";
+import {initialQuestionData, QuestionDataState, questionReducer} from "../../reducer/question-data.context.reducer";
 import {Error, Sucess} from "../../components/Alert";
 import Loader from "../../components/Loader";
 import HomeRoot from "../../components/HomeRoot";

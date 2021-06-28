@@ -1,15 +1,20 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 import QuestionTopicCard from "../QuestionTopicCard";
-import {IRoute, routes} from "../../routes";
+import {categoriesRoutes, ICategoryRoutes, IRoute, questionTopicRoutes} from "../../routes";
 
 const HomeRoot: React.FC = () => {
     return (
         <React.Fragment>
             <Switch>
                 <Route path={'/'} exact={true} component={() => <QuestionTopicCard/>}/>
-                {routes.map((route: IRoute, index: number) => <Route key={index} path={route.path}
-                                                                     component={route.component}/>)}
+                {questionTopicRoutes.map((route: IRoute, index: number) => <Route key={index} exact={true}
+                                                                                  path={route.path}
+                                                                                  component={route.component}/>)}
+                {categoriesRoutes.map((route: ICategoryRoutes<string>, index: number) => <Route key={route.key}
+                                                                                                path={route.path}
+                                                                                                component={route.component}
+                                                                                                exact={true}/>)}
             </Switch>
         </React.Fragment>
     )

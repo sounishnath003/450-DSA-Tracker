@@ -2,6 +2,7 @@ import {IQuestionData} from "../Backend/model/Question-model";
 import React from "react";
 import QuestionStatCard from "../components/QuestionStatCard";
 import {QuestionData} from "../Backend/db-store/data";
+import Category from "../components/Category";
 
 interface Props {
     questionData: IQuestionData;
@@ -42,7 +43,7 @@ export function generateUrlForQuestion(
         .replaceAll(" ", "-")}/solution`;
 }
 
-export const routes: IRoute[] = [
+export const questionTopicRoutes: IRoute[] = [
     {
         component: QuestionStatCard,
         path: `/${QuestionData[0].topicName.replace(" & ", " ").toLowerCase()}`,
@@ -104,3 +105,15 @@ export const routes: IRoute[] = [
         path: `/${QuestionData[14].topicName.replace(" & ", " ").toLowerCase()}`,
     },
 ];
+
+export interface ICategoryRoutes<T> extends IRoute {
+    key: T;
+    path: string;
+    component: React.FC
+}
+
+export const categoriesRoutes: ICategoryRoutes<string>[] = [
+    {key: "easy", path: "/category-lists/easy", component: Category},
+    {key: "medium", path: "/category-lists/medium", component: Category},
+    {key: "hard", path: "/category-lists/hard", component: Category}
+]
