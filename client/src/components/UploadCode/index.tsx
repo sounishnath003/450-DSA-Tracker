@@ -6,6 +6,7 @@ import Editor from "@monaco-editor/react";
 import {useQuestion} from "../../context/QuestionContext";
 import env from "../../env";
 import {EditIcon} from '../../assets/icons';
+import CategoryNavbar from '../Category/CategoryNavbar'
 
 const languages = [
     "Select Language",
@@ -147,6 +148,7 @@ const UploadCode = ({}: UploadCodeProps) => {
             Solution
         </div>
         <Breadcrumb root1={question.Topic} link1={getLink1()} root2={question.Problem}/>
+        <CategoryNavbar />        
 
         <div className={'my-16'}>
             {question.haveSolution ?
