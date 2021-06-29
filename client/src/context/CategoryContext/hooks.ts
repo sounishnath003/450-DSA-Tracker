@@ -51,7 +51,7 @@ export function useHook(): useHookInterface {
 
   React.useEffect(() => {
     if (allQuestions.length > 0) getAllCategoryListsQuestions();
-    return () => abortController.abort();
+    // return () => abortController.abort();
   }, [allQuestions]);
 
   return { categoryFilterState, dispatch };
