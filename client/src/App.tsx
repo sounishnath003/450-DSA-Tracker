@@ -1,21 +1,22 @@
 import React from "react";
 import "./App.css";
-import {AuthHome} from "./components/Auth";
-import {useAuth} from "./context/AuthContext";
+import { AuthHome } from "./components/Auth";
 import Home from "./components/Home";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-    const {authState} = useAuth();
+  const { authState } = useAuth();
 
-    React.useEffect(() => {
-        console.log("App initialized");
-    }, []);
+  React.useEffect(() => {
+    console.log("App initialized");
+    // getData((k:any)=>console.log(k));
+  }, []);
 
-    return (
-        <React.Fragment>
-            {!authState.isLoggedIn ? <AuthHome/> : <Home/>}
-        </React.Fragment>
-    );
+  return (
+    <React.Fragment>
+      {!authState.isLoggedIn ? <AuthHome /> : <Home />}
+    </React.Fragment>
+  );
 }
 
 export default App;

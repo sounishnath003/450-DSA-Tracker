@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
+import getDataFromIndexedDB from "./indexedDB";
 
 interface PayloadInterface {
   username: string;
@@ -9,6 +10,7 @@ interface PayloadInterface {
 function AuthHome() {
   const { loginWithRedirect, signupWithRedirect } = useAuth();
   const [signupPressed, setSignupPressed] = React.useState<boolean>(false);
+  const questionFromIndexedDB: any[] = [];
 
   const [payload, setPayload] = React.useState<PayloadInterface>({
     username: "",
@@ -23,6 +25,11 @@ function AuthHome() {
       };
     });
   }
+
+  React.useEffect(() => {
+    getDataFromIndexedDB(questionFromIndexedDB);
+    console.log(questionFromIndexedDB);
+  }, [])
 
   return (
     <div className="bg-blue-50 h-screen flex">
