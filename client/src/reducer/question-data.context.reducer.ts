@@ -69,6 +69,8 @@ export function questionReducer(state: QuestionDataState = initialQuestionData, 
         }
 
         case "UPDATE_PROGRESS": {
+            console.log(state);
+            
             return {
               ...state,
               message: action.payload.message,
