@@ -18,6 +18,7 @@ const router = Router();
 interface SignupInterface {
   username: string;
   password: string;
+  allQuestionsData: any[];
 }
 
 router.post(
@@ -52,7 +53,10 @@ router.post(
 
       const userId: string = savedUser.id;
       const ds450Payload = new AllTopicQuestions({
-        questions: [...QuestionData],
+        questions:
+          payload.allQuestionsData.length > 0
+            ? payload.allQuestionsData
+            : [...QuestionData],
         userId: Types.ObjectId(userId),
       });
 

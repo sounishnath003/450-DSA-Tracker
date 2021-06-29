@@ -1,10 +1,12 @@
 import React from "react";
+import { IQuestionData } from "../../Backend/model/Question-model";
 import { useAuth } from "../../context/AuthContext";
 import getDataFromIndexedDB from "./indexedDB";
 
 interface PayloadInterface {
   username: string;
   password: string;
+  allQuestionsData: IQuestionData[];
 }
 
 function AuthHome() {
@@ -15,6 +17,7 @@ function AuthHome() {
   const [payload, setPayload] = React.useState<PayloadInterface>({
     username: "",
     password: "",
+    allQuestionsData: [],
   });
 
   function handleChange(e: any) {
@@ -28,8 +31,13 @@ function AuthHome() {
 
   React.useEffect(() => {
     getDataFromIndexedDB(questionFromIndexedDB);
-    console.log(questionFromIndexedDB);
-  }, [])
+    setPayload((prevState: PayloadInterface) => {
+      return {
+        ...prevState,
+        allQuestionsData: questionFromIndexedDB,
+      };
+    });
+  }, []);
 
   return (
     <div className="bg-blue-50 h-screen flex">
