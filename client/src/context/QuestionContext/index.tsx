@@ -1,72 +1,41 @@
 import React from "react";
-import {initialQuestionData, QuestionDataState, questionReducer} from "../../reducer/question-data.context.reducer";
-import {Error, Sucess} from "../../components/Alert";
-import Loader from "../../components/Loader";
-import HomeRoot from "../../components/HomeRoot";
+import { Error, Sucess } from "../../components/Alert";
 import Container from "../../components/Container";
-import {AllTopicQuestionResponse} from "../../interfaces";
-import env from "../../env";
-import Cookie from "js-cookie";
+import HomeRoot from "../../components/HomeRoot";
+import Loader from "../../components/Loader";
+import {
+  initialQuestionData,
+  QuestionDataState,
+} from "../../reducer/question-data.context.reducer";
 import CategoryFilterProvider from "../CategoryContext";
+import { useHook } from "./hooks";
 
-const QuestionContext = React.createContext<QuestionDataState>({...initialQuestionData});
+const QuestionContext = React.createContext<QuestionDataState>({
+  ...initialQuestionData,
+});
 
 export const useQuestion = () => React.useContext(QuestionContext);
 
 interface QuestionProps {
-    children: any
+  children: any;
 }
 
-export const QuestionsProvider: React.FC<QuestionProps> = ({children}: QuestionProps): JSX.Element => {
-    const [allQuestionDataState, dispatch] = React.useReducer(questionReducer, initialQuestionData);
-
-    function dismiss(callback: Function, seconds: number) {
-        setTimeout(() => {
-            callback()
-        }, seconds * 1000);
-    }
-
-    async function getAllQuestions(abortController: AbortController) {
-        dispatch({type: "LOADING"});
-        const resp: AllTopicQuestionResponse = await (await fetch(`${env.API_URL}/api/questions/all`, {
-            credentials: "include",
-            signal: abortController.signal
-        })).json();
-        if (resp.error) {
-            dispatch({type: "ERROR", payload: resp.error.message})
-            dismiss(() => dispatch({type: "RESET"}), 5);
-            if (resp.error.message === "User is not registered!!") {
-                Cookie.remove('isAuthenticated');
-                window.location.replace('/');
-            } else setTimeout(() => {
-                window.location.reload()
-            }, 4)
-        } else {
-            let tsq = 0;
-            for (const q of resp.questions){
-                tsq += q.doneQuestions;
-            }
-            dispatch({type: "GET_ALL_QUESTIONS", payload: {questions: resp.questions, tsq}});
-        }
-    }
-
-
-    React.useEffect(() => {
-        const abortController: AbortController = new AbortController();
-        getAllQuestions(abortController);
-        return () => abortController.abort();
-    }, [])
-
-    return (
-        <QuestionContext.Provider value={{...allQuestionDataState, dispatch, dismiss}}>
-            <CategoryFilterProvider>
-                <Error error={allQuestionDataState.error}/>
-                <Sucess message={allQuestionDataState.message}/>
-                {children}
-                <Container>
-                    {allQuestionDataState.loading ? <Loader/> : <HomeRoot/>}
-                </Container>
-            </CategoryFilterProvider>
-        </QuestionContext.Provider>
-    )
-}
+export const QuestionsProvider: React.FC<QuestionProps> = ({
+  children,
+}: QuestionProps): JSX.Element => {
+  const { allQuestionDataState, dismiss, dispatch } = useHook();
+  return (
+    <QuestionContext.Provider
+      value={{ ...allQuestionDataState, dispatch, dismiss }}
+    >
+      <CategoryFilterProvider>
+        <Error error={allQuestionDataState.error} />
+        <Sucess message={allQuestionDataState.message} />
+        {children}
+        <Container>
+          {allQuestionDataState.loading ? <Loader /> : <HomeRoot />}
+        </Container>
+      </CategoryFilterProvider>
+    </QuestionContext.Provider>
+  );
+};

@@ -59,7 +59,6 @@ const UploadCode = ({}: UploadCodeProps) => {
     const initialCodeFragment = typeof question.haveSolution === "boolean" ? question.code as string : `// ${question.Problem} Solution`;
 
     const [visible, setvisible] = React.useState<boolean>(false);
-    const [visible2, setvisible2] = React.useState<boolean>(true);
     const [code, setCode] = React.useState<string>(initialCodeFragment);
     const [progLang, setProgLang] = React.useState<string>('java');
 
@@ -88,6 +87,7 @@ const UploadCode = ({}: UploadCodeProps) => {
 
     async function saveCode() {
         const updatedQuestion = {...question, code, haveSolution: true};
+        setQuestion(updatedQuestion);
 
         const updatedQuestionList: IQuestion[] = selectedTopicQuestions?.map((questn: IQuestion, qid: number) => {
             if (questionIndex === qid) {

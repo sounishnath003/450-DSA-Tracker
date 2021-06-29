@@ -2,7 +2,7 @@ import {ActionType} from "./action-type";
 import {IQuestion} from "../Backend/model/Question-model";
 import React from "react";
 
-interface CategoryFilterState {
+export interface CategoryFilterState {
     error: string | null;
     message: string | null;
     easyQuestions: IQuestion[];
