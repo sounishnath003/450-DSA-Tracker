@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Types } from "mongoose";
 import { AllTopicQuestions } from "../../../database/schema/alltopicquestions.schema";
+import { Category } from "../../../database/schema/categories.schema";
 import { User } from "../../../database/schema/users.schema";
 import {
   createError,
@@ -51,6 +52,8 @@ router.post(
        * My duty is to populate all 450 question to the user
        */
 
+      console.log("All question len: ", payload.allQuestionsData.length);
+
       const userId: string = savedUser.id;
       const ds450Payload = new AllTopicQuestions({
         questions:
@@ -61,6 +64,14 @@ router.post(
       });
 
       await ds450Payload.save();
+
+      const cdoc = await Category.create({
+        userId,
+        easy: [],
+        medium: [],
+        hard: [],
+      });
+      await cdoc.save();
 
       const accessToken = await generateAccessToken(savedUser.id);
 

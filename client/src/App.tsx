@@ -9,7 +9,6 @@ function App() {
 
   React.useEffect(() => {
     console.log("App initialized");
-    // getData((k:any)=>console.log(k));
   }, []);
 
   return (

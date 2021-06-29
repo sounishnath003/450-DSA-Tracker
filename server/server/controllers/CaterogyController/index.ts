@@ -15,15 +15,12 @@ router.get('/:type/all', requiresAuth, async (req: RequestInterface, res: Respon
 
         const allCategoryList: ICategory | null = await Category.findOne({userId});
 
-        if (allCategoryList === null) {
-            await Category.create({userId, easy: [], medium: [], hard: []});
-        }
-
         // @ts-ignore
         const categorizedQuestions = allCategoryList[type];
 
         return res.status(202).send({
             ...SUCCESS,
+            type,
             categorizedQuestions
         });
 
