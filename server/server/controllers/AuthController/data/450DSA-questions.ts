@@ -1,6 +1,4 @@
-import { IQuestionData } from "../model/Question-model";
-
-export const QuestionData: IQuestionData[] = [
+export const QuestionData = [
   {
     topicName: "Array",
     position: 0,
