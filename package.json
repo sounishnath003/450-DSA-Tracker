@@ -1,0 +1,19 @@
+{
+  "name": "450-DSA-Tracker",
+  "version": "2.0.0",
+  "description": "A List of curated 450 dsa questions by Lovebabbar, prepare yourself to improvise dsa knowledge",
+  "main": "index.js",
+  "repository": "https://github.com/sounishnath003/450-DSA-Tracker.git",
+  "author": "Sounish Nath <flock.sinasini@gmail.com>",
+  "scripts": {
+    "dev": "concurrently -m=50 -n server \"yarn dev:server\" \"yarn dev:client\" ",
+    "dev:server": "cd server && yarn dev",
+    "dev:client": "cd client && yarn dev"
+  },
+  "license": "MIT",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  }
+}

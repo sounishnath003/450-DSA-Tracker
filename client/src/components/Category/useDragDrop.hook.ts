@@ -1,31 +1,95 @@
-import {useCategory} from "../../context/CategoryContext";
-import {IQuestion} from "../../Backend/model/Question-model";
+import React from "react";
+import { IQuestion } from "../../Backend/model/Question-model";
+import { useCategory } from "../../context/CategoryContext";
+import env from "../../env";
 
-type DragEvent = React.DragEvent<HTMLDivElement>;
+type DragEvent =
+  | React.DragEvent<HTMLDivElement>
+  | React.DragEvent<HTMLTableRowElement>;
+
+async function _fetch(type: string, payload: IQuestion[]): Promise<Response> {
+  return await fetch(`${env.API_URL}/api/category/${type}/update`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
 
 export default function useDragDropHook() {
-    const {dispatch} = useCategory();
+  const { dispatch, easyQuestions, mediumQuestions, hardQuestions } =
+    useCategory();
 
-    // ** OnDragOver Event - while user holding state...
-    function onDragOver(event: DragEvent, payload: IQuestion) {
-        event.stopPropagation();
-        event.preventDefault();
+  React.useEffect(() => {}, [dispatch]);
+
+  // * OnDragStart Event - user start dragging questions
+  function onDragStart(event: DragEvent, payload: IQuestion) {
+    event.stopPropagation();
+    setTimeout(() => {
+      localStorage.setItem("draggedItem", JSON.stringify(payload));
+    }, 0);
+  }
+
+  // ** OnDragOver Event - while user holding state...
+  function onDragOver(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  // ** OnDrop - when user drop held question onto div
+  async function onDrop(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    const dropZone: string = event.currentTarget.id;
+    const draggedQuestion = JSON.parse(
+      localStorage.getItem("draggedItem") as string
+    );
+    localStorage.clear();
+    if (draggedQuestion === undefined) {
+      console.error("Man... I am empty", draggedQuestion);
     }
-
-    // ** OnDrop - when user drop held question onto div
-    function onDrop(event: DragEvent, payload: IQuestion) {
-        event.stopPropagation();
-        const dropZone: string = event.currentTarget.id;
-        if (dropZone === 'easy')
-            dispatch({type: "CAT_EASY", payload: {question: payload}});
-        else if (dropZone === 'medium')
-            dispatch({type: "CAT_MEDIUM", payload: {question: payload}});
-        else if (dropZone === 'hard')
-            dispatch({type: "CAT_HARD", payload: {question: payload}});
+    if (dropZone === "easy") {
+      const updatedQuestionLists: IQuestion[] = [
+        ...easyQuestions,
+        draggedQuestion,
+      ];
+      await _fetch(dropZone, updatedQuestionLists).catch((e) =>
+        alert(e.message)
+      );
+      dispatch({
+        type: "CAT_EASY",
+        payload: { questions: updatedQuestionLists },
+      });
+    } else if (dropZone === "medium") {
+      const updatedQuestionLists: IQuestion[] = [
+        ...mediumQuestions,
+        draggedQuestion,
+      ];
+      await _fetch(dropZone, updatedQuestionLists).catch((e) =>
+        alert(e.message)
+      );
+      dispatch({
+        type: "CAT_MEDIUM",
+        payload: { questions: updatedQuestionLists },
+      });
+    } else if (dropZone === "hard") {
+      const updatedQuestionLists: IQuestion[] = [
+        ...hardQuestions,
+        draggedQuestion,
+      ];
+      await _fetch(dropZone, updatedQuestionLists).catch((e) =>
+        alert(e.message)
+      );
+      dispatch({
+        type: "CAT_HARD",
+        payload: { questions: updatedQuestionLists },
+      });
     }
+  }
 
-    return {
-        onDrop, onDragOver
-    }
-
+  return {
+    onDrop,
+    onDragOver,
+    onDragStart,
+  };
 }
