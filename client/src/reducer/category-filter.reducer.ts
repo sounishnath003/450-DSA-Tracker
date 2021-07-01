@@ -56,6 +56,7 @@ export function categoryFilterReducer(
       return {
         ...state,
         easyQuestions: action.payload.questions,
+        message: action.payload.message,
       };
     }
 
@@ -63,6 +64,7 @@ export function categoryFilterReducer(
       return {
         ...state,
         mediumQuestions: action.payload.questions,
+        message: action.payload.message,
       };
     }
 
@@ -70,6 +72,32 @@ export function categoryFilterReducer(
       return {
         ...state,
         hardQuestions: action.payload.questions,
+        message: action.payload.message,
+      };
+    }
+
+    case "ERROR": {
+      return {
+        ...state,
+        error: action.payload.error,
+      };
+    }
+
+    case "ON_CAT_QUESTION_DELETE": {
+      return {
+        ...state,
+        easyQuestions: action.payload.questions.easy,
+        mediumQuestions: action.payload.questions.medium,
+        hardQuestions: action.payload.questions.hard,
+        error: action.payload.message,
+      };
+    }
+
+    case "RESET": {
+      return {
+        ...state,
+        error: null,
+        message: null,
       };
     }
 

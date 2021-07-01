@@ -51,7 +51,7 @@ router.post('/:type/update', requiresAuth, async (req: RequestInterface, res: Re
 
         return res.status(202).send({
             ...SUCCESS,
-            message: `Question has been added to ${type} category list!`,
+            message: `Questions has been updated of ${type} category list!`,
             allCategoryList
         });
 

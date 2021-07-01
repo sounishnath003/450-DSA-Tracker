@@ -17,7 +17,7 @@ async function _fetch(type: string, payload: IQuestion[]): Promise<Response> {
 }
 
 export default function useDragDropHook() {
-  const { dispatch, easyQuestions, mediumQuestions, hardQuestions } =
+  const { dispatch, easyQuestions, dismiss, mediumQuestions, hardQuestions } =
     useCategory();
 
   React.useEffect(() => {}, [dispatch]);
@@ -58,7 +58,10 @@ export default function useDragDropHook() {
       );
       dispatch({
         type: "CAT_EASY",
-        payload: { questions: updatedQuestionLists },
+        payload: {
+          questions: updatedQuestionLists,
+          message: "Question has been added to the easy category!",
+        },
       });
     } else if (dropZone === "medium") {
       const updatedQuestionLists: IQuestion[] = [
@@ -70,7 +73,10 @@ export default function useDragDropHook() {
       );
       dispatch({
         type: "CAT_MEDIUM",
-        payload: { questions: updatedQuestionLists },
+        payload: {
+          questions: updatedQuestionLists,
+          message: "Question has been added to the medium category!",
+        },
       });
     } else if (dropZone === "hard") {
       const updatedQuestionLists: IQuestion[] = [
@@ -82,9 +88,13 @@ export default function useDragDropHook() {
       );
       dispatch({
         type: "CAT_HARD",
-        payload: { questions: updatedQuestionLists },
+        payload: {
+          questions: updatedQuestionLists,
+          message: "Question has been added to the hard category!",
+        },
       });
     }
+    dismiss(() => dispatch({ type: "RESET" }), 3);
   }
 
   return {

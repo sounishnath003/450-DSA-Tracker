@@ -12,10 +12,21 @@ export type ON_CATEGORY_SELECT = "ON_CATEGORY_SELECT";
 export type CAT_EASY = "CAT_EASY";
 export type CAT_MEDIUM = "CAT_MEDIUM";
 export type CAT_HARD = "CAT_HARD";
+export type ON_CAT_QUESTION_DELETE = "ON_CAT_QUESTION_DELETE";
 
 type CAT = CAT_EASY | CAT_MEDIUM | CAT_HARD | ON_CATEGORY_SELECT;
 
 export interface ActionType {
-    type: LOGIN | ERROR | RESET | GET_ALL_QUESTIONS | LOADING | SELECT_QUESTION_TOPIC | UPDATE_PROGRESS | GET_ALL_CATEGORY_LISTS | CAT;
-    payload?: any;
+  type:
+    | LOGIN
+    | ERROR
+    | RESET
+    | GET_ALL_QUESTIONS
+    | LOADING
+    | SELECT_QUESTION_TOPIC
+    | UPDATE_PROGRESS
+    | GET_ALL_CATEGORY_LISTS
+    | CAT
+    | ON_CAT_QUESTION_DELETE;
+  payload?: any;
 }
