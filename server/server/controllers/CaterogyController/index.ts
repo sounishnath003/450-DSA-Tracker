@@ -34,15 +34,15 @@ router.post('/:type/update', requiresAuth, async (req: RequestInterface, res: Re
     try {
 
         const userId: string = (req as any).userId;
-        const type: string = req.params.type;
+        const type: string = req.params.type;        
 
-        const payload = (res as any).body as IQuestion[];
+        const payload = req.body as IQuestion[];
 
         const allCategoryList: ICategory | null = await Category.findOne({userId});
 
-        if (allCategoryList === null) {
-            await Category.create({userId, easy: [], medium: [], hard: []});
-        }
+        // if (allCategoryList === null) {
+        //     await Category.create({userId, easy: [], medium: [], hard: []});
+        // }
 
         // @ts-ignore
         allCategoryList[type] = payload;
@@ -51,7 +51,8 @@ router.post('/:type/update', requiresAuth, async (req: RequestInterface, res: Re
 
         return res.status(202).send({
             ...SUCCESS,
-            message: `Question has been added to ${type} category list!`
+            message: `Questions has been updated of ${type} category list!`,
+            allCategoryList
         });
 
     } catch (e) {
