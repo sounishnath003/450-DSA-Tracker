@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { json, urlencoded } from "express";
 import morgan from "morgan";
@@ -10,7 +11,6 @@ import {
   RequestInterface,
   ResponseInterface,
 } from "./utils";
-import cookieParser from "cookie-parser";
 
 export class Server {
   private readonly PORT = 5000 || process.env.PORT;
@@ -37,7 +37,15 @@ export class Server {
   private async serverConfig() {
     // express-file-upload setup middleware
     this.app.use(json());
-    this.app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+    this.app.use(
+      cors({
+        origin: [
+          "http://450-dsa-tracker.netlify.app",
+          "http://localhost:3000",
+        ],
+        credentials: true,
+      })
+    );
     this.app.use(morgan("dev"));
     this.app.use(urlencoded({ extended: false }));
     this.app.use(json());
