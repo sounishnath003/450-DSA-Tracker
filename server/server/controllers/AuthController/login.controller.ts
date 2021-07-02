@@ -59,15 +59,15 @@ router.post(
         .cookie("accessToken", accessToken, {
           httpOnly: true,
           sameSite: "strict",
-          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 24),
         })
         .cookie("isLoggedIn", "true", {
           httpOnly: true,
           sameSite: "strict",
-          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 24),
         })
         .cookie("isAuthenticated", "true", {
-          expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
+          expires: new Date(new Date().getTime() + 1000 * 3600 * 24),
         })
         .send({
           ...SUCCESS,
