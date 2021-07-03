@@ -7,6 +7,9 @@
   "author": "Sounish Nath <flock.sinasini@gmail.com>",
   "scripts": {
     "dev": "concurrently -m=50 -n server \"yarn dev:server\" \"yarn dev:client\" ",
+    "all:install": "concurrently -m=50 -n server \"yarn server:install\" \"yarn client:install\" ",
+    "server:install": "cd server && yarn install",
+    "client:install": "cd client && yarn install",
     "dev:server": "cd server && yarn dev",
     "dev:client": "cd client && yarn dev"
   },
