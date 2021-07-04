@@ -71,7 +71,7 @@ export function useHook() {
     return `/${topicName.replace(" & ", "-").toLowerCase()}`;
   }
 
-  function handleEditorChange(value: string, event: any) {
+  function handleEditorChange(value: string) {
     setCode(value);
   }
 
@@ -102,7 +102,7 @@ export function useHook() {
     ) as unknown as IQuestion[];
 
     const finalPayload: IQuestionData[] = allQuestions.map(
-      (aquestion: IQuestionData, qiidx: number) => {
+      (aquestion: IQuestionData) => {
         if (selectedTopic === aquestion.topicName) {
           return {
             ...aquestion,
@@ -145,8 +145,10 @@ export function useHook() {
   const [requestForEdit, setRequestEdit] = React.useState<boolean>(false);
 
   function toggleRequestForEdit() {
+    if (requestForEdit === true) {
+      saveCode();
+    }
     setRequestEdit(!requestForEdit);
-    if (requestForEdit === true) saveCode();
   }
 
   return {

@@ -4,6 +4,18 @@
         "es2021": true,
         "node": true
     },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import Editor from "@monaco-editor/react";
 import React from "react";
 import { EditIcon } from "../../assets/icons";
@@ -50,7 +51,7 @@ const UploadCode = ({}: UploadCodeProps) => {
             >
               {languages.map((language: string, index: number) => (
                 <option
-                  key={language}
+                  key={language + index}
                   value={language}
                   className={"px-2 py-2 m-2"}
                 >
@@ -76,7 +77,7 @@ const UploadCode = ({}: UploadCodeProps) => {
             <Editor
               defaultLanguage={progLang}
               height={"90vh"}
-              onChange={handleEditorChange}
+              onChange={(e) => handleEditorChange("" + e)}
               options={{
                 fontFamily:
                   "rec mono linear, Cascadia Code, Consolas, monospace",
@@ -116,7 +117,7 @@ const UploadCode = ({}: UploadCodeProps) => {
                   >
                     {languages.map((language: string, index: number) => (
                       <option
-                        key={language}
+                        key={language + index}
                         value={language}
                         className={"px-2 py-2 m-2"}
                       >
@@ -143,7 +144,7 @@ const UploadCode = ({}: UploadCodeProps) => {
                   defaultLanguage={"java"}
                   height={"90vh"}
                   defaultValue={code}
-                  onChange={handleEditorChange}
+                  onChange={(e) => handleEditorChange("" + e)}
                 />
               </>
             )}

@@ -15,13 +15,11 @@ export function useHook() {
     } = useQuestion();
     const pathname: string = decodeURI(window.location.pathname).split("/")[1];
     const [searchText, setSearchText] = React.useState<string>("");
-    const [draggedQuestion, setDraggedQuesiton] = React.useState<IQuestion>();
 
     async function feedSelectQuestionData(abortController: AbortController) {
-        // @ts-ignore
         const resp = await (
             await fetch(
-                `${env.API_URL}/api/questions/topic/${RouterMapTopicName[pathname]}`,
+                `${env.API_URL}/api/questions/topic/${(RouterMapTopicName as never)[pathname]}`,
                 {
                     credentials: "include",
                     signal: abortController.signal,
@@ -48,7 +46,7 @@ export function useHook() {
     }, []);
 
     function whenPressedCheckBox(question: IQuestion, quesIndex: number) {
-        return async function (p1: React.ChangeEvent<HTMLInputElement>) {
+        return async function () {
             if (selectedTopicQuestions !== null && selectedTopic !== null) {
                 let doneCount = question.Done ? -1 : 1;
                 const updatedQuestion: IQuestion = {
@@ -69,7 +67,7 @@ export function useHook() {
                         }
                     );
                 const finalPayload: IQuestionData[] = allQuestions.map(
-                    (questionTopic: IQuestionData, qindex: number) => {
+                    (questionTopic: IQuestionData) => {
                         if (selectedTopic === questionTopic.topicName) {
                             return {
                                 ...questionTopic,
@@ -119,7 +117,7 @@ export function useHook() {
     }
 
     function getFilteredQuestionList(): IQuestion[] | undefined {
-        return selectedTopicQuestions?.filter((ques: IQuestion, index: number) =>
+        return selectedTopicQuestions?.filter((ques: IQuestion) =>
             ques.Problem.toLowerCase().includes(searchText)
         );
     }

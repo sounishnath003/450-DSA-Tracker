@@ -9,10 +9,13 @@ interface PayloadInterface {
   allQuestionsData: IQuestionData[];
 }
 
-function AuthHome() {
+function AuthHome(): JSX.Element {
   const { loginWithRedirect, signupWithRedirect } = useAuth();
   const [signupPressed, setSignupPressed] = React.useState<boolean>(false);
   const questionFromIndexedDB: any[] = [];
+
+  if (loginWithRedirect === undefined || signupWithRedirect === undefined)
+    return <> </>;
 
   const [payload, setPayload] = React.useState<PayloadInterface>({
     username: "",
