@@ -11,9 +11,7 @@ import { Tbody, Td } from "../Table/Tbody";
 import Thead, { Th } from "../Table/Thead";
 import { useHook } from "./hook";
 
-interface QuestionStatCardProps {}
-
-function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
+function QuestionStatCard(): JSX.Element {
   const {
     getFilteredQuestionList,
     getOnChangeSearch,
@@ -22,6 +20,8 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
     searchText,
     selectedTopic,
   } = useHook();
+
+  if (getFilteredQuestionList === undefined) return <> </>;
 
   const { onDragStart } = useDragDropHook();
 
@@ -42,7 +42,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
   }: {
     question: IQuestion;
     qindex: number;
-  }): JSX.Element {
+  }) {
     if (question.Done === true) {
       if (question.code === undefined) {
         return (
@@ -79,58 +79,67 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
           </Link>
         );
     }
+    return <> </>;
   }
 
-  function GenerateTableContent(): JSX.Element[] | undefined {
-    return getFilteredQuestionList()?.map(
-      (question: IQuestion, index: number) => (
-        <tr
-          className={` ${question.Done ? "bg-green-100" : ""} `}
-          key={index}
-          draggable={true}
-          onDragStart={(event) => onDragStart(event, question)}
-        >
-          <Td>
-            <div className="flex items-center">
-              <div className="flex-shrink-0 h-10 w-10">
-                <div className="ml-2 mt-2 text-gray-800">{index}</div>
-              </div>
-            </div>
-          </Td>
-          <Td>
-            <div className={"cursor-pointer"}>
-              <div className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
-                <a href={question.URL} target={"_blank"} rel="noreferrer">
-                  {question.Problem.substring(0, 70)}
-                </a>
-              </div>
-              <div className="text-sm text-gray-500"> {question.Topic} </div>
-            </div>
-          </Td>
-          <Td>{question.Done ? <DonePill /> : <PendingPill />}</Td>
-          <Td>
-            <label className="inline-flex items-center">
-              <input
-                checked={question.Done}
-                onChange={whenPressedCheckBox(question, index)}
-                type="checkbox"
-                className="form-checkbox h-4 w-4 bg-green-500"
-              />
-            </label>
-          </Td>
-          <Td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            {question.Done ? (
-              <UploadCodeButton question={question} qindex={index} />
-            ) : (
-              <SolveButton />
-            )}
-          </Td>
-        </tr>
-      )
+  function GenerateTableContent() {
+    return (
+      <>
+        {getFilteredQuestionList()?.map(
+          (question: IQuestion, index: number) => (
+            <tr
+              className={` ${question.Done ? "bg-green-100" : ""} `}
+              key={index}
+              draggable={true}
+              onDragStart={(event) => onDragStart(event, question)}
+            >
+              <Td>
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 h-10 w-10">
+                    <div className="ml-2 mt-2 text-gray-800">{index}</div>
+                  </div>
+                </div>
+              </Td>
+              <Td>
+                <div className={"cursor-pointer"}>
+                  <div className="text-sm text-gray-900 break-all hover:text-indigo-700 max-w-md break-all">
+                    <a href={question.URL} target={"_blank"} rel="noreferrer">
+                      {question.Problem.substring(0, 70)}
+                    </a>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {" "}
+                    {question.Topic}{" "}
+                  </div>
+                </div>
+              </Td>
+              <Td>{question.Done ? <DonePill /> : <PendingPill />}</Td>
+              <Td>
+                <label className="inline-flex items-center">
+                  <input
+                    checked={question.Done}
+                    onChange={whenPressedCheckBox(question, index)}
+                    type="checkbox"
+                    className="form-checkbox h-4 w-4 bg-green-500"
+                  />
+                </label>
+              </Td>
+              <Td>
+                <div className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  {question.Done ? (
+                    <UploadCodeButton question={question} qindex={index} />
+                  ) : (
+                    <SolveButton />
+                  )}
+                </div>
+              </Td>
+            </tr>
+          )
+        )}
+      </>
     );
   }
 
-  // @ts-ignore
   return (
     <React.Fragment>
       <div className="text-4xl dark:text-white text-center text-gray-800 mb-6">
@@ -167,13 +176,7 @@ function QuestionStatCard({}: QuestionStatCardProps): JSX.Element {
           <Th title={"Solution"} />
         </Thead>
         <Tbody>
-          {GenerateTableContent() !== undefined ? (
-            <GenerateTableContent />
-          ) : (
-            <tr className={"text-red-600"}>
-              <Td>😵‍💫 No search results found! </Td>
-            </tr>
-          )}
+          <GenerateTableContent />
         </Tbody>
       </Table>
     </React.Fragment>
