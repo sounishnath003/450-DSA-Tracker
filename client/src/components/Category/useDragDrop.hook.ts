@@ -1,13 +1,14 @@
 import React from "react";
 import { IQuestion } from "../../Backend/model/Question-model";
 import { useCategory } from "../../context/CategoryContext";
+import env from "../../env";
 
 type DragEvent =
   | React.DragEvent<HTMLDivElement>
   | React.DragEvent<HTMLTableRowElement>;
 
 async function _fetch(type: string, payload: IQuestion[]): Promise<Response> {
-  return await fetch(`/api/category/${type}/update`, {
+  return await fetch(`/proxy/${env.API_URL}/category/${type}/update`, {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
