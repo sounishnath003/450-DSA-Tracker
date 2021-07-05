@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
     cors: true,
     proxy: {
-      "/api": "https://dsa-450-backend.herokuapp.com",
+      "/api": "https://dsa-450-backend.herokuapp.com/",
     },
   },
   build: {
     outDir: "build",
-  }
+  },
 });
