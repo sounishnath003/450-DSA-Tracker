@@ -79,7 +79,7 @@ export class Server {
     // });
     this.app.use(morgan("dev"));
     this.app.use(urlencoded({ extended: false }));
-    this.app.use(json({ limit: "5mb" }));
+    this.app.use(json({ limit: "20mb" }));
     this.app.use(cookieParser());
   }
 
