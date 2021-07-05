@@ -91,6 +91,7 @@ router.post(
         })
         .cookie("isAuthenticated", "true", {
           secure: true,
+          sameSite: "none",
           expires: new Date(new Date().getTime() + 1000 * 3600 * 5),
         })
         .send({

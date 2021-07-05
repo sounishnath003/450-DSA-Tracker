@@ -9,11 +9,11 @@ import {
   createError,
   Next,
   RequestInterface,
-  ResponseInterface,
+  ResponseInterface
 } from "./utils";
 
 export class Server {
-  private readonly PORT = 5000 || process.env.PORT;
+  private readonly PORT = process.env.PORT || 5000;
   private readonly workers = cpus().length;
   private app = express();
 
@@ -41,11 +41,24 @@ export class Server {
       cors({
         origin: [
           "http://450-dsa-tracker.netlify.app",
+          "https://450-dsa-tracker.netlify.app",
           "http://localhost:3000",
         ],
         credentials: true,
       })
     );
+    this.app.use(function (req, res, next) {
+      res.header("Access-Control-Allow-Credentials", "true");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
+      );
+      res.header(
+        "Access-Control-Allow-Headers",
+        "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+      );
+      next();
+    });
     this.app.use(morgan("dev"));
     this.app.use(urlencoded({ extended: false }));
     this.app.use(json());
