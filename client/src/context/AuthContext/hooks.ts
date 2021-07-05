@@ -1,67 +1,93 @@
-import env from "../../env";
+import { default as Cookie, default as Cookies } from "js-cookie";
 import React from "react";
-import {authReducer, initialState} from "../../reducer/auth.reducer";
-import Cookie from "js-cookie";
-import {ActionType} from "../../reducer/action-type";
+import env from "../../env";
+import { ActionType } from "../../reducer/action-type";
+import { authReducer, initialState } from "../../reducer/auth.reducer";
 
 interface useHookInterface {
-    authState: { error: any, isLoggedIn: boolean, message: string | null },
-    dispatch: React.Dispatch<ActionType>,
-    loginWithRedirect: (payload: { username: string, password: string }) => Promise<void>,
-    dismiss: (callback: Function, seconds: number) => void,
-    signupWithRedirect: (payload: { username: string, password: string }) => Promise<void>
+  authState: { error: any; isLoggedIn: boolean; message: string | null };
+  dispatch: React.Dispatch<ActionType>;
+  loginWithRedirect: (payload: {
+    username: string;
+    password: string;
+  }) => Promise<void>;
+  dismiss: (callback: Function, seconds: number) => void;
+  signupWithRedirect: (payload: {
+    username: string;
+    password: string;
+  }) => Promise<void>;
 }
 
 export const useHook = (): useHookInterface => {
-    const [authState, dispatch] = React.useReducer(authReducer, initialState);
+  const [authState, dispatch] = React.useReducer(authReducer, initialState);
 
-    React.useEffect(() => {
-        const isAuthenticated = Cookie.get('isAuthenticated');
-        if (isAuthenticated === 'true') {
-            dispatch({type: "LOGIN"});
-            dismiss(() => dispatch({type: "RESET"}), 3);
-        }
-    }, []);
-
-    function dismiss(callback: Function, seconds: number) {
-        setTimeout(() => callback(), seconds * 1000);
+  React.useEffect(() => {
+    const isAuthenticated = Cookie.get("isAuthenticated");
+    if (isAuthenticated === "true") {
+      dispatch({ type: "LOGIN" });
+      dismiss(() => dispatch({ type: "RESET" }), 3);
     }
+  }, []);
 
-    async function loginWithRedirect(payload: {
-        username: string;
-        password: string;
-    }) {
-        const resp = await (await fetch(`${env.API_URL}/api/auth/login`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(payload),
-            credentials: "include",
-        })).json();
-        if (resp.error) {
-            dispatch({type: "ERROR", payload: resp.error.message});
-        } else {
-            dispatch({type: "LOGIN", payload: resp});
-        }
-        dismiss(() => dispatch({type: "RESET"}), 3);
+  function dismiss(callback: Function, seconds: number) {
+    setTimeout(() => callback(), seconds * 1000);
+  }
+
+  async function loginWithRedirect(payload: {
+    username: string;
+    password: string;
+  }) {
+    const resp = await (
+      await fetch(`${env.API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      })
+    ).json();
+    if (resp.error) {
+      dispatch({ type: "ERROR", payload: resp.error.message });
+    } else {
+      Cookies.set("isAuthenticated", "true", {
+        expires: new Date(new Date().getTime() + 1000 * 3600 * 24),
+        sameSite: "None",
+        secure: true,
+      });
+      dispatch({ type: "LOGIN", payload: resp });
     }
+    dismiss(() => dispatch({ type: "RESET" }), 3);
+  }
 
-    async function signupWithRedirect(payload: {
-        username: string;
-        password: string;
-    }) {
-        const resp = await (await fetch(`${env.API_URL}/api/auth/signup`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(payload),
-            credentials: "include",
-        })).json();
-        if (resp.error) {
-            dispatch({type: "ERROR", payload: resp.error.message});
-        } else {
-            dispatch({type: "LOGIN", payload: resp});
-        }
-        dismiss(() => dispatch({type: "RESET"}), 3);
+  async function signupWithRedirect(payload: {
+    username: string;
+    password: string;
+  }) {
+    const resp = await (
+      await fetch(`${env.API_URL}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      })
+    ).json();
+    if (resp.error) {
+      dispatch({ type: "ERROR", payload: resp.error.message });
+    } else {
+      Cookies.set("isAuthenticated", "true", {
+        expires: new Date(new Date().getTime() + 1000 * 3600 * 24),
+        sameSite: "None",
+        secure: true,
+      });
+      dispatch({ type: "LOGIN", payload: resp });
     }
+    dismiss(() => dispatch({ type: "RESET" }), 3);
+  }
 
-    return {authState, dispatch, loginWithRedirect, dismiss, signupWithRedirect}
-}
+  return {
+    authState,
+    dispatch,
+    loginWithRedirect,
+    dismiss,
+    signupWithRedirect,
+  };
+};

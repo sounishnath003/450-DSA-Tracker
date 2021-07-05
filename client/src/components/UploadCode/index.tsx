@@ -6,9 +6,7 @@ import Breadcrumb from "../Breadcums";
 import CategoryNavbar from "../Category/CategoryNavbar";
 import { useHook } from "./hook";
 
-interface UploadCodeProps {}
-
-const UploadCode = ({}: UploadCodeProps) => {
+const UploadCode = () => {
   const {
     code,
     getLink1,
@@ -24,7 +22,6 @@ const UploadCode = ({}: UploadCodeProps) => {
     toggleRequestForEdit,
   } = useHook();
 
-  // @ts-ignore
   return (
     <React.Fragment>
       <div className="text-3xl dark:text-white text-center text-gray-800 mb-6">
@@ -62,7 +59,7 @@ const UploadCode = ({}: UploadCodeProps) => {
             </select>
             <button
               type="button"
-              onClick={toggleRequestForEdit}
+              onClick={() => toggleRequestForEdit()}
               className="border float-right mb-4 border-green-700 text-green-700 rounded-md px-4 py-2 m-2 transition duration-200 ease select-none hover:text-white hover:bg-green-500 focus:outline-none focus:shadow-outline"
             >
               <span className="flex flex-wrap space-x-2">
@@ -129,7 +126,7 @@ const UploadCode = ({}: UploadCodeProps) => {
 
                   <button
                     type="button"
-                    onClick={saveCode}
+                    onClick={() => saveCode()}
                     className="border border-gray-700 text-gray-700 rounded-md px-4 py-2 m-2 transition duration-200 ease select-none hover:text-white hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                   >
                     Save Code
