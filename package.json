@@ -11,7 +11,8 @@
     "server:install": "cd server && yarn install",
     "client:install": "cd client && yarn install",
     "dev:server": "cd server && yarn dev",
-    "dev:client": "cd client && yarn dev"
+    "dev:client": "cd client && yarn dev",
+    "build:client": "cd client && yarn build"
   },
   "license": "MIT",
   "private": false,
