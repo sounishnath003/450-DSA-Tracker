@@ -2,7 +2,6 @@ import React from "react";
 import { TrashIcon } from "../../assets/icons";
 import { IQuestion } from "../../Backend/model/Question-model";
 import { useCategory } from "../../context/CategoryContext";
-import env from "../../env";
 import BreadCrumb from "../Breadcums";
 import { DonePill, PendingPill } from "../Pill";
 import Table from "../Table";
@@ -37,17 +36,14 @@ const Category: React.FC = () => {
       (ques: IQuestion, idx: number) => idx !== index
     );
 
-    const promise = await fetch(
-      `${env.API_URL}/api/category/${pathname}/update`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(updatedQuestionsList),
-      }
-    );
+    const promise = await fetch(`/api/category/${pathname}/update`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(updatedQuestionsList),
+    });
 
     if (promise.ok === false) {
       dispatch({ type: "ERROR", payload: { error: promise.statusText } });

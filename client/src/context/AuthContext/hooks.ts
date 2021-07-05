@@ -1,6 +1,5 @@
 import { default as Cookie, default as Cookies } from "js-cookie";
 import React from "react";
-import env from "../../env";
 import { ActionType } from "../../reducer/action-type";
 import { authReducer, initialState } from "../../reducer/auth.reducer";
 
@@ -38,7 +37,7 @@ export const useHook = (): useHookInterface => {
     password: string;
   }) {
     const resp = await (
-      await fetch(`${env.API_URL}/api/auth/login`, {
+      await fetch(`/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -63,7 +62,7 @@ export const useHook = (): useHookInterface => {
     password: string;
   }) {
     const resp = await (
-      await fetch(`${env.API_URL}/api/auth/signup`, {
+      await fetch(`/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

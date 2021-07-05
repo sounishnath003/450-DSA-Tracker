@@ -1,5 +1,4 @@
 import React from "react";
-import env from "../../env";
 import { ActionType } from "../../reducer/action-type";
 import {
   categoryFilterReducer,
@@ -22,15 +21,15 @@ export function useHook(): useHookInterface {
     abortController: AbortController
   ) {
     const urls = [
-      fetch(`${env.API_URL}/api/category/easy/all`, {
+      fetch(`/api/category/easy/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),
-      fetch(`${env.API_URL}/api/category/medium/all`, {
+      fetch(`/api/category/medium/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),
-      fetch(`${env.API_URL}/api/category/hard/all`, {
+      fetch(`/api/category/hard/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),
