@@ -9,13 +9,18 @@ import {
   createError,
   Next,
   RequestInterface,
-  ResponseInterface
+  ResponseInterface,
 } from "./utils";
 
 export class Server {
   private readonly PORT = process.env.PORT || 5000;
   private readonly workers = cpus().length;
   private app = express();
+
+  private readonly whiteListIps = [
+    "https://450-dsa-tracker.netlify.app",
+    "http://localhost:3000",
+  ];
 
   constructor() {
     /**
@@ -34,31 +39,44 @@ export class Server {
     this.start();
   }
 
+  private corsOptionsDelegate(req: RequestInterface, callback: any) {
+    let corsOptions;
+    const isAllowedDomain =
+      this.whiteListIps.indexOf(req.headers.origin as string) !== -1;
+    if (isAllowedDomain === true) {
+      corsOptions = { origin: true, credentials: true };
+    } else {
+      corsOptions = { origin: false };
+    }
+    callback(null, corsOptions);
+  }
+
   private async serverConfig() {
     // express-file-upload setup middleware
     this.app.use(json());
     this.app.use(
       cors({
         origin: [
-          "http://450-dsa-tracker.netlify.app",
-          "https://450-dsa-tracker.netlify.app",
+          "https://450-dsa-tracker.netlify.app/",
+          "http://450-dsa-tracker.netlify.app/",
           "http://localhost:3000",
         ],
         credentials: true,
       })
     );
-    this.app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Credentials", "true");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
-      );
-      res.header(
-        "Access-Control-Allow-Headers",
-        "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
-      );
-      next();
-    });
+    // this.app.use(function (req, res, next) {
+    //   res.header("Access-Control-Allow-Origin", "*");
+    //   res.header("Access-Control-Allow-Credentials", "true");
+    //   res.header(
+    //     "Access-Control-Allow-Methods",
+    //     "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
+    //   );
+    //   res.header(
+    //     "Access-Control-Allow-Headers",
+    //     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+    //   );
+    //   next();
+    // });
     this.app.use(morgan("dev"));
     this.app.use(urlencoded({ extended: false }));
     this.app.use(json());
@@ -75,6 +93,7 @@ export class Server {
       (err: any, req: RequestInterface, res: ResponseInterface, next: Next) => {
         res.status(err.status || 500).send({
           error: {
+            url: req.path,
             status: err.status || 500,
             message: err.message,
           },
