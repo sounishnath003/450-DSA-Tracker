@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/proxy/*"
-  to = ":splat"
+  to = "https://dsa-450-backend.herokuapp.com/:splat"
   status = 200
   force = true
   

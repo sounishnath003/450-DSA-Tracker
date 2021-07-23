@@ -1,10 +1,9 @@
 import React from "react";
-import env from "../../env";
 import { ActionType } from "../../reducer/action-type";
 import {
-  categoryFilterReducer,
-  CategoryFilterState,
-  initialCategoryFilterState,
+    categoryFilterReducer,
+    CategoryFilterState,
+    initialCategoryFilterState
 } from "../../reducer/category-filter.reducer";
 
 interface useHookInterface {
@@ -22,15 +21,15 @@ export function useHook(): useHookInterface {
     abortController: AbortController
   ) {
     const urls = [
-      fetch(`/proxy/${env.API_URL}/category/easy/all`, {
+      fetch(`/proxy/api/category/easy/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),
-      fetch(`/proxy/${env.API_URL}/category/medium/all`, {
+      fetch(`/proxy/api/category/medium/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),
-      fetch(`/proxy/${env.API_URL}/category/hard/all`, {
+      fetch(`/proxy/api/category/hard/all`, {
         credentials: "include",
         signal: abortController.signal,
       }),

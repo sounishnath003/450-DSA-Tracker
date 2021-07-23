@@ -38,7 +38,7 @@ const Category: React.FC = () => {
     );
 
     const promise = await fetch(
-      `/proxy/${env.API_URL}/category/${pathname}/update`,
+      `/proxy/api/category/${pathname}/update`,
       {
         method: "POST",
         headers: {

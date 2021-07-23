@@ -1,7 +1,6 @@
 import React from "react";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { useQuestion } from "../../context/QuestionContext";
-import env from "../../env";
 import { RouterMapTopicName } from "../../routes";
 
 export function useHook() {
@@ -19,7 +18,7 @@ export function useHook() {
   async function feedSelectQuestionData(abortController: AbortController) {
     const resp = await (
       await fetch(
-        `/proxy/${env.API_URL}/questions/topic/${
+        `/proxy/api/questions/topic/${
           (RouterMapTopicName as never)[pathname]
         }`,
         {
@@ -84,7 +83,7 @@ export function useHook() {
         );
 
         const resp = await (
-          await fetch(`/proxy/${env.API_URL}/questions/update-progress`, {
+          await fetch(`/proxy/api/questions/update-progress`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

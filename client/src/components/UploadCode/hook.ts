@@ -2,7 +2,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
 import { useQuestion } from "../../context/QuestionContext";
-import env from "../../env";
 
 export function useHook() {
   const languages = [
@@ -115,7 +114,7 @@ export function useHook() {
     );
 
     const resp = await (
-      await fetch(`/proxy/${env.API_URL}/questions/update-progress`, {
+      await fetch(`/proxy/api/questions/update-progress`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

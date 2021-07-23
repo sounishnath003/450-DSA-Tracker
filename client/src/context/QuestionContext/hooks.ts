@@ -1,12 +1,11 @@
 import Cookie from "js-cookie";
 import React from "react";
 import { IQuestion, IQuestionData } from "../../Backend/model/Question-model";
-import env from "../../env";
 import { AllTopicQuestionResponse } from "../../interfaces";
 import { ActionType } from "../../reducer/action-type";
 import {
-  initialQuestionData,
-  questionReducer,
+    initialQuestionData,
+    questionReducer
 } from "../../reducer/question-data.context.reducer";
 
 interface useHookInterface {
@@ -41,7 +40,7 @@ export function useHook(): useHookInterface {
   async function getAllQuestions(abortController: AbortController) {
     dispatch({ type: "LOADING" });
     const resp: AllTopicQuestionResponse = await (
-      await fetch(`/proxy/${env.API_URL}/questions/all`, {
+      await fetch(`/proxy/api/questions/all`, {
         credentials: "include",
         signal: abortController.signal,
       })
