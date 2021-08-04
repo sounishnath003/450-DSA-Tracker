@@ -29,12 +29,12 @@ export class Server {
      * But for development
      * I think it is not required for now!!
      */
-    // if (isMaster) {
-    //   console.log(`## 🔼 Master Server: ${pid} has been started...`);
+    // if (isMaster === true) {
+    //   console.log(`## 🔼 [Master Server: ${pid}] has been started...`);
     //   for (let i = 0; i < this.workers; i++) fork();
     //   on("exit", () => fork());
     // } else {
-    //   this.internalServerStart();
+    //   this.start();
     // }
     this.start();
   }

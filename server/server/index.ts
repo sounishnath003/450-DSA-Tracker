@@ -1,3 +1,6 @@
+import { fork, isMaster } from "cluster";
+import { cpus } from "os";
+import { on, pid } from "process";
 import { Server } from "./server";
 
 /**
@@ -8,5 +11,12 @@ import { Server } from "./server";
  * For Development my machine 4cores and concurrency level 100 SET
  */
 export function kickStartTheServer() {
+  // const workers = cpus();
+  // if (isMaster === true) {
+  //   console.log(`## 🔼 [Master Server: ${pid}] has been started...`);
+  //   workers.forEach(() => fork())
+  //   on("exit", () => fork());
+  // } else {
+  // }
   new Server();
 }
