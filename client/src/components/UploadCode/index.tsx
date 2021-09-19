@@ -133,10 +133,6 @@ const UploadCode = () => {
                   </button>
                 </div>
                 <Editor
-                  options={{
-                    fontFamily:
-                      "rec mono linear, Cascadia Code, Consolas, monospace",
-                  }}
                   language={progLang}
                   defaultLanguage={"java"}
                   height={"90vh"}
