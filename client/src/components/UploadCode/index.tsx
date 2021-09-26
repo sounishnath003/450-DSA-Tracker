@@ -76,8 +76,6 @@ const UploadCode = () => {
               height={"90vh"}
               onChange={(e) => handleEditorChange("" + e)}
               options={{
-                fontFamily:
-                  "rec mono linear, Cascadia Code, Consolas, monospace",
                 readOnly: !requestForEdit,
               }}
               defaultValue={question.code as string}
