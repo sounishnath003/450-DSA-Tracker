@@ -9,7 +9,7 @@ function App() {
 
     React.useEffect(() => {
         console.log("App initialized");
-        window.addEventListener('click', () => window.navigator.onLine ? null : window.alert('You are offline! Check your internet connection!'));
+//         window.addEventListener('click', () => window.navigator.onLine ? null : window.alert('You are offline! Check your internet connection!'));
     }, []);
 
     return (
