@@ -13,7 +13,7 @@ import {
 const router = Router();
 
 router.put(
-  "reset",
+  "/reset",
   async (req: RequestInterface, res: ResponseInterface, next: Next) => {
     try {
       const payload: { username: string; newpassword: string } = req.body;

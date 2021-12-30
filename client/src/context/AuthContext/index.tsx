@@ -14,6 +14,11 @@ const AuthContext = React.createContext<{
     password: string;
     allQuestionsData: IQuestionData[];
   }): Promise<void>;
+  accountReset?(payload: {
+    username: string;
+    newpassword: string;
+    resetProgress: boolean;
+  }): Promise<void>;
 }>({ authState: {} });
 
 export const useAuth = () => React.useContext(AuthContext);
@@ -31,10 +36,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     dismiss,
     loginWithRedirect,
     signupWithRedirect,
+    accountReset,
   } = useHook();
   return (
     <AuthContext.Provider
-      value={{ authState, loginWithRedirect, signupWithRedirect }}
+      value={{ authState, loginWithRedirect, signupWithRedirect, accountReset }}
     >
       <Error error={authState.error} />
       <Sucess message={authState.message} />

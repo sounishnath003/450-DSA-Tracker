@@ -110,7 +110,7 @@ export class Server {
           `[ PID:${pid} ] 🚀 Server already started on http://localhost:${this.PORT}`
         )
       );
-      this.app.use("/api", APIController);
+      this.app.use("/proxy/api", APIController);
 
       this.errorHandlers();
     } catch (error) {
