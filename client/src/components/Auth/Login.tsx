@@ -145,7 +145,7 @@ function AuthHome(): JSX.Element {
                 }
               >
                 {" "}
-                Reset Account{" "}
+                Forgot password?{" "}
               </div>
             </div>
           </div>
