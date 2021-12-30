@@ -94,7 +94,7 @@ function AccountReset({
               onClick={() => setAccountResetPressed((state: boolean) => !state)}
               className="text-blue-600 cursor-pointer"
             >
-              Signup
+              Login
             </span>{" "}
           </div>
           <div className="flex-1"> | </div>
