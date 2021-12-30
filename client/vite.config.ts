@@ -8,7 +8,7 @@ export default defineConfig({
     cors: true,
     proxy: {
       "/proxy/api": {
-        target: "http://localhost:3001/", // "https://dsa-450-backend.herokuapp.com/",
+        target: "https://dsa-450-backend.herokuapp.com/",
         changeOrigin: true,
       },
     },
