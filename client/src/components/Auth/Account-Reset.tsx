@@ -91,7 +91,7 @@ function AccountReset({
           <div>
             Don't have an account?{" "}
             <span
-              onClick={() => setSignupPressed((state: boolean) => !state)}
+              onClick={() => setAccountResetPressed((state: boolean) => !state)}
               className="text-blue-600 cursor-pointer"
             >
               Signup
