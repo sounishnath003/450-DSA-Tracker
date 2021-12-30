@@ -1,18 +1,20 @@
-import SignupController from "./signup.controller";
-import LoginController from "./login.controller";
 import { Router } from "express";
 import {
+  Next,
   RequestInterface,
   ResponseInterface,
-  Next,
   SUCCESS,
 } from "../../utils";
 import { requiresAuth } from "../middlerwares/requires-auth.middleware";
+import AccountReset from "./account-reset.controller";
+import LoginController from "./login.controller";
+import SignupController from "./signup.controller";
 
 const router = Router();
 
 router.use("/signup", SignupController);
 router.use("/login", LoginController);
+router.use("/account", AccountReset);
 
 // logout route
 router.get(
