@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
+import { UUIDV4 } from 'src/shared/utility.methods';
 import { User, UserDocument } from './user.schema';
-import { generateUUIDV4 } from './utility-methods';
 
 @Injectable()
 export class UserRepository {
@@ -17,7 +17,7 @@ export class UserRepository {
   async createUser(userInfo: { username: string; password: string }) {
     return new this.userSchema({
       ...userInfo,
-      id: generateUUIDV4(),
+      id: UUIDV4(),
       createdAt: new Date(),
       updatedAt: new Date(),
     });

@@ -3,7 +3,12 @@ import { Document, SchemaTypes } from 'mongoose';
 
 @Schema()
 export class Base {
-  @Prop({ type: SchemaTypes.String })
+  @Prop({
+    type: SchemaTypes.String,
+    index: 'hashed',
+    required: true,
+    unique: true,
+  })
   id: string;
 
   @Prop({ type: SchemaTypes.Date })
