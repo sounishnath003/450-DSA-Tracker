@@ -1,6 +1,6 @@
 import { IsAlphanumeric, IsNotEmpty, MinLength } from 'class-validator';
 
-export class LoginUserDto {
+export class AuthDto {
   @IsNotEmpty()
   @IsAlphanumeric()
   @MinLength(6)

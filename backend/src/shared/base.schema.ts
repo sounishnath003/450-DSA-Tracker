@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 
 @Schema()
 export class Base {
-  @Prop()
+  @Prop({ type: SchemaTypes.String })
   id: string;
 
-  @Prop()
+  @Prop({ type: SchemaTypes.Date })
   createdAt: Date;
 
-  @Prop()
+  @Prop({ type: SchemaTypes.Date })
   updatedAt: Date;
 }
 
