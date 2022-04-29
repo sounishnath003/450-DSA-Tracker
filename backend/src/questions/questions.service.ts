@@ -1,22 +1,28 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { ProblemsRepository } from './problems/problems.repository';
 import { QuestionRepository } from './question.repository';
 
 @Injectable()
 export class QuestionsService {
-  constructor(private readonly questionRepo: QuestionRepository) {}
+  constructor(
+    private readonly questionRepo: QuestionRepository,
+    private readonly problemRepo: ProblemsRepository,
+  ) {}
 
   async getAll(topicname: string) {
     try {
       if (!topicname) {
         // return all
         const questions = await this.questionRepo.findAll();
-        return { data: { questions } };
+        const problems = await this.problemRepo.findAll();
+        return { data: { questions, problems } };
       } else {
         // return by topicname only
         const questions = await this.questionRepo.findByTopicname(topicname);
-        return { data: { questions } };
+        const problems = await this.problemRepo.findByTopicname(topicname);
+        return { data: { questions, problems } };
       }
     } catch (error) {
       return error;
