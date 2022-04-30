@@ -13,6 +13,12 @@ export class Question extends Base {
     maxlength: 700,
   })
   topicInformation: string;
+
+  @Prop({ type: [SchemaTypes.ObjectId], default: [], ref: 'Problem' })
+  problems: Array<Object>;
+
+  @Prop({ type: SchemaTypes.Number, default: 0 })
+  totalProblems: number;
 }
 
 export type QuestionDocument = Question & Document;

@@ -16,13 +16,11 @@ export class QuestionsService {
       if (!topicname) {
         // return all
         const questions = await this.questionRepo.findAll();
-        const problems = await this.problemRepo.findAll();
-        return { data: { questions, problems } };
+        return { data: { questions } };
       } else {
         // return by topicname only
         const questions = await this.questionRepo.findByTopicname(topicname);
-        const problems = await this.problemRepo.findByTopicname(topicname);
-        return { data: { questions, problems } };
+        return { data: { questions } };
       }
     } catch (error) {
       return error;

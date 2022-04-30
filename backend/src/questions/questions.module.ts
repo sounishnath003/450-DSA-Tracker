@@ -25,5 +25,6 @@ import { QuestionsService } from './questions.service';
     ProblemsService,
     ProblemsRepository,
   ],
+  exports: [],
 })
 export class QuestionsModule {}

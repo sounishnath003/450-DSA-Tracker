@@ -11,11 +11,15 @@ export class QuestionRepository {
   ) {}
 
   async findByTopicname(topicname: string) {
-    return await this.questionSchema.find({ topicname }, { _id: 0, __v: 0 });
+    return await this.questionSchema
+      .find({ topicname }, { _id: 0, __v: 0 })
+      .populate(['problems']);
   }
 
   async findAll() {
-    return await this.questionSchema.find({}, { _id: 0, __v: 0 });
+    return await this.questionSchema
+      .find({}, { _id: 0, __v: 0 })
+      .populate(['problems']);
   }
 
   create(questionCreate: Partial<QuestionDocument>) {
@@ -40,6 +44,6 @@ export class QuestionRepository {
   }
 
   async delete(id: string) {
-    await this.questionSchema.findOneAndDelete({id});
+    await this.questionSchema.findOneAndDelete({ id });
   }
 }
