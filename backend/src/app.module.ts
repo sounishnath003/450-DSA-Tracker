@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { QuestionsModule } from './questions/questions.module';
 import { SolutionModule } from './solution/solution.module';
+import { ProgressModule } from './progress/progress.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -24,6 +25,7 @@ import configuration from './config/configuration';
     AuthModule,
     QuestionsModule,
     SolutionModule,
+    ProgressModule,
   ],
   controllers: [AppController],
   providers: [AppService],
