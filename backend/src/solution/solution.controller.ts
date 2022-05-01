@@ -22,8 +22,8 @@ export class SolutionController {
     @GetUser() user: any,
     @Body() createSolutionDto: CreateSolutionDto,
   ) {
-    return await this.solutionService.findAll();
-    // return await this.solutionService.submit(user.id, createSolutionDto);
+    // return await this.solutionService.findAll();
+    return await this.solutionService.submit(user.id, createSolutionDto);
   }
 
   @Patch('update')

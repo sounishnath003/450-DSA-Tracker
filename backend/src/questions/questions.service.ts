@@ -1,17 +1,13 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import { ProblemsRepository } from './problems/problems.repository';
 import { QuestionRepository } from './question.repository';
 
 @Injectable()
 export class QuestionsService {
-  constructor(
-    private readonly questionRepo: QuestionRepository,
-    private readonly problemRepo: ProblemsRepository,
-  ) {}
+  constructor(private readonly questionRepo: QuestionRepository) {}
 
-  async getAll(topicname: string) {
+  async getAll(userId: string, topicname: string) {
     try {
       if (!topicname) {
         // return all
@@ -19,7 +15,10 @@ export class QuestionsService {
         return { data: { questions } };
       } else {
         // return by topicname only
-        const questions = await this.questionRepo.findByTopicname(topicname);
+        const questions = await this.questionRepo.findByTopicname(
+          userId,
+          topicname,
+        );
         return { data: { questions } };
       }
     } catch (error) {

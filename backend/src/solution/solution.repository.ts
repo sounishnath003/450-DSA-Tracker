@@ -20,7 +20,7 @@ export class SolutionRepository {
       userId,
     });
     solution.code = updateSolutionDto.code;
-    console.log(solution);
+    solution.updatedAt = new Date();
 
     return await solution.save();
   }

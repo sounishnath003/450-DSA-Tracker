@@ -29,7 +29,6 @@ export class SolutionService {
     solutionId: string,
     updateSolutionDto: UpdateSolutionDto,
   ) {
-    console.log({ userid, solutionId, ...updateSolutionDto });
     if (updateSolutionDto.code === '// Upload your working solution!')
       throw new NotAcceptableException(
         `Seems your solution is fishy!. Please Upload your working code!.`,

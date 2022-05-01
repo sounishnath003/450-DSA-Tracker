@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuestionsService } from './questions.service';
@@ -19,9 +20,12 @@ export class QuestionsController {
   constructor(private readonly questionService: QuestionsService) {}
 
   @Get('')
-  async getQuestions(@Query('topicname') topicname: string = '') {
+  async getQuestions(
+    @GetUser() user: any,
+    @Query('topicname') topicname: string = '',
+  ) {
     // this method will return user's questionlist combined with solution tbl
-    return await this.questionService.getAll(topicname);
+    return await this.questionService.getAll(user.id, topicname);
   }
 
   @Post('create')

@@ -15,5 +15,6 @@ import { SolutionService } from './solution.service';
   ],
   controllers: [SolutionController],
   providers: [SolutionService, SolutionRepository],
+  exports: [SolutionService],
 })
 export class SolutionModule {}
