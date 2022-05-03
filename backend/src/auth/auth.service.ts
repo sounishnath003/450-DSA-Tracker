@@ -1,5 +1,6 @@
 import {
   Injectable,
+  NotAcceptableException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -25,7 +26,7 @@ export class AuthService {
       const { username, password } = userDto;
       const isExists = await this.userRepo.findOne({ username });
       if (isExists)
-        throw new NotFoundException(
+        throw new NotAcceptableException(
           `${username} already exists!!. Please signin to your account!`,
         );
       const hashedPassword = encryptPlainPassword(password);

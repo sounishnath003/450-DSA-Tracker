@@ -7,7 +7,7 @@ export class User extends Base {
   @Prop({
     type: SchemaTypes.String,
     unique: true,
-    minlength: 6,
+    minlength: 1,
     required: true,
     index: 'hashed',
     lowercase: true,

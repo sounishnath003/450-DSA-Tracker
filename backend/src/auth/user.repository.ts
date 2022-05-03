@@ -26,4 +26,23 @@ export class UserRepository {
   async findOne(userFilter: FilterQuery<UserDocument>) {
     return await this.userSchema.findOne({ ...userFilter });
   }
+
+  async insertBulk(
+    userInformations: Array<{ username: string; password: string }>,
+  ) {
+    const updatedUserInformations = userInformations.map((userInfo) => {
+      return {
+        ...userInfo,
+        id: UUIDV4(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    });
+    const startTime = Date.now();
+    await this.userSchema.insertMany(updatedUserInformations);
+    return {
+      status: 'Successfully Done!',
+      completedIn: `${Date.now() - startTime} ms`,
+    };
+  }
 }

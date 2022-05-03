@@ -3,11 +3,11 @@ import { IsAlphanumeric, IsNotEmpty, MinLength } from 'class-validator';
 export class AuthDto {
   @IsNotEmpty()
   @IsAlphanumeric()
-  @MinLength(6)
+  @MinLength(2)
   username: string;
 
   @IsNotEmpty()
   @IsAlphanumeric()
-  @MinLength(6)
+  @MinLength(4)
   password: string;
 }

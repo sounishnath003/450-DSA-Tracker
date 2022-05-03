@@ -23,7 +23,10 @@ export class ProgressService {
         },
       ])
     ).map((solve) => {
-      return { questionId: solve._id.questionId, solveCount: solve.count };
+      return {
+        questionId: solve._id.questionId,
+        solveCount: solve.count,
+      };
     });
 
     const questions = await this.questionSchema.find(
@@ -40,7 +43,11 @@ export class ProgressService {
       return {
         ...question.toJSON(),
         solveCount,
-        completionPercentage: ((solveCount / question.totalProblems) * 100).toFixed(2),
+        started: solveCount === 0 ? false : true,
+        completionPercentage: (
+          (solveCount / question.totalProblems) *
+          100
+        ).toFixed(2),
       };
     });
 

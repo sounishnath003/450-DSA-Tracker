@@ -13,7 +13,7 @@ import { User, UserSchema } from './user.schema';
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema, collection: 'users' },
-    ]),
+    ], 'dev'),
     PassportModule.register({ defaultStrategy: 'jwt', session: true }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -28,6 +28,6 @@ import { User, UserSchema } from './user.schema';
   ],
   controllers: [AuthController],
   providers: [AuthService, UserRepository, JwtStrategy, ConfigService],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, PassportModule, UserRepository],
 })
 export class AuthModule {}

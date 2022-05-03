@@ -88,6 +88,26 @@ export class QuestionRepository {
     });
   }
 
+  async insertBulk(questions: Array<Partial<QuestionDocument>>) {
+    const updatedQuestions = questions.map((question) => {
+      return {
+        ...question,
+        topicInformation: `Curated Lists of Polular ${question.topicname} Questions`,
+        id: UUIDV4(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    });
+
+    const startTime = Date.now();
+    console.log({ updatedQuestions });
+    await this.questionSchema.insertMany(updatedQuestions);
+    return {
+      status: 'Successfully Done!',
+      completedIn: `${Date.now() - startTime} ms`,
+    };
+  }
+
   async findByIdAndUpdate(
     id: string,
     topicname: string,

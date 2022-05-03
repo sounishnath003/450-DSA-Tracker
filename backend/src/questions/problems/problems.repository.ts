@@ -37,4 +37,15 @@ export class ProblemsRepository {
     await question.save();
     return true;
   }
+
+  async insertBulk(problems: Array<CreateProblemDto>) {
+    const startTime = Date.now();
+    for (const problemInfo of problems) {
+      await this.create(problemInfo);
+    }
+    return {
+      status: 'Successfully Done!',
+      completedIn: `${Date.now() - startTime} ms.`,
+    };
+  }
 }

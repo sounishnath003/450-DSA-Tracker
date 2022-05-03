@@ -16,12 +16,23 @@ import { QuestionsService } from './questions.service';
 @Module({
   imports: [
     AuthModule,
-    MongooseModule.forFeature([
-      { name: Question.name, schema: QuestionSchema, collection: 'questions' },
-      { name: Problem.name, schema: ProblemSchema, collection: 'problems' },
-      { name: Solution.name, schema: SolutionSchema, collection: 'solutions' },
-      { name: User.name, schema: UserSchema, collection: 'users' },
-    ]),
+    MongooseModule.forFeature(
+      [
+        {
+          name: Question.name,
+          schema: QuestionSchema,
+          collection: 'questions',
+        },
+        { name: Problem.name, schema: ProblemSchema, collection: 'problems' },
+        {
+          name: Solution.name,
+          schema: SolutionSchema,
+          collection: 'solutions',
+        },
+        { name: User.name, schema: UserSchema, collection: 'users' },
+      ],
+      'dev',
+    ),
     SolutionModule,
   ],
   controllers: [QuestionsController, ProblemsController],
@@ -31,6 +42,6 @@ import { QuestionsService } from './questions.service';
     ProblemsService,
     ProblemsRepository,
   ],
-  exports: [],
+  exports: [QuestionRepository, ProblemsRepository],
 })
 export class QuestionsModule {}

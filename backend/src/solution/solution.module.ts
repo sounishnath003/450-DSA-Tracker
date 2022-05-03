@@ -8,10 +8,21 @@ import { SolutionService } from './solution.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Solution.name, schema: SolutionSchema, collection: 'solutions' },
-      { name: Question.name, schema: QuestionSchema, collection: 'questions' },
-    ]),
+    MongooseModule.forFeature(
+      [
+        {
+          name: Solution.name,
+          schema: SolutionSchema,
+          collection: 'solutions',
+        },
+        {
+          name: Question.name,
+          schema: QuestionSchema,
+          collection: 'questions',
+        },
+      ],
+      'dev',
+    ),
   ],
   controllers: [SolutionController],
   providers: [SolutionService, SolutionRepository],

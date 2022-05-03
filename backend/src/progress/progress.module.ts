@@ -7,10 +7,17 @@ import { ProgressService } from './progress.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Solution.name, schema: SolutionSchema, collection: 'solutions' },
-      { name: Question.name, schema: Question, collection: 'questions' },
-    ]),
+    MongooseModule.forFeature(
+      [
+        {
+          name: Solution.name,
+          schema: SolutionSchema,
+          collection: 'solutions',
+        },
+        { name: Question.name, schema: Question, collection: 'questions' },
+      ],
+      'dev',
+    ),
   ],
   controllers: [ProgressController],
   providers: [ProgressService],
