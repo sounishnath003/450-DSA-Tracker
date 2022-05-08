@@ -1,14 +1,16 @@
+export interface QuestionInterface {
+  Topic: string;
+  Problem: string;
+  Done: boolean;
+  URL: string;
+}
+
 export interface QuestionMigrationDataInterface {
   topicName: string;
   position: number;
   started: boolean;
   doneQuestions: number;
-  questions: {
-    Topic: string;
-    Problem: string;
-    Done: boolean;
-    URL: string;
-  }[];
+  questions: QuestionInterface[];
 }
 
 export const QuestionData: Array<QuestionMigrationDataInterface> = [

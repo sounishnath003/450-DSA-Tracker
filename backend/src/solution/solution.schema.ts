@@ -10,12 +10,13 @@ export class Solution extends Base {
   @Prop({ type: SchemaTypes.String, required: true })
   questionId: string;
 
-  @Prop({ type: SchemaTypes.String, required: true, unique: true })
+  @Prop({ type: SchemaTypes.String, required: true, unique: false })
   problemId: string;
 
   @Prop({
     type: SchemaTypes.String,
-    required: true,
+    // required: true,
+    default: '// Upload your working solution!',
   })
   code: string;
 }

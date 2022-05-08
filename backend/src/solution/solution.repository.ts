@@ -36,6 +36,29 @@ export class SolutionRepository {
     await solution.save();
   }
 
+  async insertBulk(
+    datas: Array<Partial<SolutionDocument>>,
+    username: string,
+    counter: number,
+  ) {
+    const updatedSolutions = datas.map((data) => {
+      return {
+        code: '// Upload your working solution!',
+        ...data,
+        id: UUIDV4(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    });
+    await this.solutionSchema.insertMany(updatedSolutions);
+    console.log({
+      username,
+      totalCount: counter,
+      timeStamp: new Date(),
+    });
+    return true;
+  }
+
   async findAll() {
     return await this.solutionSchema.find({});
   }

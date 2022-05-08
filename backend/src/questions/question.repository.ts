@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { User, UserDocument } from 'src/auth/user.schema';
 import { UUIDV4 } from 'src/shared/utility.methods';
 import { Solution, SolutionDocument } from 'src/solution/solution.schema';
@@ -77,6 +77,10 @@ export class QuestionRepository {
     return await this.questionSchema
       .find({}, { _id: 0, __v: 0 })
       .populate(['problems']);
+  }
+
+  async findOne(query: FilterQuery<QuestionDocument>) {
+    return await this.questionSchema.findOne(query, { __v: 0, _id: 0 });
   }
 
   create(questionCreate: Partial<QuestionDocument>) {

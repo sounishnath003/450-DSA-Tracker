@@ -5,6 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import configuration from './config/configuration';
+import {
+  BAllTopicQuestion,
+  BAllTopicQuestionSchema,
+} from './migration/schema/alltopicquestions.schema';
 import { BUser, BUserSchema } from './migration/schema/user.schema';
 import { MigrateService } from './migration/services/migration.service';
 import { ProgressModule } from './progress/progress.module';
@@ -46,7 +50,14 @@ import { SolutionModule } from './solution/solution.module';
     SolutionModule,
     ProgressModule,
     MongooseModule.forFeature(
-      [{ name: BUser.name, schema: BUserSchema, collection: 'users' }],
+      [
+        { name: BUser.name, schema: BUserSchema, collection: 'users' },
+        {
+          name: BAllTopicQuestion.name,
+          schema: BAllTopicQuestionSchema,
+          collection: 'alltopicquestions',
+        },
+      ],
       'prod',
     ),
   ],

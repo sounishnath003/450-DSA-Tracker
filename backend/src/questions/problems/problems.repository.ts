@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { UUIDV4 } from 'src/shared/utility.methods';
 import { Question, QuestionDocument } from '../question.schema';
 import { CreateProblemDto } from './dto/create-problem.dto';
@@ -19,6 +19,10 @@ export class ProblemsRepository {
 
   async findAll() {
     return await this.problemSchema.find({}, { _id: 0, __v: 0 });
+  }
+
+  async findOne(query: FilterQuery<ProblemDocument>) {
+    return await this.problemSchema.findOne(query, { _id: 0, __v: 0 });
   }
 
   async create(createProblemDto: CreateProblemDto) {
