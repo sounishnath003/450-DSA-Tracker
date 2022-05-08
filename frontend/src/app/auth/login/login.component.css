@@ -1,0 +1,20 @@
+.m-5 {
+    margin: 1.25rem;
+}
+
+.m-20 {
+    margin: 5rem;
+}
+
+.w-600 {
+    min-width: 180px;
+    width: 500px;
+}
+
+.text-decor {
+    color: blue;
+    font-weight: 500;
+    border-bottom: 1px solid black;
+    border-color: blue;
+    cursor: pointer;
+}
