@@ -1,0 +1,47 @@
+<div class="grid-layout">
+  <mat-card *ngFor="let topic of topics$ | async" style="width: 280px">
+    <mat-card-header>
+      <mat-card-title> {{ topic.topicname }} </mat-card-title>
+      <mat-card-subtitle>
+        Total Questions: {{ topic.totalProblems }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="px-5" fxLayout="column" fxLayoutGap="5px">
+        <div class="font-semibold text-gray-700">
+          {{ topic.totalProblems - topic.solveCount }} more to go
+        </div>
+        <div>Completion Percentage: {{ topic.completionPercentage }}%</div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider inset></mat-divider>
+
+    <mat-card-actions align="end">
+      <button mat-button>
+        <mat-icon> restart_alt </mat-icon>
+        <span>Reset</span>
+      </button>
+      <button mat-button color="accent" *ngIf="topic.started; else temp">
+        <span>Continue</span>
+        <mat-icon> play_arrow </mat-icon>
+      </button>
+
+      <ng-template #temp>
+        <button mat-button color="primary">
+          <span class="font-semibold">Start Solving</span>
+          <!-- <mat-icon> arrow_forward </mat-icon> -->
+        </button>
+      </ng-template>
+    </mat-card-actions>
+
+    <mat-card-footer>
+      <mat-progress-bar
+        color="accent"
+        mode="determinate"
+        [value]="topic.completionPercentage"
+      ></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>
