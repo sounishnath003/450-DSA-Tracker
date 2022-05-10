@@ -6,9 +6,15 @@
     </div>
   </div>
 
-  <form fxLayout="column" fxLayoutGap="30px" class="w-600">
+  <form
+    fxLayout="column"
+    fxLayoutGap="30px"
+    class="w-600"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
     <mat-form-field>
-      <mat-label> Username * </mat-label>
+      <mat-label> Username </mat-label>
       <input
         matInput
         placeholder
@@ -17,17 +23,25 @@
         id="username"
         placeholder="sounishnath003"
         width="100%"
+        formControlName="username"
       />
+      <mat-error *ngIf="loginForm.get('username')?.invalid">
+        {{ onUsernameError() }}
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-label> Password *</mat-label>
+      <mat-label> Password</mat-label>
       <input
         matInput
         type="password"
         class="password"
         id="password"
         placeholder="*** *** ***"
+        formControlName="password"
       />
+      <mat-error *ngIf="loginForm.get('password')?.invalid">
+        {{ onPasswordError() }}
+      </mat-error>
     </mat-form-field>
 
     <div>

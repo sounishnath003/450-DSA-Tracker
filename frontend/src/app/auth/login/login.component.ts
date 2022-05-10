@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,27 +9,49 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  validateForm!: FormGroup;
+  loginForm: FormGroup;
 
-  submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-    } else {
-      Object.values(this.validateForm.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.loginForm = new FormGroup({
+      username: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+    });
   }
 
-  constructor(private fb: FormBuilder) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-    });
+  onUsernameError() {
+    if (this.loginForm.get('username')?.hasError('required'))
+      return 'Please enter your username!';
+
+    return this.loginForm.get('username')?.hasError ?? 'Not a valid username';
+  }
+
+  onPasswordError() {
+    if (this.loginForm.get('password')?.hasError('required'))
+      return 'Please enter your password!';
+
+    return this.loginForm.get('password')?.hasError ?? 'Not a valid password';
+  }
+
+  onSubmit() {
+    const { username, password } = this.loginForm.getRawValue();
+    this.authService
+      .signinWithUsernamePassword(username, password)
+      .subscribe((response: any) => {
+        this.router.navigate([
+          this.route.snapshot.queryParamMap.get('redirectTo'),
+        ]);
+      });
   }
 }
