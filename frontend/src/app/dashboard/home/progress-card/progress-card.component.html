@@ -1,5 +1,5 @@
 <div class="grid-layout">
-  <mat-card *ngFor="let topic of topics$ | async" style="width: 300px">
+  <mat-card *ngFor="let topic of topics$ | async" style="width: 305px">
     <mat-card-header class="font-sans">
       <mat-card-title class="text-indigo-600">
         {{ topic.topicname }}
@@ -10,11 +10,16 @@
     </mat-card-header>
 
     <mat-card-content class="font-sans">
-      <div class="px-5" fxLayout="column" fxLayoutGap="5px">
+      <div class="px-4" fxLayout="column" fxLayoutGap="5px">
         <div class="font-semibold text-gray-700">
           {{ topic.totalProblems - topic.solveCount }} more to go
         </div>
-        <div>Completion Percentage: {{ topic.completionPercentage }}%</div>
+        <div>
+          Completion Percentage:
+          <b class="text-green-600"
+            >{{ topic.completionPercentage }}% &uarr;
+          </b>
+        </div>
       </div>
     </mat-card-content>
 
