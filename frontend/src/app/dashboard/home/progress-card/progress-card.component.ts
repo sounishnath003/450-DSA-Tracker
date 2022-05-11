@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ProgressHistoryInterface } from '../../interfaces/progress-history.interface';
 import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
@@ -8,11 +10,21 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./progress-card.component.css'],
 })
 export class ProgressCardComponent implements OnInit {
-  topics$: Observable<any>;
-  constructor(private dashboardService: DashboardService) {
-    // this.topics = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  topics$: Observable<Array<ProgressHistoryInterface>>;
+  constructor(
+    private dashboardService: DashboardService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.topics$ = this.dashboardService.getProgress$();
   }
 
   ngOnInit(): void {}
+
+  navigateToTopic(topicname: string) {
+    return this.router.navigate(['topic-board'], {
+      queryParams: { topicname },
+      relativeTo: this.route,
+    });
+  }
 }

@@ -17,7 +17,15 @@ export class QuestionRepository {
   ) {}
 
   async findByTopicname(userId: string, topicname: string) {
-    const solvedProblems = await this.userSchema.aggregate([
+    const question = await this.questionSchema.findOne(
+      { topicname },
+      {
+        id: 1,
+        topicname: 1,
+        topicInformation: 1,
+      },
+    );
+    const _solvedProblems = await this.userSchema.aggregate([
       {
         $match: { id: userId },
       },
@@ -34,6 +42,12 @@ export class QuestionRepository {
                 localField: 'problemId',
                 foreignField: 'id',
                 as: 'problemInformation',
+              },
+            },
+            {
+              $project: {
+                'problemInformation.__v': 0,
+                'problemInformation._id': 0,
               },
             },
           ],
@@ -66,9 +80,15 @@ export class QuestionRepository {
     );
 
     return {
+      topicname,
+      topicInformation: question.topicInformation,
       problems,
       solvedProblems: [
-        ...solvedProblems.map((solvedproblem) => solvedproblem.solvedQuestions),
+        ..._solvedProblems.map((solvedproblem) =>
+          solvedproblem.solvedQuestions.filter(
+            (problem) => problem.questionId === question.id,
+          ),
+        ),
       ][0],
     };
   }

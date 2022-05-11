@@ -32,14 +32,22 @@
           <span>Reset</span>
         </button>
 
-        <button mat-button color="accent">
+        <button
+          mat-button
+          color="accent"
+          (click)="navigateToTopic(topic.topicname)"
+        >
           <span>Continue</span>
           <mat-icon> play_arrow </mat-icon>
         </button>
       </div>
 
       <ng-template #temp>
-        <button mat-button color="primary">
+        <button
+          mat-button
+          color="primary"
+          (click)="navigateToTopic(topic.topicname)"
+        >
           <span class="font-semibold">Start Solving &rarr;</span>
         </button>
       </ng-template>

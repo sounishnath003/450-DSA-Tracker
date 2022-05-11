@@ -1,0 +1,72 @@
+<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+  <h1 class="text-xl md:text-4xl font-semibold text-black tracking-wide">
+    {{ topicname }}
+  </h1>
+  <h3 class="text-sm md:text-xl font-bold tracking-wide text-pink-600">
+    {{ topicInformation }}
+  </h3>
+
+  <table
+    mat-table
+    [dataSource]="problems"
+    class="mat-elevation-z3 font-sans"
+    style="min-width: 600px; width: 1200px; max-width: 1200px"
+  >
+    <!-- SL.NO Column -->
+    <ng-container matColumnDef="SL.NO">
+      <th mat-header-cell *matHeaderCellDef>SL.NO.</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.position }}
+      </td>
+    </ng-container>
+
+    <!-- ProblemTitle Column -->
+    <ng-container matColumnDef="Problem">
+      <th mat-header-cell *matHeaderCellDef>Problem.</th>
+      <td class="hover:text-blue-800" mat-cell *matCellDef="let element">
+        <a [href]="element.problemURL" target="_blank">{{
+          element.problemTitle
+        }}</a>
+      </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>Status.</th>
+      <td mat-cell *matCellDef="let element">
+        <section class="example-section">
+          <mat-checkbox
+            *ngIf="element.solved ?? false; else temp"
+            (click)="noChange()"
+            class="mat-checkbox"
+            [matTooltip]="generateTooltipText(element.solved)"
+            [checked]="element.solved"
+          ></mat-checkbox>
+
+          <ng-template #temp>
+            <mat-checkbox
+              class="mat-checkbox"
+              [matTooltip]="generateTooltipText(element.solved)"
+              [checked]="element.solved"
+            ></mat-checkbox>
+          </ng-template>
+        </section>
+      </td>
+    </ng-container>
+
+    <!-- Attempted Count Column -->
+    <ng-container matColumnDef="Attempted By">
+      <th mat-header-cell *matHeaderCellDef>Attempted By.</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.attemptedBy ?? 8 }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      class="hover:bg-gray-50 hover:font-semibold transition-all cursor-pointer"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+  </table>
+</div>
