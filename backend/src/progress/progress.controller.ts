@@ -6,9 +6,9 @@ import { ProgressService } from './progress.service';
 @UseGuards(AuthGuard('jwt'))
 @Controller('progress')
 export class ProgressController {
-    constructor(private readonly progressService: ProgressService) {}
-    @Get('track')
-    async track(@GetUser() user: any) {
-        return await this.progressService.progress(user.id);
-    }
+  constructor(private readonly progressService: ProgressService) {}
+  @Get('track')
+  async track(@GetUser() user: any) {
+    return await this.progressService.progress(user.id);
+  }
 }

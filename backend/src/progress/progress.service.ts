@@ -38,10 +38,13 @@ export class ProgressService {
       questionsMap.set(solq.questionId, solq.solveCount),
     );
 
+    const subscriberCountMap = await this.totalSubscribersToAllQuestionsMap();
+
     const progressHistory = questions.map((question) => {
       const solveCount = questionsMap.get(question.id) ?? 0;
       return {
         ...question.toJSON(),
+        totalSubscribers: subscriberCountMap.get(question.id) ?? 0,
         solveCount,
         started: solveCount === 0 ? false : true,
         completionPercentage: (
@@ -52,5 +55,22 @@ export class ProgressService {
     });
 
     return { data: { progressHistory } };
+  }
+
+  private async totalSubscribersToAllQuestionsMap() {
+    // How many user has solved each question
+    const data = (
+      await this.solutionSchema.aggregate([
+        { $group: { _id: { questionId: '$questionId' }, count: { $sum: 1 } } },
+      ])
+    ).map((solve) => {
+      return {
+        questionId: solve._id.questionId,
+        solveCount: solve.count,
+      };
+    });
+    const map = new Map<string, number>();
+    data.map((solq) => map.set(solq.questionId, solq.solveCount));
+    return map;
   }
 }

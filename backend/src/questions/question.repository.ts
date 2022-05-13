@@ -25,48 +25,55 @@ export class QuestionRepository {
         topicInformation: 1,
       },
     );
-    const _solvedProblems = await this.userSchema.aggregate([
-      {
-        $match: { id: userId },
-      },
-      {
-        $lookup: {
-          from: 'solutions',
-          localField: 'id',
-          foreignField: 'userId',
-          as: 'solvedQuestions',
-          pipeline: [
-            {
-              $lookup: {
-                from: 'problems',
-                localField: 'problemId',
-                foreignField: 'id',
-                as: 'problemInformation',
-              },
-            },
-            {
-              $project: {
-                'problemInformation.__v': 0,
-                'problemInformation._id': 0,
-              },
-            },
-          ],
+
+    const _solvedProblems = (
+      await this.userSchema.aggregate([
+        {
+          $match: { id: userId },
         },
-      },
-      {
-        $project: {
-          __v: 0,
-          _id: 0,
-          'solvedQuestions.__v': 0,
-          'solvedQuestions._id': 0,
-          'problems._id': 0,
-          'problems.__v': 0,
-          'problemInformation.__v': 0,
-          'problemInformation._id': 0,
-          password: 0,
+        {
+          $lookup: {
+            from: 'solutions',
+            localField: 'id',
+            foreignField: 'userId',
+            as: 'solvedQuestions',
+            pipeline: [
+              {
+                $lookup: {
+                  from: 'problems',
+                  localField: 'problemId',
+                  foreignField: 'id',
+                  as: 'problemInformation',
+                },
+              },
+              {
+                $project: {
+                  'solvedQuestions.__v': 0,
+                  'solvedQuestions._id': 0,
+                  'problems._id': 0,
+                  'problems.__v': 0,
+                  'problemInformation.__v': 0,
+                  'problemInformation._id': 0,
+                },
+              },
+            ],
+          },
         },
-      },
-    ]);
+        {
+          $project: {
+            __v: 0,
+            _id: 0,
+            'solvedQuestions.__v': 0,
+            'solvedQuestions._id': 0,
+            'problems._id': 0,
+            'problems.__v': 0,
+            'problemInformation.__v': 0,
+            'problemInformation._id': 0,
+            password: 0,
+          },
+        },
+      ])
+    )[0];
 
     const solutionProblemIds = (
       await this.solutionSchema.find({ userId }, { problemId: 1 })
@@ -79,18 +86,71 @@ export class QuestionRepository {
       { _id: 0, __v: 0 },
     );
 
+    const attemptedCountMap = await this.getAttemptedUserCountMapByTopicname(
+      topicname,
+    );
+
+    const solvedProblems = this.getTotalSolvedProblems(
+      _solvedProblems,
+      topicname,
+      attemptedCountMap,
+    );
+
     return {
       topicname,
       topicInformation: question.topicInformation,
-      problems,
-      solvedProblems: [
-        ..._solvedProblems.map((solvedproblem) =>
-          solvedproblem.solvedQuestions.filter(
-            (problem) => problem.questionId === question.id,
-          ),
-        ),
-      ][0],
+      problems: problems.map((problem) => {
+        return {
+          ...problem.toJSON(),
+          attemptedCount: attemptedCountMap.get(problem.id) || 0,
+        };
+      }),
+      solvedProblems,
     };
+  }
+
+  private getTotalSolvedProblems(
+    _solvedProblems: any,
+    topicname: string,
+    attemptedCountMap: Map<string, number>,
+  ) {
+    const solvedProblems = [];
+    _solvedProblems.solvedQuestions.map((solution: any) => {
+      if (solution.problemInformation[0].topicname === topicname) {
+        solvedProblems.push({
+          ...solution,
+          problemInformation: {
+            ...solution.problemInformation[0],
+            attemptedCount: attemptedCountMap.get(solution.problemId) || 0,
+          },
+        });
+      }
+    });
+    return solvedProblems;
+  }
+
+  private async getAttemptedUserCountMapByTopicname(topicname: string) {
+    // we need to find the how many users have solved the problem as attemptedCount
+    const problems = await this.problemSchema.find(
+      { topicname },
+      { _id: 0, __v: 0 },
+    );
+    const data = await this.solutionSchema.aggregate([
+      {
+        $match: { problemId: { $in: problems.map((problem) => problem.id) } },
+      },
+      {
+        $group: {
+          _id: '$problemId',
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    const map = new Map<string, number>();
+    data.forEach((element) => {
+      map.set(element._id, element.count);
+    });
+    return map;
   }
 
   async findAll() {
