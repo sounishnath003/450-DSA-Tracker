@@ -4,6 +4,7 @@ export interface ProgressHistoryInterface {
   updatedAt: Date;
   topicname: string;
   totalProblems: number;
+  totalSubscribers: number;
   solveCount: number;
   started: boolean;
   completionPercentage: string;

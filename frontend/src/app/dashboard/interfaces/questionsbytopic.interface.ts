@@ -16,8 +16,7 @@ export interface Problem {
   problemTitle: string;
   problemURL: string;
   topicname: Topicname;
-  _id?: string;
-  __v?: number;
+  attemptedCount: number;
 }
 
 export interface SolvedProblem {
@@ -28,7 +27,7 @@ export interface SolvedProblem {
   questionId: string;
   problemId: string;
   code: string;
-  problemInformation: Problem[];
+  problemInformation: Problem;
 }
 
 export enum Topicname {

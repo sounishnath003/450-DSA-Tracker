@@ -16,7 +16,13 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
   topicname: string;
   topicInformation: string = '';
   subscribers: Array<Subscription> = [];
-  displayedColumns: string[] = ['SL.NO', 'Problem', 'Attempted By', 'Status'];
+  displayedColumns: string[] = [
+    'SL.NO',
+    'Problem',
+    'Attempted By',
+    'Status',
+    'Progress',
+  ];
   problems: Array<Problem> = [];
 
   constructor(
@@ -50,8 +56,8 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
       ...solvedProblems.map((solveProblem) => {
         return {
           solved: true,
-          attemptedBy: ((Math.random() % 5000) + 1000).toFixed(),
-          ...solveProblem.problemInformation[0],
+          code: solveProblem.code || '',
+          ...solveProblem.problemInformation,
         };
       }),
     ]
@@ -62,6 +68,7 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
       .map((value, index) => {
         return { position: index + 1, ...value };
       });
+    console.log(data);
     return data;
   }
 
@@ -72,9 +79,13 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
   generateTooltipText(solved: boolean) {
     return solved
       ? `You have already attempted the question. Now you can only modify the code solution.`
-      : `Check if you have attempted the question`;
+      : `Click to save if you have solved the question. This will update your progress and mark the problem as done.`;
   }
   noChange() {
     return false;
+  }
+
+  showProgressBySolution(code: string) {
+    return code !== '// Upload your working solution!' ? '100%' : '50%';
   }
 }

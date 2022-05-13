@@ -11,8 +11,24 @@
 
     <mat-card-content class="font-sans">
       <div class="px-4" fxLayout="column" fxLayoutGap="5px">
-        <div class="font-semibold text-gray-700">
+        <div
+          class="font-semibold text-gray-700"
+          *ngIf="topic.started; else notStarted"
+        >
           {{ topic.totalProblems - topic.solveCount }} more to go
+        </div>
+
+        <ng-template #notStarted>
+          <div class="font-semibold text-red-700">
+            You have not subscribed yet.
+          </div>
+        </ng-template>
+
+        <div class="font-semibold text-gray-700">
+          <span> Total Subscribers: </span>
+          <span class="bg-pink-100 p-1 rounded-lg">
+            {{ topic.totalSubscribers }}
+          </span>
         </div>
         <div>
           Completion Percentage:
@@ -48,7 +64,7 @@
           color="primary"
           (click)="navigateToTopic(topic.topicname)"
         >
-          <span class="font-semibold">Start Solving &rarr;</span>
+          <span class="font-semibold font-sans">Start Journey &rarr;</span>
         </button>
       </ng-template>
     </mat-card-actions>
