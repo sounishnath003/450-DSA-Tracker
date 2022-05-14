@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, switchMap } from 'rxjs';
 import { ProgressHistoryInterface } from '../interfaces/progress-history.interface';
 import { QuestionsByTopic } from '../interfaces/questionsbytopic.interface';
 
@@ -38,5 +38,14 @@ export class DashboardService {
           return response.data;
         })
       );
+  }
+
+  markProblemAsSolved$(
+    topicname: string,
+    payload: { questionId: string; problemId: string }
+  ) {
+    return this.http
+      .post(`/api/solutions/submit`, payload)
+      .pipe(switchMap(() => this.getQuestionsByTopicname$(topicname)));
   }
 }

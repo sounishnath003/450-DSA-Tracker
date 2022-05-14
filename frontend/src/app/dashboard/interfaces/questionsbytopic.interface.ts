@@ -14,6 +14,7 @@ export interface Problem {
   createdAt: Date;
   updatedAt: Date;
   problemTitle: string;
+  questionId: string;
   problemURL: string;
   topicname: Topicname;
   attemptedCount: number;

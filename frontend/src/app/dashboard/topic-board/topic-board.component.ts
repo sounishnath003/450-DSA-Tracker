@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   Problem,
+  QuestionsByTopic,
   SolvedProblem,
 } from '../interfaces/questionsbytopic.interface';
 import { DashboardService } from '../services/dashboard.service';
@@ -27,23 +29,55 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private dashboard: DashboardService
+    private dashboardService: DashboardService,
+    private snackBar: MatSnackBar
   ) {
     this.topicname = this.route.snapshot.queryParamMap.get('topicname') || '';
   }
 
   ngOnInit(): void {
     this.subscribers.push(
-      this.dashboard
+      this.dashboardService
         .getQuestionsByTopicname$(this.topicname)
         .subscribe((response) => {
-          this.topicname = response.questions.topicname;
-          this.topicInformation = response.questions.topicInformation;
-          this.problems = this.resampleAndCombineAllProblems(
-            response.questions.problems,
-            response.questions.solvedProblems
+          this.refreshAndUpdateState(response);
+          this.snackBar.open(
+            `Topic-Board: ${this.topicname} refreshed!`,
+            'Done',
+            {
+              duration: 2000,
+              panelClass: ['bg-gray-800'],
+            }
           );
         })
+    );
+  }
+
+  markProblemAsSolved(questionId: string, problemId: string) {
+    const payload = { questionId, problemId };
+    this.subscribers.push(
+      this.dashboardService
+        .markProblemAsSolved$(this.topicname, payload)
+        .subscribe((response) => {
+          this.refreshAndUpdateState(response);
+          this.snackBar.open(
+            `🎉🎉 Progress has been updated successfully!.`,
+            'Done',
+            {
+              duration: 4000,
+              panelClass: ['bg-gray-800'],
+            }
+          );
+        })
+    );
+  }
+
+  private refreshAndUpdateState(response: QuestionsByTopic) {
+    this.topicname = response.questions.topicname;
+    this.topicInformation = response.questions.topicInformation;
+    this.problems = this.resampleAndCombineAllProblems(
+      response.questions.problems,
+      response.questions.solvedProblems
     );
   }
 

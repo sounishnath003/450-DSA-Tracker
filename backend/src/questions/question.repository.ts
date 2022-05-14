@@ -102,6 +102,7 @@ export class QuestionRepository {
       problems: problems.map((problem) => {
         return {
           ...problem.toJSON(),
+          questionId: question.id,
           attemptedCount: attemptedCountMap.get(problem.id) || 0,
         };
       }),

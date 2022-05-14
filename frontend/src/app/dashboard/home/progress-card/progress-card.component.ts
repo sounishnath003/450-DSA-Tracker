@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProgressHistoryInterface } from '../../interfaces/progress-history.interface';
@@ -14,12 +15,22 @@ export class ProgressCardComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.topics$ = this.dashboardService.getProgress$();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.snackBar.open(
+      `🎉👨🏻‍💻 AppState has been refreshed successfully!.`,
+      'Done',
+      {
+        duration: 2000,
+        panelClass: ['bg-gray-800'],
+      }
+    );
+  }
 
   navigateToTopic(topicname: string) {
     return this.router.navigate(['topic-board'], {
