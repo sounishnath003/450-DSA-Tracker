@@ -21,7 +21,7 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
     'Problem',
     'Attempted By',
     'Status',
-    'Progress',
+    'Score',
   ];
   problems: Array<Problem> = [];
 
@@ -68,7 +68,6 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
       .map((value, index) => {
         return { position: index + 1, ...value };
       });
-    console.log(data);
     return data;
   }
 
@@ -86,6 +85,6 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
   }
 
   showProgressBySolution(code: string) {
-    return code !== '// Upload your working solution!' ? '100%' : '50%';
+    return code !== '// Upload your working solution!' ? '100' : '50';
   }
 }

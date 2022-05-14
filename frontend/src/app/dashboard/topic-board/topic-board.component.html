@@ -23,22 +23,33 @@
     <!-- ProblemTitle Column -->
     <ng-container matColumnDef="Problem">
       <th mat-header-cell *matHeaderCellDef>Problem.</th>
-      <td class="hover:text-pink-600" mat-cell *matCellDef="let element">
+      <td
+        class="hover:text-pink-600"
+        [ngClass]="{ 'hover:text-green-800': element.solved }"
+        mat-cell
+        *matCellDef="let element"
+      >
         <a [href]="element.problemURL" target="_blank">{{
           element.problemTitle
         }}</a>
       </td>
     </ng-container>
 
-    <!-- Progress Column -->
-    <ng-container matColumnDef="Progress">
-      <th mat-header-cell *matHeaderCellDef>Progress.</th>
-      <td class="hover:text-pink-600" mat-cell *matCellDef="let element">
-        <div *ngIf="element.solved; else notsolved">
+    <!-- Score Column -->
+    <ng-container matColumnDef="Score">
+      <th mat-header-cell *matHeaderCellDef>Score.</th>
+      <td
+        class="hover:text-pink-600 font-semibold"
+        mat-cell
+        *matCellDef="let element"
+      >
+        <div *ngIf="element.solved; else notsolved" class="text-green-700">
           {{ showProgressBySolution(element.code) }}
         </div>
         <ng-template #notsolved>
-          {{ 0 | percent }}
+          <div class="text-pink-700">
+            {{ 0 }}
+          </div>
         </ng-template>
       </td>
     </ng-container>
@@ -109,6 +120,10 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
+      [ngClass]="{
+        'bg-green-100': row.solved,
+        'hover:bg-green-200': row.solved
+      }"
       class="hover:bg-gray-50 hover:font-semibold transition-all cursor-pointer"
       mat-row
       *matRowDef="let row; columns: displayedColumns"
