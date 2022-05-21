@@ -6,11 +6,12 @@
   "repository": "https://github.com/sounishnath003/450-DSA-Tracker.git",
   "author": "Sounish Nath <flock.sinasini@gmail.com>",
   "scripts": {
-    "dev": "concurrently -m=50 -n server \"npm run dev:server\" \"npm run dev:client\" ",
+    "dev": "concurrently -m=100 -n server \"npm run backend:dev\" \"npm run frontend:dev\" ",
     "all:install": "concurrently -m=50 -n server \"npm run server:install\" \"npm run client:install\" ",
     "server:install": "cd server && npm run install",
     "client:install": "cd client && npm run install",
     "backend:dev": "cd backend && npm start",
+    "frontend:dev": "cd frontend && npm start",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "build:client": "cd client && yarn build"

@@ -9,9 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { ProgressCardComponent } from './home/progress-card/progress-card.component';
 import { DashboardService } from './services/dashboard.service';
 import { TopicBoardComponent } from './topic-board/topic-board.component';
+import { ProblemInfoComponent } from './problem-info/problem-info.component';
 
 @NgModule({
-  declarations: [DashboardComponent, HomeComponent, ProgressCardComponent, TopicBoardComponent],
+  declarations: [DashboardComponent, HomeComponent, ProgressCardComponent, TopicBoardComponent, ProblemInfoComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

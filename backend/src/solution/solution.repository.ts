@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UUIDV4 } from 'src/shared/utility.methods';
@@ -5,6 +6,7 @@ import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { Solution, SolutionDocument } from './solution.schema';
 
+@Injectable({})
 export class SolutionRepository {
   constructor(
     @InjectModel(Solution.name) private solutionSchema: Model<SolutionDocument>,
@@ -61,5 +63,37 @@ export class SolutionRepository {
 
   async findAll() {
     return await this.solutionSchema.find({});
+  }
+
+  async getCompleteInformationOfTheProblem(userid: string, problemId: string) {
+    return (
+      await this.solutionSchema.aggregate([
+        { $match: { userId: userid, problemId } },
+        {
+          $lookup: {
+            localField: 'problemId',
+            from: 'problems',
+            foreignField: 'id',
+            as: 'problemInformation',
+            pipeline: [
+              {
+                $project: {
+                  _id: 0,
+                  __v: 0,
+                },
+              },
+            ],
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            __v: 0,
+          },
+        },
+      ])
+    ).map((data) => {
+      return { ...data, problemInformation: data.problemInformation[0] };
+    })[0];
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   Problem,
@@ -26,9 +26,11 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
     'Score',
   ];
   problems: Array<Problem> = [];
+  totalScore: number = 0;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private dashboardService: DashboardService,
     private snackBar: MatSnackBar
   ) {
@@ -119,6 +121,12 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
   }
 
   showProgressBySolution(code: string) {
-    return code !== '// Upload your working solution!' ? '100' : '50';
+    return code !== '// Upload your working solution!' ? 100 : 50;
+  }
+
+  navigateToQuestionPage(problemId: string) {
+    this.router.navigate(['', 'dashboard', 'problems'], {
+      queryParams: { problemId },
+    });
   }
 }
