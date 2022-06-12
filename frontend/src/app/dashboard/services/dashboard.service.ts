@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, switchMap } from 'rxjs';
+import { ProblemInformationInterface } from '../interfaces/problem-information.interface';
 import { ProgressHistoryInterface } from '../interfaces/progress-history.interface';
 import { QuestionsByTopic } from '../interfaces/questionsbytopic.interface';
 
@@ -47,5 +48,19 @@ export class DashboardService {
     return this.http
       .post(`/api/solutions/submit`, payload)
       .pipe(switchMap(() => this.getQuestionsByTopicname$(topicname)));
+  }
+
+  getProblemInformation$(
+    problemId: string
+  ): Observable<ProblemInformationInterface[]> {
+    return this.http
+      .get(`/api/questions/problems/details`, {
+        params: { problemId },
+      })
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        })
+      );
   }
 }

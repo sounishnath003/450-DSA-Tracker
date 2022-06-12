@@ -94,6 +94,6 @@ export class SolutionRepository {
       ])
     ).map((data) => {
       return { ...data, problemInformation: data.problemInformation[0] };
-    })[0];
+    });
   }
 }

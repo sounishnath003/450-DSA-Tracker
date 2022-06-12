@@ -1,11 +1,51 @@
 <div
   fxLayout="row"
-  fxLayoutAlign="space-around center"
+  fxLayoutAlign="start start"
   fxLayoutGap="10px"
-  style="min-width: 80%"
+  *ngFor="let data of problemInformation$ | async"
 >
-  <div fxFlex="20">1</div>
-  <div fxFlex="60" class="bg-red-100">
-    <textarea class="w-full"></textarea>
+  <div style="resize: both; overflow: auto; min-width: 600px; overflow: hidden">
+    <div class="text-xl md:text-2xl font-semibold">
+      {{ data.problemInformation.problemTitle | titlecase }}
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="10px"
+      class="my-2"
+    >
+      <div
+        [ngClass]="setBackColor(data.problemInformation.difficultyLevel)"
+        class="px-2 rounded-lg font-semibold"
+      >
+        {{ showDifficultyLevel(data.problemInformation.difficultyLevel) }}
+      </div>
+      <div class="cursor-pointer">👍 {{ data.problemInformation.upvoted }}</div>
+      <div class="cursor-pointer">
+        👎 {{ data.problemInformation.downvoted }}
+      </div>
+      <div class="text-blue-700 px-1 rounded-lg bg-gray-100">
+        <a [href]="data.problemInformation.problemURL" target="_blank"
+          >Link to Problem</a
+        >
+      </div>
+      <div
+        class="cursor-pointer bg-pink-200 px-2 rounded-lg text-pink-700 font-semibold"
+      >
+        ❤️ Add to Favourites
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="my-3">
+      <code>
+        Problem Description: {{ data.problemInformation.questionInformation }}
+      </code>
+    </div>
+  </div>
+  <div class="w-full flex">
+    <textarea rows="30" cols="80" class="w-full font-mono">{{
+      data.code
+    }}</textarea>
   </div>
 </div>

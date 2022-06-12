@@ -32,9 +32,12 @@
         </div>
         <div>
           Completion Percentage:
-          <b class="text-green-600"
+          <b *ngIf="topic.started; else notStarted" class="text-green-600"
             >{{ topic.completionPercentage }}% &uarr;
           </b>
+          <ng-template #notStarted
+            ><b class="text-blue-600"> N/A </b></ng-template
+          >
         </div>
       </div>
     </mat-card-content>

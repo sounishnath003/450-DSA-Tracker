@@ -185,7 +185,6 @@ export class QuestionRepository {
     });
 
     const startTime = Date.now();
-    console.log({ updatedQuestions });
     await this.questionSchema.insertMany(updatedQuestions);
     return {
       status: 'Successfully Done!',

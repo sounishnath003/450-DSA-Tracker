@@ -15,9 +15,8 @@ export class AuthGuard implements CanLoad {
       map((value) => {
         if (!value) {
           this.router.navigate(['', 'auth'], {
-            queryParams: { redirectTo: route.path },
+            queryParams: { redirectTo: route.path || 'dashboard' },
           });
-          return value;
         }
         return value;
       })

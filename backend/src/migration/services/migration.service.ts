@@ -32,22 +32,23 @@ export class MigrateService {
         // // ============= User Migrations =============
         // const originalUsers = await this.getAllUsers();
         // const whenCompleted = await this.userRepo.insertBulk(originalUsers);
-        // console.log({ whenCompleted });
-        // ============= DONE =============
-        // ============= Topicwise ~ Questions Migrations =============
+        // console.log('users migration done...', whenCompleted);
+        // // ============= DONE =============
+        // // ============= Topicwise ~ Questions Migrations =============
         // const questions = this.getAllTopicNames();
         // const questionCompletion = await this.questionRepo.insertBulk(
         //   questions,
         // );
-        // console.log({ questionCompletion });
-        // ============= DONE =============
-        // ============= Topicwise ~ Problem Migrations =============
+        // console.log('questions migration done...', questionCompletion);
+        // // ============= DONE =============
+        // // ============= Topicwise ~ Problem Migrations =============
         // const problems = this.getAllProblemsByTopicnames();
         // const problemCompletion = await this.problemRepo.insertBulk(problems);
-        // console.log({ problemCompletion });
-        // ============= DONE =============
-        // ============= Solution Migrations =============
-        // await this.createSolutionsByAllUser();
+        // console.log('problems migration done...', problemCompletion);
+        // // ============= DONE =============
+        // // ============= Solution Migrations =============
+        // const whenSolutionDone = await this.createSolutionsByAllUser();
+        // console.log('whenSolutions migration done...', whenSolutionDone);
       } catch (error) {
         throw new Error(error);
       }
@@ -57,6 +58,7 @@ export class MigrateService {
   async createSolutionsByAllUser() {
     let counter = 0;
     const usersMap = await this.getAllUsersMap({ __v: 0, password: 0 });
+    const startTime: number = Date.now();
     const userAndQuestions = (
       await this.ballTopicSchema.find(
         {
@@ -85,6 +87,10 @@ export class MigrateService {
         },
       );
     });
+    return {
+      status: 'Successfully Done!',
+      completedIn: `${Date.now() - startTime} ms`,
+    };
   }
 
   async prepareData(

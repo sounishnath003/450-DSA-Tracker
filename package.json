@@ -18,7 +18,10 @@
   },
   "license": "MIT",
   "private": false,
-  "dependencies": {},
+  "dependencies": {
+    "@types/compression": "^1.7.2",
+    "compression": "^1.7.4"
+  },
   "devDependencies": {
     "concurrently": "^6.2.0"
   }

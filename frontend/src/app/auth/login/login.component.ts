@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .signinWithUsernamePassword(username, password)
       .subscribe((response: any) => {
         this.router.navigate([
-          this.route.snapshot.queryParamMap.get('redirectTo'),
+          this.route.snapshot.queryParamMap.get('redirectTo') ?? 'dashboard',
         ]);
       });
   }
