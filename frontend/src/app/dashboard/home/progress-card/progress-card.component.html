@@ -30,13 +30,16 @@
             {{ topic.totalSubscribers }}
           </span>
         </div>
-        <div>
-          Completion Percentage:
-          <b *ngIf="topic.started; else notStarted" class="text-green-600"
-            >{{ topic.completionPercentage }}% &uarr;
-          </b>
-          <ng-template #notStarted
-            ><b class="text-blue-600"> N/A </b></ng-template
+        <div fxLayout="center center" fxLayoutGap="3px" >
+          <div>Completion Percentage:</div>
+          <div
+            *ngIf="topic.started; else noPercentage"
+            class="text-green-600 font-semibold"
+          >
+            {{ topic.completionPercentage }}% &uarr;
+          </div>
+          <ng-template #noPercentage
+            ><div class="text-red-700 font-semibold">N/A</div></ng-template
           >
         </div>
       </div>

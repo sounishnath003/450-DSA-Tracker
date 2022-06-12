@@ -1,5 +1,6 @@
 <div
-  fxLayout="row"
+  fxLayout="col"
+  fxLayout.gt-md="row"
   fxLayoutAlign="start start"
   fxLayoutGap="10px"
   *ngFor="let data of problemInformation$ | async"
@@ -44,8 +45,13 @@
     </div>
   </div>
   <div class="w-full flex">
-    <textarea rows="30" cols="80" class="w-full font-mono">{{
-      data.code
-    }}</textarea>
+    <div>
+      <textarea class="editor" rows="28" cols="80" class="w-full font-mono" #editor>{{
+        data.code
+      }}</textarea>
+      <div fxLayout="row" fxLayoutAlign="end center" class="h-12 rounded-md">
+        <button mat-raised-button color="accent">Submit &rarr;</button>
+      </div>
+    </div>
   </div>
 </div>
