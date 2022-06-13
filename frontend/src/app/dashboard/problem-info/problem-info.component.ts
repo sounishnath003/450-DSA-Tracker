@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ProblemInformationInterface } from '../interfaces/problem-information.interface';
 import { DashboardService } from '../services/dashboard.service';
 
@@ -11,6 +11,7 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class ProblemInfoComponent implements OnInit {
   problemInformation$!: Observable<ProblemInformationInterface[]>;
+  code!: string;
   constructor(
     private dashboardService: DashboardService,
     private route: ActivatedRoute
@@ -19,8 +20,13 @@ export class ProblemInfoComponent implements OnInit {
   ngOnInit(): void {
     const problemId: string =
       this.route.snapshot.queryParamMap.get('problemId') || '';
-    this.problemInformation$ =
-      this.dashboardService.getProblemInformation$(problemId);
+    this.problemInformation$ = this.dashboardService
+      .getProblemInformation$(problemId)
+      .pipe(
+        tap((data) => {
+          this.code = data[0].code;
+        })
+      );
   }
   showDifficultyLevel(level: string) {
     if (+level === 0) return 'Easy';
@@ -37,5 +43,12 @@ export class ProblemInfoComponent implements OnInit {
       return { 'bg-orange-200': true, 'text-orange-700': true };
     }
     return { 'bg-red-200': true, 'text-red-700': true };
+  }
+
+  updateCode(code: string) {
+    this.code = code;
+  }
+  onCodeSubmit() {
+    window.alert(this.code);
   }
 }

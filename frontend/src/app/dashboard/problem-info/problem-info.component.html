@@ -46,11 +46,19 @@
   </div>
   <div class="w-full flex">
     <div>
-      <textarea class="editor" rows="28" cols="80" class="w-full font-mono" #editor>{{
-        data.code
-      }}</textarea>
+      <textarea
+        class="editor"
+        rows="28"
+        cols="80"
+        class="w-full font-mono"
+        #editor
+        contenteditable="true"
+        (change)="updateCode(editor.value)"
+      >
+ {{ code }}
+      </textarea>
       <div fxLayout="row" fxLayoutAlign="end center" class="h-12 rounded-md">
-        <button mat-raised-button color="accent">Submit &rarr;</button>
+        <button (click)="onCodeSubmit()" mat-raised-button color="accent">Submit &rarr;</button>
       </div>
     </div>
   </div>
