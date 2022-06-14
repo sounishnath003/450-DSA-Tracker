@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { ProblemsService } from './problems.service';
+import { VOTETYPE } from './voting.schema';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('questions/problems')
@@ -20,5 +21,14 @@ export class ProblemsController {
     @Query('problemId') problemId: string,
   ) {
     return await this.problemService.getInformation(user.id, problemId);
+  }
+
+  @Post('vote-for')
+  async updateVote(
+    @GetUser() user: any,
+    @Query('problemId') problemId: string,
+    @Query('voteType') voteType: VOTETYPE,
+  ) {
+    return await this.problemService.updateVote(user, problemId, voteType);
   }
 }

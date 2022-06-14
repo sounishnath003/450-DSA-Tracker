@@ -21,8 +21,10 @@
       >
         {{ showDifficultyLevel(data.problemInformation.difficultyLevel) }}
       </div>
-      <div class="cursor-pointer">👍 {{ data.problemInformation.upvoted }}</div>
-      <div class="cursor-pointer">
+      <div (click)="updateVote(data.problemId, 'UP')" class="cursor-pointer">
+        👍 {{ data.problemInformation.upvoted }}
+      </div>
+      <div (click)="updateVote(data.problemId, 'DOWN')" class="cursor-pointer">
         👎 {{ data.problemInformation.downvoted }}
       </div>
       <div class="text-blue-700 px-1 rounded-lg bg-gray-100">
@@ -58,7 +60,9 @@
  {{ code }}
       </textarea>
       <div fxLayout="row" fxLayoutAlign="end center" class="h-12 rounded-md">
-        <button (click)="onCodeSubmit()" mat-raised-button color="accent">Submit &rarr;</button>
+        <button (click)="onCodeSubmit(data.id, data.problemId, code)" mat-raised-button color="accent">
+          Submit &rarr;
+        </button>
       </div>
     </div>
   </div>

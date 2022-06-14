@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { ProblemInformationInterface } from '../interfaces/problem-information.interface';
-import { DashboardService } from '../services/dashboard.service';
+import { DashboardService, VOTETYPE } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-problem-info',
@@ -48,7 +48,19 @@ export class ProblemInfoComponent implements OnInit {
   updateCode(code: string) {
     this.code = code;
   }
-  onCodeSubmit() {
-    window.alert(this.code);
+  onCodeSubmit(solutionId: string, problemId: string, code: string) {
+    // calling the `on_code_submit_service`
+    this.problemInformation$ = this.dashboardService.updateSolution(
+      solutionId,
+      problemId,
+      code
+    );
+  }
+
+  updateVote(problemId: string, voteType: VOTETYPE) {
+    this.problemInformation$ = this.dashboardService.updateVote(
+      problemId,
+      voteType
+    );
   }
 }

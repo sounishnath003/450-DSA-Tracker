@@ -6,6 +6,8 @@ import { ProblemInformationInterface } from '../interfaces/problem-information.i
 import { ProgressHistoryInterface } from '../interfaces/progress-history.interface';
 import { QuestionsByTopic } from '../interfaces/questionsbytopic.interface';
 
+export type VOTETYPE = 'UP' | 'DOWN';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -62,5 +64,32 @@ export class DashboardService {
           return response.data;
         })
       );
+  }
+
+  updateVote(problemId: string, voteType: VOTETYPE) {
+    return this.http
+      .post(
+        `/api/questions/problems/vote-for`,
+        {},
+        {
+          params: {
+            problemId,
+            voteType,
+          },
+        }
+      )
+      .pipe(switchMap(() => this.getProblemInformation$(problemId)));
+  }
+
+  updateSolution(solutionId: string, problemId: string, code: string) {
+    return this.http
+      .patch(
+        `/api/solutions/update`,
+        {
+          code,
+        },
+        { params: { solutionId } }
+      )
+      .pipe(switchMap(() => this.getProblemInformation$(problemId)));
   }
 }
