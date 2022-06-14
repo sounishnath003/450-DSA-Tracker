@@ -5,6 +5,7 @@ import { UUIDV4 } from 'src/shared/utility.methods';
 import { Question, QuestionDocument } from '../question.schema';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { Problem, ProblemDocument } from './problem.schema';
+import { VOTETYPE } from './voting.schema';
 
 @Injectable()
 export class ProblemsRepository {
@@ -23,6 +24,18 @@ export class ProblemsRepository {
 
   async findOne(query: FilterQuery<ProblemDocument>) {
     return await this.problemSchema.findOne(query, { _id: 0, __v: 0 });
+  }
+
+  async findOneAndUpdateVote(
+    query: FilterQuery<ProblemDocument>,
+    voteType: VOTETYPE,
+    toggle: boolean = false,
+  ) {
+    const problem = await this.problemSchema.findOne(query);
+    if (voteType === 'UP') problem.upvoted += 1;
+    else if (voteType === 'DOWN') problem.downvoted += 1;
+    await problem.save();
+    return true;
   }
 
   async create(createProblemDto: CreateProblemDto) {

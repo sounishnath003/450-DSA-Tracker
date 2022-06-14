@@ -39,18 +39,37 @@ export class ProblemsService {
     const alreadySubmited = await this.voteSchema.findOne({
       userId: user.id,
       problemId,
-      voteType,
     });
-    
-    if (alreadySubmited)
-      return {
-        data: {
-          updated: false,
+
+    if (alreadySubmited) {
+      if (alreadySubmited.voteType === voteType) {
+        return {
+          data: {
+            updated: false,
+            voteType,
+            problemId,
+            voteId: alreadySubmited.id,
+          },
+        };
+      } else {
+        await this.problemRepo.findOneAndUpdateVote(
+          { id: problemId },
           voteType,
-          problemId,
-          voteId: alreadySubmited.id,
-        },
-      };
+          true,
+        );
+        alreadySubmited.voteType = voteType;
+        alreadySubmited.updatedAt = new Date();
+        await alreadySubmited.save();
+        return {
+          data: {
+            updated: true,
+            voteType,
+            problemId,
+            voteId: alreadySubmited.id,
+          },
+        };
+      }
+    }
 
     const vote = new this.voteSchema({
       id: UUIDV4(),
@@ -61,13 +80,7 @@ export class ProblemsService {
       updatedAt: new Date(),
     });
     await vote.save();
-    const problem = await this.problemRepo.findOne({ id: problemId });
-    if (voteType === 'UP') {
-      problem.upvoted += 1;
-    } else {
-      problem.downvoted += 1;
-    }
-    await problem.save();
+    await this.problemRepo.findOneAndUpdateVote({ id: problemId }, voteType);
     return { data: { updated: true, voteType, problemId, voteId: vote.id } };
   }
 }
