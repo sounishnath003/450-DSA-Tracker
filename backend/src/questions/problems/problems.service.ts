@@ -39,10 +39,11 @@ export class ProblemsService {
     const alreadySubmited = await this.voteSchema.findOne({
       userId: user.id,
       problemId,
+      voteType
     });
 
     if (alreadySubmited) {
-      if (alreadySubmited.voteType === voteType) {
+      if (alreadySubmited.voteType === voteType)
         return {
           data: {
             updated: false,
@@ -51,11 +52,12 @@ export class ProblemsService {
             voteId: alreadySubmited.id,
           },
         };
-      } else {
+      else {
+        // toggle
         await this.problemRepo.findOneAndUpdateVote(
           { id: problemId },
           voteType,
-          true,
+          alreadySubmited.voteType === voteType,
         );
         alreadySubmited.voteType = voteType;
         alreadySubmited.updatedAt = new Date();

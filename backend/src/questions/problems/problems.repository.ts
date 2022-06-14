@@ -32,8 +32,18 @@ export class ProblemsRepository {
     toggle: boolean = false,
   ) {
     const problem = await this.problemSchema.findOne(query);
-    if (voteType === 'UP') problem.upvoted += 1;
-    else if (voteType === 'DOWN') problem.downvoted += 1;
+    if (toggle) {
+      if (voteType === 'UP') {
+        problem.downvoted -= 1;
+        problem.upvoted += 1;
+      } else if (voteType === 'DOWN') {
+        problem.upvoted -= 1;
+        problem.downvoted += 1;
+      }
+    } else {
+      if (voteType === 'UP') problem.upvoted += 1;
+      else if (voteType === 'DOWN') problem.downvoted += 1;
+    }
     await problem.save();
     return true;
   }
