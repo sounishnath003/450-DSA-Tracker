@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { MaterialModule } from '../material/material.module';
 import { JwtTokenInterceptor } from '../shared/jwt-token.interceptor';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -26,6 +27,7 @@ import { TopicBoardComponent } from './topic-board/topic-board.component';
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    CodemirrorModule,
     ReactiveFormsModule,
   ],
   providers: [

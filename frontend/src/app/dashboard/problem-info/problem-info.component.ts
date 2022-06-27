@@ -12,6 +12,29 @@ import { DashboardService, VOTETYPE } from '../services/dashboard.service';
 export class ProblemInfoComponent implements OnInit {
   problemInformation$!: Observable<ProblemInformationInterface[]>;
   code!: string;
+  codeMirrorOptions: any = {
+    theme: 'material',
+    mode: 'javascript',
+    indentUnit: 2,
+    smartIndent: true,
+    lineNumbers: true,
+    lineWrapping: true,
+    foldGutter: true,
+    gutters: [
+      'CodeMirror-linenumbers',
+      'CodeMirror-foldgutter',
+      'CodeMirror-lint-markers',
+    ],
+    autoCloseBrackets: {
+      pairs: '()[]{}\'\'""',
+      closeBefore: ')]}\'":;>',
+      triples: '',
+      explode: '[]{}',
+    },
+    autoCloseTags: true,
+    matchBrackets: true,
+    lint: true,
+  };
   constructor(
     private dashboardService: DashboardService,
     private route: ActivatedRoute
@@ -62,5 +85,9 @@ export class ProblemInfoComponent implements OnInit {
       problemId,
       voteType
     );
+  }
+
+  formatInAbs(value: number) {
+    return Math.abs(value);
   }
 }

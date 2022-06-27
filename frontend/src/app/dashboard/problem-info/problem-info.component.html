@@ -22,13 +22,13 @@
         {{ showDifficultyLevel(data.problemInformation.difficultyLevel) }}
       </div>
       <button (click)="updateVote(data.problemId, 'UP')" class="cursor-pointer">
-        👍 {{ data.problemInformation.upvoted }}
+        👍 {{ formatInAbs(data.problemInformation.upvoted) }}
       </button>
       <button
         (click)="updateVote(data.problemId, 'DOWN')"
         class="cursor-pointer"
       >
-        👎 {{ data.problemInformation.downvoted }}
+        👎 {{ formatInAbs(data.problemInformation.downvoted) }}
       </button>
       <div class="text-blue-700 px-1 rounded-lg bg-gray-100">
         <a [href]="data.problemInformation.problemURL" target="_blank"
@@ -44,29 +44,27 @@
     <mat-divider></mat-divider>
 
     <div class="my-3">
-      <code>
-        Problem Description: {{ data.problemInformation.questionInformation }}
-      </code>
+      <pre>
+        Problem Description: {{ data.problemInformation | json }}
+      </pre>
     </div>
   </div>
   <div class="w-full flex">
-    <div>
-      <textarea
-        class="editor"
-        rows="28"
-        cols="80"
-        class="w-full font-mono"
-        #editor
-        contenteditable="true"
-        (change)="updateCode(editor.value)"
-      >
- {{ code }}
-      </textarea>
+    <div class="w-full rounded-lg">
+      <ngx-codemirror
+        class="rounded-lg font-mono"
+        style="font-size: 1rem"
+        #codemirror
+        [(ngModel)]="code"
+        [options]="codeMirrorOptions"
+        (focusChange)="updateCode(codemirror.value)"
+      ></ngx-codemirror>
       <div fxLayout="row" fxLayoutAlign="end center" class="h-12 rounded-md">
         <button
+          [disabled]="data.code === code"
           (click)="onCodeSubmit(data.id, data.problemId, code)"
           mat-raised-button
-          color="accent"
+          color="primary"
         >
           Submit &rarr;
         </button>
