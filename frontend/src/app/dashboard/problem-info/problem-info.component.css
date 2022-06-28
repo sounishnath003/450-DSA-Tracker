@@ -5,3 +5,11 @@
     grid-column-gap: 10px;
     grid-row-gap: 0px;
 }
+
+.CodeMirror {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    background: white;
+}

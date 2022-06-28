@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/lint/lint';
 import { Observable, tap } from 'rxjs';
 import { ProblemInformationInterface } from '../interfaces/problem-information.interface';
 import { DashboardService, VOTETYPE } from '../services/dashboard.service';
@@ -15,7 +18,6 @@ export class ProblemInfoComponent implements OnInit {
   codeMirrorOptions: any = {
     theme: 'material',
     mode: 'javascript',
-    indentUnit: 2,
     smartIndent: true,
     lineNumbers: true,
     lineWrapping: true,

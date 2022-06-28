@@ -1,10 +1,14 @@
 <div class="grid-layout">
-  <mat-card *ngFor="let topic of topics$ | async" style="width: 305px">
+  <mat-card
+    *ngFor="let topic of topics$ | async"
+    style="width: 305px"
+    class="dark:bg-gray-900"
+  >
     <mat-card-header class="font-sans">
-      <mat-card-title class="text-indigo-600">
+      <mat-card-title class="text-indigo-600 dark:text-gray-300">
         {{ topic.topicname }}
       </mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle class="dark:text-gray-300">
         Total Questions: {{ topic.totalProblems }}
       </mat-card-subtitle>
     </mat-card-header>
@@ -12,25 +16,29 @@
     <mat-card-content class="font-sans">
       <div class="px-4" fxLayout="column" fxLayoutGap="5px">
         <div
-          class="font-semibold text-gray-700"
+          class="font-semibold text-gray-700 dark:text-gray-400"
           *ngIf="topic.started; else notStarted"
         >
           {{ topic.totalProblems - topic.solveCount }} more to go
         </div>
 
         <ng-template #notStarted>
-          <div class="font-semibold text-red-700">
+          <div class="font-semibold text-red-700 dark:text-gray-300">
             You have not subscribed yet.
           </div>
         </ng-template>
 
-        <div class="font-semibold text-gray-700">
+        <div class="font-semibold text-gray-700 dark:text-gray-300">
           <span> Total Subscribers: </span>
-          <span class="bg-pink-100 p-1 rounded-lg">
+          <span class="bg-pink-100 p-1 rounded-lg dark:text-pink-900">
             {{ topic.totalSubscribers }}
           </span>
         </div>
-        <div fxLayout="center center" fxLayoutGap="3px" >
+        <div
+          fxLayout="center center"
+          fxLayoutGap="3px"
+          class="dark:text-gray-300"
+        >
           <div>Completion Percentage:</div>
           <div
             *ngIf="topic.started; else noPercentage"
@@ -49,7 +57,7 @@
 
     <mat-card-actions align="end" class="font-sans">
       <div *ngIf="topic.started; else temp">
-        <button mat-button>
+        <button mat-button class="dark:text-gray-900 dark:bg-blue-100">
           <mat-icon> restart_alt </mat-icon>
           <span>Reset</span>
         </button>
@@ -59,7 +67,7 @@
           color="accent"
           (click)="navigateToTopic(topic.topicname)"
         >
-          <span>Continue</span>
+          <span class="font-sans dark:uppercase">Continue</span>
           <mat-icon> play_arrow </mat-icon>
         </button>
       </div>
@@ -70,7 +78,7 @@
           color="primary"
           (click)="navigateToTopic(topic.topicname)"
         >
-          <span class="font-semibold font-sans">Start Journey &rarr;</span>
+          <span class="font-semibold font-sans dark:text-gray-900 dark:p-2 dark:rounded dark:bg-gray-50">Start Journey &rarr;</span>
         </button>
       </ng-template>
     </mat-card-actions>

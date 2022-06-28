@@ -6,3 +6,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Nunito', sans-serif; }
+
+.CodeMirror {
+    border-radius: 10px;
+    border: 2px solid black;
+    overflow-y: hidden;
+    width: 100vh;
+    height: 85vh;
+}
+
+.CodeMirror-vscrollbar {
+    display: none;
+}

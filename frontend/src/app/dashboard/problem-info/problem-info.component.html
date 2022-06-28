@@ -4,6 +4,7 @@
   fxLayoutAlign="start start"
   fxLayoutGap="10px"
   *ngFor="let data of problemInformation$ | async"
+  class="dark:text-gray-300"
 >
   <div style="resize: both; overflow: auto; min-width: 600px; overflow: hidden">
     <div class="text-xl md:text-2xl font-semibold">
@@ -44,15 +45,21 @@
     <mat-divider></mat-divider>
 
     <div class="my-3">
-      <pre>
-        Problem Description: {{ data.problemInformation | json }}
-      </pre>
+      <div class="text-2xl">Problem Description:</div>
+      <div
+        class="bg-yellow-200 px-2 rounded-lg inline-flex my-3 dark:text-gray-900"
+      >
+        {{
+          data.problemInformation.questionInformation ||
+            "Shortly you will see the problem statement!. Work is in progress. 👨🏻‍💻"
+        }}
+      </div>
     </div>
   </div>
   <div class="w-full flex">
-    <div class="w-full rounded-lg">
+    <div class="w-full rounded-lg" style="height: 100vh">
       <ngx-codemirror
-        class="rounded-lg font-mono"
+        class="rounded-lg font-mono code-mirror-wrapper"
         style="font-size: 1rem"
         #codemirror
         [(ngModel)]="code"

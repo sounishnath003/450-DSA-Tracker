@@ -1,39 +1,60 @@
-<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
-  <h1 class="text-xl md:text-4xl font-semibold text-black">
+<div
+  fxLayout="column"
+  fxLayoutGap="15px"
+  fxLayoutAlign="center center"
+  class="dark:text-gray-300"
+>
+  <h1 class="text-xl md:text-4xl font-semibold text-black dark:text-gray-300">
     Topic-Board: {{ topicname }}
   </h1>
-  <h3 class="text-sm md:text-xl font-bold tracking-wide text-pink-600">
+  <h3
+    class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:text-gray-200"
+  >
     {{ topicInformation }}
   </h3>
 
-  <div class="my-1 text-sm">
+  <div class="my-1 text-sm dark:bg-gray-50 dark:rounded-lg">
     <span class="text-gray-600 bg-yellow-50- px-2 rounded-lg underline">
-      <b class="text-gray-900">&ast;&ast; NOTE: Only save your
-      progress when you have successfully attempted and completed all the
-      testcases of a specific problem to the respective practice site link.</b>
+      <b class="text-gray-900"
+        >&ast;&ast; NOTE: Only save your progress when you have successfully
+        attempted and completed all the testcases of a specific problem to the
+        respective practice site link.</b
+      >
     </span>
   </div>
 
   <table
     mat-table
     [dataSource]="problems"
-    class="mat-elevation-z3 font-sans"
+    class="mat-elevation-z3 font-sans dark:bg-gray-900"
     style="min-width: 600px; width: 1200px; max-width: 1200px"
   >
     <!-- SL.NO Column -->
     <ng-container matColumnDef="SL.NO">
-      <th mat-header-cell *matHeaderCellDef>SL.NO.</th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">
+        SL.NO.
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        class="dark:text-gray-300"
+        [ngClass]="{ 'dark:text-gray-300': !element.solved }"
+      >
         {{ element.position }}
       </td>
     </ng-container>
 
     <!-- ProblemTitle Column -->
     <ng-container matColumnDef="Problem">
-      <th mat-header-cell *matHeaderCellDef>Problem.</th>
+      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef>
+        Problem.
+      </th>
       <td
         class="hover:text-pink-600"
-        [ngClass]="{ 'hover:text-green-800': element.solved }"
+        [ngClass]="{
+          'hover:text-green-800': element.solved,
+          'dark:text-gray-300': !element.solved
+        }"
         mat-cell
         *matCellDef="let element"
       >
@@ -45,7 +66,9 @@
 
     <!-- Score Column -->
     <ng-container matColumnDef="Score">
-      <th mat-header-cell *matHeaderCellDef>Score.</th>
+      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef>
+        Score.
+      </th>
       <td
         class="hover:text-pink-600 font-semibold"
         mat-cell
@@ -55,7 +78,7 @@
           {{ showProgressBySolution(element.code) }}
         </div>
         <ng-template #notsolved>
-          <div class="text-pink-700">
+          <div class="text-pink-700 dark:text-gray-300">
             {{ 0 }}
           </div>
         </ng-template>
@@ -64,8 +87,10 @@
 
     <!-- Status Column -->
     <ng-container matColumnDef="Status">
-      <th mat-header-cell *matHeaderCellDef>Status.</th>
-      <td mat-cell *matCellDef="let element">
+      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef>
+        Status.
+      </th>
+      <td class="dark:text-gray-300" mat-cell *matCellDef="let element">
         <section class="is-solved-section">
           <button
             mat-button
@@ -132,7 +157,9 @@
     <tr
       [ngClass]="{
         'bg-green-100': row.solved,
-        'hover:bg-green-200': row.solved
+        'hover:bg-green-200': row.solved,
+        'dark:bg-green-200': row.solved,
+        'dark:hover:bg-green-300': row.solved
       }"
       class="hover:bg-gray-50 hover:font-semibold transition-all cursor-pointer"
       mat-row
