@@ -20,7 +20,7 @@ export class DashboardService {
         if (err.status === 401) {
           localStorage.removeItem('accessToken');
           this.router.navigate(['', 'auth'], {
-            queryParams: { redirectTo: this.router.url },
+            queryParams: { redirectTo: 'dashboard' },
           });
         }
         return err;
@@ -37,6 +37,13 @@ export class DashboardService {
         params: { topicname },
       })
       .pipe(
+        catchError((err) => {
+          localStorage.removeItem('accessToken');
+          this.router.navigate(['', 'auth'], {
+            queryParams: { redirectTo: `dashboard` },
+          });
+          return err;
+        }),
         map((response: any) => {
           return response.data;
         })
@@ -47,9 +54,16 @@ export class DashboardService {
     topicname: string,
     payload: { questionId: string; problemId: string }
   ) {
-    return this.http
-      .post(`/api/solutions/submit`, payload)
-      .pipe(switchMap(() => this.getQuestionsByTopicname$(topicname)));
+    return this.http.post(`/api/solutions/submit`, payload).pipe(
+      catchError((err) => {
+        localStorage.removeItem('accessToken');
+        this.router.navigate(['', 'auth'], {
+          queryParams: { redirectTo: `dashboard` },
+        });
+        return err;
+      }),
+      switchMap(() => this.getQuestionsByTopicname$(topicname))
+    );
   }
 
   getProblemInformation$(
@@ -60,6 +74,13 @@ export class DashboardService {
         params: { problemId },
       })
       .pipe(
+        catchError((err) => {
+          localStorage.removeItem('accessToken');
+          this.router.navigate(['', 'auth'], {
+            queryParams: { redirectTo: `dashboard` },
+          });
+          return err;
+        }),
         map((response: any) => {
           return response.data;
         })
@@ -78,7 +99,16 @@ export class DashboardService {
           },
         }
       )
-      .pipe(switchMap(() => this.getProblemInformation$(problemId)));
+      .pipe(
+        catchError((err) => {
+          localStorage.removeItem('accessToken');
+          this.router.navigate(['', 'auth'], {
+            queryParams: { redirectTo: `dashboard` },
+          });
+          return err;
+        }),
+        switchMap(() => this.getProblemInformation$(problemId))
+      );
   }
 
   updateSolution(solutionId: string, problemId: string, code: string) {
@@ -90,6 +120,15 @@ export class DashboardService {
         },
         { params: { solutionId } }
       )
-      .pipe(switchMap(() => this.getProblemInformation$(problemId)));
+      .pipe(
+        catchError((err) => {
+          localStorage.removeItem('accessToken');
+          this.router.navigate(['', 'auth'], {
+            queryParams: { redirectTo: `dashboard` },
+          });
+          return err;
+        }),
+        switchMap(() => this.getProblemInformation$(problemId))
+      );
   }
 }
