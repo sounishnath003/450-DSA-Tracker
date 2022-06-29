@@ -22,6 +22,7 @@ export class ProblemInfoComponent implements OnInit {
     lineNumbers: true,
     lineWrapping: true,
     foldGutter: true,
+    autocomplete: true,
     gutters: [
       'CodeMirror-linenumbers',
       'CodeMirror-foldgutter',
@@ -92,11 +93,5 @@ export class ProblemInfoComponent implements OnInit {
 
   formatInAbs(value: number) {
     return Math.abs(value);
-  }
-
-  routeBack(topicname: string) {
-    this.router.navigate(['dashboard', 'topic-board'], {
-      queryParams: { topicname },
-    });
   }
 }

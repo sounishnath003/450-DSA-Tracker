@@ -8,8 +8,23 @@
 >
   <div style="resize: both; overflow: auto; min-width: 600px; overflow: hidden">
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-      <div (click)="routeBack(data.problemInformation.topicname)" class="cursor-pointer rounded-lg px-1 hover:bg-gray-100 text-3xl">
-        &larr;
+      <div
+        backButton
+        class="cursor-pointer text-2xl hover:bg-gray-100 p-2 transition-all dark:bg-gray-600 rounded-full"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H6M12 5l-7 7 7 7" />
+        </svg>
       </div>
       <div class="text-xl md:text-2xl font-semibold">
         {{ data.problemInformation.problemTitle | titlecase }}

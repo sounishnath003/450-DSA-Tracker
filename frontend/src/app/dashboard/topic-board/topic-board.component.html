@@ -4,9 +4,35 @@
   fxLayoutAlign="center center"
   class="dark:text-gray-300"
 >
-  <h1 class="text-xl md:text-4xl font-semibold text-black dark:text-gray-300">
-    Topic-Board: {{ topicname }}
-  </h1>
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+    <div
+      backButton
+      class="cursor-pointer text-2xl hover:bg-gray-100 p-2 transition-all dark:bg-gray-600 rounded-full"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+    </div>
+    <div>/</div>
+    <div>
+      <h1
+        class="text-xl md:text-4xl font-semibold text-black dark:text-gray-300"
+      >
+        Topic-Board: {{ topicname }}
+      </h1>
+    </div>
+  </div>
   <h3
     class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:text-gray-200"
   >

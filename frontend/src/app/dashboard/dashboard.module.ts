@@ -12,6 +12,7 @@ import { ProgressCardComponent } from './home/progress-card/progress-card.compon
 import { ProblemInfoComponent } from './problem-info/problem-info.component';
 import { DashboardService } from './services/dashboard.service';
 import { TopicBoardComponent } from './topic-board/topic-board.component';
+import { BackButtonDirective } from './shared/back-button.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TopicBoardComponent } from './topic-board/topic-board.component';
     ProgressCardComponent,
     TopicBoardComponent,
     ProblemInfoComponent,
+    BackButtonDirective,
   ],
   imports: [
     CommonModule,
