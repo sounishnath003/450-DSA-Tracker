@@ -7,8 +7,13 @@
   class="dark:text-gray-300"
 >
   <div style="resize: both; overflow: auto; min-width: 600px; overflow: hidden">
-    <div class="text-xl md:text-2xl font-semibold">
-      {{ data.problemInformation.problemTitle | titlecase }}
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <div (click)="routeBack(data.problemInformation.topicname)" class="cursor-pointer rounded-lg px-1 hover:bg-gray-100 text-3xl">
+        &larr;
+      </div>
+      <div class="text-xl md:text-2xl font-semibold">
+        {{ data.problemInformation.problemTitle | titlecase }}
+      </div>
     </div>
     <div
       fxLayout="row"

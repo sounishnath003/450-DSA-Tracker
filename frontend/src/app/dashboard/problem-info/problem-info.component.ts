@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/lint/lint';
@@ -39,7 +39,8 @@ export class ProblemInfoComponent implements OnInit {
   };
   constructor(
     private dashboardService: DashboardService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -91,5 +92,11 @@ export class ProblemInfoComponent implements OnInit {
 
   formatInAbs(value: number) {
     return Math.abs(value);
+  }
+
+  routeBack(topicname: string) {
+    this.router.navigate(['dashboard', 'topic-board'], {
+      queryParams: { topicname },
+    });
   }
 }
