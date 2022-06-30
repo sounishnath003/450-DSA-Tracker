@@ -11,7 +11,7 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
     border-radius: 10px;
     border: 2px solid black;
     overflow-y: hidden;
-    width: 100vh;
+    width: auto;
     height: 85vh;
 }
 

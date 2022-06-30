@@ -6,9 +6,10 @@ import { MaterialModule } from '../material/material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
