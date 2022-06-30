@@ -59,6 +59,10 @@ export class AuthService {
         map((response: any) => {
           this._isLoggedIn.next(true);
           localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem(
+            'userInitials',
+            `${username.charAt(0)}${username.charAt(1)}`.toUpperCase()
+          );
           return response;
         })
       );
@@ -97,6 +101,10 @@ export class AuthService {
         map((response: any) => {
           this._isLoggedIn.next(true);
           localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem(
+            'userInitials',
+            `${username.charAt(0)}${username.charAt(1)}`.toUpperCase()
+          );
           return response;
         })
       );

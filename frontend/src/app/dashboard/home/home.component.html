@@ -1,14 +1,33 @@
-<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
-  <h1
-    class="text-xl md:text-4xl font-semibold text-black tracking-wide dark:text-gray-300"
-  >
-    DSA 450 Cracker
-  </h1>
-  <h3
-    class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:font-black dark:text-gray-300"
-  >
-    BRUSH UP YOU DATASTRUCTURES AND ALGORITHM SKILLS
-  </h3>
+<div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-around start">
+  <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+    <h1
+      class="text-xl md:text-4xl font-semibold text-black tracking-wide dark:text-gray-300"
+    >
+      DSA 450 Cracker
+    </h1>
+    <h3
+      class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:font-black dark:text-gray-300"
+    >
+      BRUSH UP YOU DATASTRUCTURES AND ALGORITHM SKILLS
+    </h3>
 
-  <app-progress-card></app-progress-card>
+    <app-progress-card></app-progress-card>
+  </div>
+  <div
+    class="rounded-full bg-black p-2 text-white font-semibold ring-2 ring-pink-300"
+  >
+    <button [matMenuTriggerFor]="menu" aria-label="account menu button">
+      {{ getUserInitials() }}
+    </button>
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>info</mat-icon>
+      <span>Account info</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </div>

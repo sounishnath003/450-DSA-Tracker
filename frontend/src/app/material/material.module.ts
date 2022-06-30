@@ -11,6 +11,7 @@ import {
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -29,6 +30,7 @@ const modules: Array<typeof CommonModule> = [
   MatCheckboxModule,
   MatTooltipModule,
   MatSnackBarModule,
+  MatMenuModule,
 ];
 
 @NgModule({

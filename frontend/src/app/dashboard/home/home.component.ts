@@ -9,4 +9,11 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  getUserInitials() {
+    return `${localStorage.getItem('userInitials')}`;
+  }
+  logout() {
+    localStorage.clear();
+    window.location.replace('/');
+  }
 }
