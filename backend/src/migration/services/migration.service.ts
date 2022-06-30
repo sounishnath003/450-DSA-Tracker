@@ -29,30 +29,32 @@ export class MigrateService {
   ) {
     (async () => {
       try {
-        // // ============= User Migrations =============
-        // const originalUsers = await this.getAllUsers();
-        // const whenCompleted = await this.userRepo.insertBulk(originalUsers);
-        // console.log('users migration done...', whenCompleted);
-        // // ============= DONE =============
-        // // ============= Topicwise ~ Questions Migrations =============
-        // const questions = this.getAllTopicNames();
-        // const questionCompletion = await this.questionRepo.insertBulk(
-        //   questions,
-        // );
-        // console.log('questions migration done...', questionCompletion);
-        // // ============= DONE =============
-        // // ============= Topicwise ~ Problem Migrations =============
-        // const problems = this.getAllProblemsByTopicnames();
-        // const problemCompletion = await this.problemRepo.insertBulk(problems);
-        // console.log('problems migration done...', problemCompletion);
-        // // ============= DONE =============
-        // // ============= Solution Migrations =============
-        // const whenSolutionDone = await this.createSolutionsByAllUser();
-        // console.log('whenSolutions migration done...', whenSolutionDone);
+        // await this.FromOldProductionToNewProductionDatabaseMigration();
       } catch (error) {
         throw new Error(error);
       }
     })();
+  }
+
+  private async FromOldProductionToNewProductionDatabaseMigration() {
+    // ============= User Migrations =============
+    const originalUsers = await this.getAllUsers();
+    const whenCompleted = await this.userRepo.insertBulk(originalUsers);
+    console.log('users migration done...', whenCompleted);
+    // ============= DONE =============
+    // ============= Topicwise ~ Questions Migrations =============
+    const questions = this.getAllTopicNames();
+    const questionCompletion = await this.questionRepo.insertBulk(questions);
+    console.log('questions migration done...', questionCompletion);
+    // ============= DONE =============
+    // ============= Topicwise ~ Problem Migrations =============
+    const problems = this.getAllProblemsByTopicnames();
+    const problemCompletion = await this.problemRepo.insertBulk(problems);
+    console.log('problems migration done...', problemCompletion);
+    // ============= DONE =============
+    // ============= Solution Migrations =============
+    const whenSolutionDone = await this.createSolutionsByAllUser();
+    console.log('whenSolutions migration done...', whenSolutionDone);
   }
 
   async createSolutionsByAllUser() {

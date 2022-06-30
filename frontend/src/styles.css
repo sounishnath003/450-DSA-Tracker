@@ -12,6 +12,7 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
     border: 2px solid black;
     overflow-y: hidden;
     width: auto;
+    min-width: 100vh;
     height: 85vh;
 }
 

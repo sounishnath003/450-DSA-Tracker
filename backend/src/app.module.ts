@@ -39,10 +39,10 @@ import { SolutionModule } from './solution/solution.module';
     //     return { uri: configService.get('mongodbDev') };
     //   },
     // }),
-    MongooseModule.forRoot(configuration().mongodbDev, {
+    MongooseModule.forRoot(configuration().mongodbProd, {
       connectionName: 'dev',
     }),
-    MongooseModule.forRoot(configuration().mongodbProd, {
+    MongooseModule.forRoot(configuration().mongodbMigrationProd, {
       connectionName: 'prod',
     }),
     AuthModule,
