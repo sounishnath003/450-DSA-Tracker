@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -49,9 +49,14 @@ export class SignupComponent implements OnInit {
     this.authService
       .signupWithUsernamePassword(username, password)
       .subscribe((response: any) => {
-        this.router.navigate([
-          this.route.snapshot.queryParamMap.get('redirectTo'),
-        ]);
+        try {
+          if (response.response.status != 201) return;
+          this.router.navigate([
+            this.route.snapshot.queryParamMap.get('redirectTo') ?? 'dashboard',
+          ]);
+        } catch (error) {
+          window.location.replace('/');
+        }
       });
   }
 }

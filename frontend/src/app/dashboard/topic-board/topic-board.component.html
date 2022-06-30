@@ -148,13 +148,14 @@
 
     <!-- Attempted Count Column -->
     <ng-container matColumnDef="Attempted By">
-      <th mat-header-cell *matHeaderCellDef>Attempted By.</th>
+      <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Attempted By.</th>
       <td mat-cell *matCellDef="let element">
         <div
           fxLayout="row"
           fxLayoutGap="5px"
           fxLayoutAlign="center center"
           class="mx-auto hover:text-pink-500"
+          [ngClass]="{'dark:text-gray-300': !element.solved }"
         >
           <div>
             {{ element.attemptedCount ?? 0 }}

@@ -66,6 +66,7 @@
       Do not have an account?
       <span
         [routerLink]="['', 'auth', 'sign-up']"
+        [queryParams]="{redirectTo: 'dashboard'}"
         class="text-blue-700 font-medium cursor-pointer"
         >Sign up</span
       >

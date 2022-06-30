@@ -1,12 +1,23 @@
-<div class="m-20 dark:text-gray-300" fxLayout="column" fxLayoutAlign="start center">
+<div
+  class="m-20 dark:text-gray-300"
+  fxLayout="column"
+  fxLayoutAlign="start center"
+>
   <div fxLayout="column" fxLayoutAlign="start center" class="my-6">
-    <h1 class="text-5xl font-bold my-2 text-black dark:text-gray-300">450 DSA Tracker</h1>
+    <h1 class="text-5xl font-bold my-2 text-black dark:text-gray-300">
+      450 DSA Tracker
+    </h1>
     <div class="body-font text-gray-800 dark:text-gray-200">
       ⚡ Boosts up your Data structure and Algorithms Skills.
     </div>
   </div>
 
-  <form fxLayout="column" fxLayoutGap="30px" class="w-600">
+  <form
+    fxLayout="column"
+    fxLayoutGap="30px"
+    class="w-600"
+    [formGroup]="loginForm"
+  >
     <mat-form-field>
       <mat-label class="dark:text-gray-300"> Username * </mat-label>
       <input
@@ -17,6 +28,7 @@
         id="username"
         placeholder="sounishnath003"
         width="100%"
+        formControlName="username"
       />
     </mat-form-field>
     <mat-form-field>
@@ -27,11 +39,13 @@
         class="password"
         id="password"
         placeholder="*** *** ***"
+        formControlName="password"
       />
     </mat-form-field>
 
     <div>
       <button
+        (click)="onSubmit()"
         mat-raised-button
         fxFlex=""
         class="bg-black text-white tracking-wide"
@@ -46,6 +60,7 @@
       Already have an account?
       <span
         [routerLink]="['', 'auth', 'sign-in']"
+        [queryParams]="{ redirectTo: 'dashboard' }"
         class="text-blue-700 font-medium cursor-pointer"
         >Sign in</span
       >

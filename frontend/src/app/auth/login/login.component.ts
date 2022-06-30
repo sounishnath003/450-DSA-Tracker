@@ -49,11 +49,14 @@ export class LoginComponent implements OnInit {
     this.authService
       .signinWithUsernamePassword(username, password)
       .subscribe((response: any) => {
-        this.router.navigate([
-          window.decodeURIComponent(
-            '' + this.route.snapshot.queryParamMap.get('redirectTo')
-          ) ?? 'dashboard',
-        ]);
+        try {
+          if (response.response.status != 201) return;
+          this.router.navigate([
+            this.route.snapshot.queryParamMap.get('redirectTo') ?? 'dashboard',
+          ]);
+        } catch (error) {
+          window.location.replace('/');
+        }
       });
   }
 }

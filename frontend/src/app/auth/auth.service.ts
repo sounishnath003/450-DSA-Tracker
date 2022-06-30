@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,11 @@ export class AuthService {
   private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {
     this._isLoggedIn.next(!!localStorage.getItem('accessToken'));
   }
 
@@ -29,6 +34,28 @@ export class AuthService {
         { withCredentials: true }
       )
       .pipe(
+        catchError((err) => {
+          if (typeof err.error.message != 'string') {
+            for (const m of err.error.message) {
+              this.snackbar.open(m, 'Error', {
+                panelClass: ['bg-gray-800'],
+                duration: 1000,
+              });
+            }
+          }
+          return err;
+        }),
+        tap((response: any) => {
+          if (response.status != 201) {
+            if (typeof response.message === 'string') {
+              this.snackbar.open(response.message, 'Try again', {
+                panelClass: ['bg-gray-800'],
+                duration: 3000,
+              });
+            }
+            return response;
+          }
+        }),
         map((response: any) => {
           this._isLoggedIn.next(true);
           localStorage.setItem('accessToken', response.accessToken);
@@ -38,12 +65,40 @@ export class AuthService {
   }
 
   signupWithUsernamePassword(username: any, password: any) {
-    return this.http.post('/api/auth/sign-up', { username, password }).pipe(
-      map((response: any) => {
-        this._isLoggedIn.next(true);
-        localStorage.setItem('accessToken', response.accessToken);
-        return response;
-      })
-    );
+    return this.http
+      .post(
+        '/api/auth/signup',
+        { username, password },
+        { withCredentials: true }
+      )
+      .pipe(
+        catchError((err) => {
+          if (typeof err.error.message != 'string') {
+            for (const m of err.error.message) {
+              this.snackbar.open(m, 'Error', {
+                panelClass: ['bg-gray-800'],
+                duration: 1000,
+              });
+            }
+          }
+          return err;
+        }),
+        tap((response: any) => {
+          if (response.status != 201) {
+            if (typeof response.message === 'string') {
+              this.snackbar.open(response.message, 'Try again', {
+                panelClass: ['bg-gray-800'],
+                duration: 3000,
+              });
+            }
+            return response;
+          }
+        }),
+        map((response: any) => {
+          this._isLoggedIn.next(true);
+          localStorage.setItem('accessToken', response.accessToken);
+          return response;
+        })
+      );
   }
 }

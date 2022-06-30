@@ -12,6 +12,8 @@ async function bootstrap() {
   });
   app.use(compression());
   app.useGlobalPipes(new ValidationPipe({ transform: true, always: true }));
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(configuration().port || 1337);
+  await app.init();
 }
 bootstrap();
