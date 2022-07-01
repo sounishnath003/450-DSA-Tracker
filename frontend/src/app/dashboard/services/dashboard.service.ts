@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, switchMap } from 'rxjs';
 import { ProblemInformationInterface } from '../interfaces/problem-information.interface';
 import { ProgressHistoryInterface } from '../interfaces/progress-history.interface';
 import { QuestionsByTopic } from '../interfaces/questionsbytopic.interface';
@@ -12,6 +12,7 @@ export type VOTETYPE = 'UP' | 'DOWN';
   providedIn: 'root',
 })
 export class DashboardService {
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {}
 
   getProgress$(): Observable<Array<ProgressHistoryInterface>> {
