@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin: ['http://127.0.0.1:4200'],
+    origin: ['http://127.0.0.1:4200', 'https://450-dsa-tracker.netlify.app'],
   });
   app.use(compression());
   app.useGlobalPipes(new ValidationPipe({ transform: true, always: true }));

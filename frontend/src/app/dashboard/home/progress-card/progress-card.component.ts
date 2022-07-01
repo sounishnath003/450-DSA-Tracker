@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ProgressHistoryInterface } from '../../interfaces/progress-history.interface';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -37,5 +37,16 @@ export class ProgressCardComponent implements OnInit {
       queryParams: { topicname },
       relativeTo: this.route,
     });
+  }
+
+  resetProgress(questionId: string) {
+    this.topics$ = this.dashboardService.resetProgress$(questionId).pipe(
+      tap((resp: any) => {
+        this.snackBar.open('Progress has been cleared successfully.', 'Close', {
+          duration: 3000,
+          panelClass: ['bg-gray-800'],
+        });
+      })
+    );
   }
 }

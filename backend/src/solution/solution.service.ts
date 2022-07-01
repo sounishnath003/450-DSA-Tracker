@@ -46,4 +46,19 @@ export class SolutionService {
       return error;
     }
   }
+
+  async resetProgressByQuestionTopicId(userId: string, questionId: string) {
+    try {
+      const data = await this.solutionRepository.resetProgressByQuestionTopicId(
+        userId,
+        questionId,
+      );
+      return {
+        data: { ...data },
+        message: 'We have reseted your progress on this topic!',
+      };
+    } catch (error) {
+      return error;
+    }
+  }
 }

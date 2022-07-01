@@ -11,9 +11,10 @@ import { User, UserSchema } from './user.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: User.name, schema: UserSchema, collection: 'users' },
-    ], 'dev'),
+    MongooseModule.forFeature(
+      [{ name: User.name, schema: UserSchema, collection: 'users' }],
+      'PROD',
+    ),
     PassportModule.register({ defaultStrategy: 'jwt', session: true }),
     JwtModule.registerAsync({
       imports: [ConfigModule],

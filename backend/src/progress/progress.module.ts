@@ -16,7 +16,7 @@ import { ProgressService } from './progress.service';
         },
         { name: Question.name, schema: Question, collection: 'questions' },
       ],
-      'dev',
+      'PROD',
     ),
   ],
   controllers: [ProgressController],

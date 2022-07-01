@@ -131,4 +131,21 @@ export class DashboardService {
         switchMap(() => this.getProblemInformation$(problemId))
       );
   }
+
+  resetProgress$(questionId: string) {
+    return this.http
+      .delete(`/api/solutions/reset-progress`, {
+        params: { questionId },
+      })
+      .pipe(
+        catchError((err) => {
+          localStorage.removeItem('accessToken');
+          this.router.navigate(['', 'auth'], {
+            queryParams: { redirectTo: `dashboard` },
+          });
+          return err;
+        }),
+        switchMap(() => this.getProgress$())
+      );
+  }
 }

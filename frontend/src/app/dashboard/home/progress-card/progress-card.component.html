@@ -57,7 +57,11 @@
 
     <mat-card-actions align="end" class="font-sans">
       <div *ngIf="topic.started; else temp">
-        <button mat-button class="dark:text-gray-900 dark:bg-blue-100">
+        <button
+          (click)="resetProgress(topic.id)"
+          mat-button
+          class="dark:text-gray-900 dark:bg-blue-100"
+        >
           <mat-icon> restart_alt </mat-icon>
           <span>Reset</span>
         </button>
@@ -78,7 +82,10 @@
           color="primary"
           (click)="navigateToTopic(topic.topicname)"
         >
-          <span class="font-semibold font-sans dark:text-gray-900 dark:p-2 dark:rounded dark:bg-gray-50">Start Journey &rarr;</span>
+          <span
+            class="font-semibold font-sans dark:text-gray-900 dark:p-2 dark:rounded dark:bg-gray-50"
+            >Start Journey &rarr;</span
+          >
         </button>
       </ng-template>
     </mat-card-actions>

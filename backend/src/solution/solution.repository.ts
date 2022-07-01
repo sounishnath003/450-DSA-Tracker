@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { UUIDV4 } from 'src/shared/utility.methods';
 import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
@@ -38,11 +38,7 @@ export class SolutionRepository {
     await solution.save();
   }
 
-  async insertBulk(
-    datas: Array<Partial<SolutionDocument>>,
-    username: string,
-    counter: number,
-  ) {
+  async insertBulk(datas: Array<Partial<SolutionDocument>>, counter: number) {
     const updatedSolutions = datas.map((data) => {
       return {
         code: '// Upload your working solution!',
@@ -53,11 +49,7 @@ export class SolutionRepository {
       };
     });
     await this.solutionSchema.insertMany(updatedSolutions);
-    console.log({
-      username,
-      totalCount: counter,
-      timeStamp: new Date(),
-    });
+    console.log({ user: counter });
     return true;
   }
 
@@ -95,5 +87,16 @@ export class SolutionRepository {
     ).map((data) => {
       return { ...data, problemInformation: data.problemInformation[0] };
     });
+  }
+
+  async resetProgressByQuestionTopicId(userId: string, questionId: string) {
+    const userSolutions = await this.solutionSchema.deleteMany({
+      userId,
+      questionId,
+    } as FilterQuery<{
+      userId;
+      questionId;
+    }>);
+    return userSolutions;
   }
 }

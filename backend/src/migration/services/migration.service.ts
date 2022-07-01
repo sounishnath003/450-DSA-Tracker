@@ -84,7 +84,7 @@ export class MigrateService {
           );
 
           if (data !== undefined && data.length) {
-            await this.solutionRepo.insertBulk(data, username, ++counter);
+            await this.solutionRepo.insertBulk(data, ++counter);
           }
         },
       );

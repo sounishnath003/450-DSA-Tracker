@@ -28,7 +28,7 @@ import { SolutionModule } from './solution/solution.module';
     //     console.log({ configService });
     //     return {
     //       uri: configService.get('mongodbProd'),
-    //       connectionName: 'prod',
+    //       connectionName: 'MIGRATION_PROD',
     //     };
     //   },
     // }),
@@ -40,10 +40,10 @@ import { SolutionModule } from './solution/solution.module';
     //   },
     // }),
     MongooseModule.forRoot(configuration().mongodbProd, {
-      connectionName: 'dev',
+      connectionName: 'PROD',
     }),
     MongooseModule.forRoot(configuration().mongodbMigrationProd, {
-      connectionName: 'prod',
+      connectionName: 'MIGRATION_PROD',
     }),
     AuthModule,
     QuestionsModule,
@@ -58,7 +58,7 @@ import { SolutionModule } from './solution/solution.module';
           collection: 'alltopicquestions',
         },
       ],
-      'prod',
+      'MIGRATION_PROD',
     ),
   ],
   controllers: [AppController],

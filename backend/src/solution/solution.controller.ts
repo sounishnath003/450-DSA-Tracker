@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Patch,
   Post,
   Query,
@@ -37,5 +38,10 @@ export class SolutionController {
       solutionId,
       updateSolutionDto,
     );
+  }
+
+  @Delete('reset-progress')
+  async resetProgressForQuestionTopic(@GetUser() user: any, @Query('questionId') questionId: string) {
+    return await this.solutionService.resetProgressByQuestionTopicId(user.id, questionId);
   }
 }

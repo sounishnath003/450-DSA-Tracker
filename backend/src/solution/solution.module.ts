@@ -21,7 +21,7 @@ import { SolutionService } from './solution.service';
           collection: 'questions',
         },
       ],
-      'dev',
+      'PROD',
     ),
   ],
   controllers: [SolutionController],

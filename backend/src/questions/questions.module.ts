@@ -33,7 +33,7 @@ import { QuestionsService } from './questions.service';
         },
         { name: User.name, schema: UserSchema, collection: 'users' },
       ],
-      'dev',
+      'PROD',
     ),
     SolutionModule,
   ],
