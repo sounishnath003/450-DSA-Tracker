@@ -21,11 +21,20 @@
     </button>
   </div>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item class="font-sans">
       <mat-icon>info</mat-icon>
       <span>Account info</span>
     </button>
-    <button mat-menu-item (click)="logout()">
+    <button mat-menu-item class="font-sans">
+      <a
+        href="https://github.com/sounishnath003/450-DSA-Tracker/"
+        target="_blank"
+      >
+        <mat-icon>open_in_new</mat-icon>
+        <span>450-DSA-Tracker GitHub</span>
+      </a>
+    </button>
+    <button mat-menu-item (click)="logout()" class="font-sans">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

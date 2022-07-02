@@ -1,5 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
@@ -14,7 +23,7 @@ import { DashboardService } from '../services/dashboard.service';
   templateUrl: './topic-board.component.html',
   styleUrls: ['./topic-board.component.css'],
 })
-export class TopicBoardComponent implements OnInit, OnDestroy {
+export class TopicBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   topicname: string;
   topicInformation: string = '';
   subscribers: Array<Subscription> = [];
@@ -25,16 +34,23 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
     'Status',
     'Score',
   ];
-  problems: Array<Problem> = [];
+  problems: MatTableDataSource<Problem> = new MatTableDataSource<Problem>([]);
   totalScore: number = 0;
+  @ViewChild(MatSort)
+  sort: MatSort = new MatSort;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dashboardService: DashboardService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private _liveAnnouncer: LiveAnnouncer
   ) {
     this.topicname = this.route.snapshot.queryParamMap.get('topicname') || '';
+  }
+
+  ngAfterViewInit() {
+    this.problems.sort = this.sort;
   }
 
   ngOnInit(): void {
@@ -77,9 +93,11 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
   private refreshAndUpdateState(response: QuestionsByTopic) {
     this.topicname = response.questions.topicname;
     this.topicInformation = response.questions.topicInformation;
-    this.problems = this.resampleAndCombineAllProblems(
-      response.questions.problems,
-      response.questions.solvedProblems
+    this.problems = new MatTableDataSource<Problem>(
+      this.resampleAndCombineAllProblems(
+        response.questions.problems,
+        response.questions.solvedProblems
+      )
     );
   }
 
@@ -128,5 +146,13 @@ export class TopicBoardComponent implements OnInit, OnDestroy {
     this.router.navigate(['', 'dashboard', 'problems'], {
       queryParams: { problemId },
     });
+  }
+
+  performSorting(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }
