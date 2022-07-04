@@ -1085,7 +1085,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Deletion from a Circular Linked List.',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/deletion-circular-linked-list/',
+        URL: 'https://practice.geeksforgeeks.org/problems/deletion-and-reverse-in-linked-list/1/',
       },
       {
         Topic: 'LinkedList',
@@ -1114,7 +1114,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Sort a “k”sorted Doubly Linked list.[Very IMP]',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/sort-k-sorted-doubly-linked-list/',
+        URL: 'https://www.codingninjas.com/codestudio/problems/sort-a-k-sorted-doubly-linked-list_1118118',
       },
       {
         Topic: 'LinkedList',
@@ -1251,7 +1251,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Mirror of a tree',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/create-a-mirror-tree-from-the-given-binary-tree/',
+        URL: 'https://leetcode.com/problems/invert-binary-tree/',
       },
       {
         Topic: 'Binary Trees',
@@ -1483,7 +1483,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Find a value in a BST',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/',
+        URL: 'https://practice.geeksforgeeks.org/problems/search-a-node-in-bst/1/',
       },
       {
         Topic: 'Binary Search Trees',
@@ -1532,7 +1532,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Construct BST from preorder traversal',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/construct-bst-from-given-preorder-traversa/',
+        URL: 'https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/',
       },
       {
         Topic: 'Binary Search Trees',
@@ -3114,7 +3114,7 @@ export const QuestionData: Array<QuestionMigrationDataInterface> = [
         Problem: 'Longest Palindromic Subsequence',
         Done: false,
 
-        URL: 'https://www.geeksforgeeks.org/longest-palindromic-subsequence-dp-12/',
+        URL: 'https://practice.geeksforgeeks.org/problems/longest-palindromic-subsequence-1612327878/1/',
       },
       {
         Topic: 'Dynamic Programming',

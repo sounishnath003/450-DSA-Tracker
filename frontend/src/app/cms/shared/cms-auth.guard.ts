@@ -22,7 +22,8 @@ export class CmsAuthGuard implements CanActivate {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     const status = false;
-    this.router.navigate(['', 'cms', 'auth']);
+    if (!status)
+      this.router.navigate(['', 'cms', 'auth']);
     return status;
   }
 }

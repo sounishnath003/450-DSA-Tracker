@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ProgressHistoryInterface } from '../../interfaces/progress-history.interface';
 import { DashboardService } from '../../services/dashboard.service';
 
@@ -11,15 +11,15 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./progress-card.component.css'],
 })
 export class ProgressCardComponent implements OnInit {
-  topics$: Observable<Array<ProgressHistoryInterface>>;
+  @Input() topics$!: Observable<Array<ProgressHistoryInterface>>;
+  @Output() resetProgressClicked: EventEmitter<{ questionId: string }> =
+    new EventEmitter<{ questionId: string }>();
   constructor(
     private dashboardService: DashboardService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
-  ) {
-    this.topics$ = this.dashboardService.getProgress$();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.snackBar.open(
@@ -40,13 +40,6 @@ export class ProgressCardComponent implements OnInit {
   }
 
   resetProgress(questionId: string) {
-    this.topics$ = this.dashboardService.resetProgress$(questionId).pipe(
-      tap((resp: any) => {
-        this.snackBar.open('Progress has been cleared successfully.', 'Close', {
-          duration: 3000,
-          panelClass: ['bg-gray-800'],
-        });
-      })
-    );
+    this.resetProgressClicked.emit({ questionId });
   }
 }

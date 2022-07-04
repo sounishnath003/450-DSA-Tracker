@@ -15,7 +15,11 @@ export class DashboardService {
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {}
 
-  getProgress$(): Observable<Array<ProgressHistoryInterface>> {
+  getProgress$(): Observable<{
+    totalSolved: number;
+    totalQuestions: number;
+    progressHistory: ProgressHistoryInterface[];
+  }> {
     return this.http.get(`/api/progress/track`).pipe(
       catchError((err) => {
         if (err.status === 401) {
@@ -27,7 +31,24 @@ export class DashboardService {
         return err;
       }),
       map((response: any) => {
-        return [...response.data.progressHistory];
+        const totalSolved = response.data.progressHistory.reduce(
+          (pv: any, cv: { solveCount: any }) => {
+            return pv + cv.solveCount;
+          },
+          0
+        );
+        let totalQuestions = response.data.progressHistory.reduce(
+          (pv: any, cv: { totalProblems: any }) => {
+            return pv + cv.totalProblems;
+          },
+          0
+        );
+
+        return {
+          totalSolved,
+          totalQuestions,
+          progressHistory: [...response.data.progressHistory],
+        };
       })
     );
   }
