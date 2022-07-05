@@ -94,4 +94,10 @@ export class ProblemInfoComponent implements OnInit {
   formatInAbs(value: number) {
     return Math.abs(value);
   }
+
+  fullScreen() {
+    (
+      window.document.getElementsByTagName('ngx-codemirror')[0] as any
+    ).webkitRequestFullscreen();
+  }
 }

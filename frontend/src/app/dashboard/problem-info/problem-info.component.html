@@ -78,6 +78,14 @@
   </div>
   <div class="w-full flex">
     <div class="w-full rounded-lg" style="height: 100vh">
+      <button
+        style="position: absolute; top: 25px; right: 40px"
+        (click)="fullScreen()"
+        class="float-right"
+        mat-icon-button
+      >
+        <mat-icon>fullscreen</mat-icon>
+      </button>
       <ngx-codemirror
         class="rounded-lg font-mono code-mirror-wrapper"
         style="font-size: 1rem"
