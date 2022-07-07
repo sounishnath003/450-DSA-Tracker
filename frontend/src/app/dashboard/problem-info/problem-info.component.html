@@ -6,7 +6,7 @@
   *ngFor="let data of problemInformation$ | async"
   class="dark:text-gray-300"
 >
-  <div style="resize: both; overflow: auto; min-width: 600px; overflow: hidden">
+  <div style="overflow: auto; min-width: 600px; overflow: hidden">
     <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
       <div
         backButton
@@ -66,14 +66,25 @@
 
     <div class="my-3">
       <div class="text-2xl">Problem Description:</div>
-      <div
-        class="bg-yellow-200 px-2 rounded-lg inline-flex my-3 dark:text-gray-900"
-      >
-        {{
-          data.problemInformation.questionInformation ||
-            "Shortly you will see the problem statement!. Work is in progress. 👨🏻‍💻"
-        }}
+      <div *ngIf="data.problemInformation.questionInformation; else temp" style="height: 80vh; overflow-y: scroll">
+        <section>
+          <article class="my-3">
+            <div
+              class="prose dark:prose-invert text-3xl"
+              [innerHTML]="data.problemInformation.questionInformation | markdownToHtml | safeHTML"
+            ></div>
+          </article>
+        </section>
       </div>
+      <ng-template #temp>
+        <div
+          class="bg-yellow-200 px-2 rounded-lg inline-flex my-3 dark:text-gray-900"
+        >
+          {{
+            "Shortly you will see the problem statement!. Work is in progress. 👨🏻‍💻"
+          }}
+        </div>
+      </ng-template>
     </div>
   </div>
   <div class="w-full flex">
