@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { CreateProblemDto } from './dto/create-problem.dto';
+import { updateProblemDto } from './dto/update-problem.dto';
 import { ProblemsService } from './problems.service';
 import { VOTETYPE } from './voting.schema';
 
@@ -13,6 +22,19 @@ export class ProblemsController {
   @Post('create')
   async createProblem(@Body() createProblemDto: CreateProblemDto) {
     return await this.problemService.createProblem(createProblemDto);
+  }
+
+  @Patch('update')
+  async updateProblem(
+    @GetUser() user: any,
+    @Query('problemId') problemId: string,
+    @Body() updateParams: updateProblemDto,
+  ) {
+    return await this.problemService.updateProblem(
+      user.id,
+      problemId,
+      updateParams,
+    );
   }
 
   @Get('details')

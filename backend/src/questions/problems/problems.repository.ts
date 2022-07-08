@@ -4,7 +4,8 @@ import { FilterQuery, Model } from 'mongoose';
 import { UUIDV4 } from 'src/shared/utility.methods';
 import { Question, QuestionDocument } from '../question.schema';
 import { CreateProblemDto } from './dto/create-problem.dto';
-import { Problem, ProblemDocument } from './problem.schema';
+import { updateProblemDto } from './dto/update-problem.dto';
+import { DifficultyTypeEnum, Problem, ProblemDocument } from './problem.schema';
 import { VOTETYPE } from './voting.schema';
 
 @Injectable()
@@ -63,6 +64,29 @@ export class ProblemsRepository {
     question.totalProblems += 1;
     await question.save();
     return true;
+  }
+
+  async update(problemId: string, updateParams: updateProblemDto) {
+    const f = { ...updateParams };
+    const problem = await this.problemSchema.findOne({ id: problemId });
+    if ('problemTitle' in f) problem.problemTitle = f.problemTitle;
+    if ('problemURL' in f) problem.problemURL = f.problemURL;
+    if ('difficultyLevel' in f)
+      problem.difficultyLevel = this.determineDifficultyType(
+        +f.difficultyLevel,
+      );
+    if ('questionInformation' in f)
+      problem.questionInformation = f.questionInformation;
+    problem.updatedAt = new Date();
+    await problem.save();
+    return true;
+  }
+
+  private determineDifficultyType(difficultyLevel: number) {
+    if (difficultyLevel === 0) return DifficultyTypeEnum.Easy;
+    if (difficultyLevel === 1) return DifficultyTypeEnum.Medium;
+    if (difficultyLevel === 2) return DifficultyTypeEnum.Hard;
+    return DifficultyTypeEnum.Medium;
   }
 
   async insertBulk(problems: Array<CreateProblemDto>) {
