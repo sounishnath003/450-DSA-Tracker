@@ -1,0 +1,26 @@
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+.CodeMirror {
+    border-radius: 10px;
+    border: 2px solid black;
+    overflow-y: hidden;
+    width: auto;
+    min-width: 100vh;
+    height: 85vh;
+}
+
+.CodeMirror-vscrollbar {
+    display: none;
+}

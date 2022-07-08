@@ -66,12 +66,19 @@
 
     <div class="my-3">
       <div class="text-2xl">Problem Description:</div>
-      <div *ngIf="data.problemInformation.questionInformation; else temp" style="height: 80vh; overflow-y: scroll">
+      <div
+        *ngIf="data.problemInformation.questionInformation; else temp"
+        style="height: 80vh; overflow-y: scroll"
+      >
         <section>
           <article class="my-3">
             <div
-              class="prose dark:prose-invert text-3xl"
-              [innerHTML]="data.problemInformation.questionInformation | markdownToHtml | safeHTML"
+              class="prose dark:prose-invert"
+              [innerHTML]="
+                data.problemInformation.questionInformation
+                  | markdownToHtml
+                  | safeHTML
+              "
             ></div>
           </article>
         </section>
