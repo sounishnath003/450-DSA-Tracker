@@ -9,6 +9,7 @@ import { Problem, Question } from './all-problems-interface';
   providedIn: 'root',
 })
 export class CmsService {
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -28,13 +29,13 @@ export class CmsService {
   }
 
   updateProblemDetails(updatedProblemParams: Partial<Problem>) {
-    return this.http.patch(
-      `/api/questions/problems/update`,
-      { ...updatedProblemParams },
-      { params: { problemId: '' + updatedProblemParams.id } }
-    ).pipe(
-      switchMap(() => this.buildAndPopulateCMSDashboard$())
-    )
+    return this.http
+      .patch(
+        `/api/questions/problems/update`,
+        { ...updatedProblemParams },
+        { params: { problemId: '' + updatedProblemParams.id } }
+      )
+      .pipe(switchMap(() => this.buildAndPopulateCMSDashboard$()));
   }
 
   buildAndPopulateCMSDashboard$(): Observable<Array<Question>> {

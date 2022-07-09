@@ -17,4 +17,8 @@
     </h3>
   </div>
   <router-outlet></router-outlet>
+    <div [hidden]="!(isLoading$ | async)">
+    <mat-spinner class="flex m-auto my-8" color="accent"></mat-spinner>
+  </div>
+
 </div>

@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ModifyDialogComponent } from './dashboard/problem-info/modify-dialog/modify-dialog.component';
 import { ProblemInfoComponent } from './dashboard/problem-info/problem-info.component';
 import { CmsService } from './services/cms.service';
+import { LoaderInterceptor } from './shared/loader.interceptor';
 import {
   MarkdownToHtmlPipe,
   SafeHTMLPipe,
@@ -47,7 +48,7 @@ import {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtTokenInterceptor,
+      useClass: LoaderInterceptor,
       multi: true,
     },
   ],
