@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
-import { Question } from './all-problems-interface';
+import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
+import { Problem, Question } from './all-problems-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,16 @@ export class CmsService {
 
   get authState$(): Observable<boolean> {
     return this._isLoggedIn.asObservable();
+  }
+
+  updateProblemDetails(updatedProblemParams: Partial<Problem>) {
+    return this.http.patch(
+      `/api/questions/problems/update`,
+      { ...updatedProblemParams },
+      { params: { problemId: '' + updatedProblemParams.id } }
+    ).pipe(
+      switchMap(() => this.buildAndPopulateCMSDashboard$())
+    )
   }
 
   buildAndPopulateCMSDashboard$(): Observable<Array<Question>> {

@@ -1,24 +1,24 @@
 <div class="dark:text-gray-300">
   <div class="grid-2">
     <div>
-      <div
-        class="p-2 hover:bg-gray-50 border-b cursor-pointer hover:text-gray-800 transition-all"
+      <mat-list
+        role="list"
         *ngFor="let questionTopic of data; let index = index"
         [attr.data-index]="index"
+        (click)="onCurrentSelectionChange(index)"
+        class="hover:bg-gray-50 transition-all hover:text-gray-800 cursor-pointer"
       >
-        <button
-          mat-button
-          color="accent"
-          class="font-sans w-full"
-          (click)="onCurrentSelectionChange(index)"
+        <mat-list-item role="listitem">
+          <div class="font-sans w-full dark:text-gray-300">
+            {{ questionTopic.topicname | titlecase }}
+          </div></mat-list-item
         >
-          {{ questionTopic.topicname | titlecase }}
-        </button>
-      </div>
+      </mat-list>
     </div>
     <div>
       <app-problem-info
         [questionTopicWithProblems]="currentSelectedQuestionTopic"
+        (onUpdateProblemDetails)="updateDetails($event)"
       ></app-problem-info>
     </div>
   </div>

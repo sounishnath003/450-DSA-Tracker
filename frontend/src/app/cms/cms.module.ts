@@ -9,11 +9,24 @@ import { AuthComponent } from './auth/auth.component';
 import { CmsRoutingModule } from './cms-routing.module';
 import { CmsComponent } from './cms.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CmsService } from './services/cms.service';
+import { ModifyDialogComponent } from './dashboard/problem-info/modify-dialog/modify-dialog.component';
 import { ProblemInfoComponent } from './dashboard/problem-info/problem-info.component';
+import { CmsService } from './services/cms.service';
+import {
+  MarkdownToHtmlPipe,
+  SafeHTMLPipe,
+} from './shared/markdown-to-html.pipe';
 
 @NgModule({
-  declarations: [AuthComponent, CmsComponent, DashboardComponent, ProblemInfoComponent],
+  declarations: [
+    AuthComponent,
+    CmsComponent,
+    DashboardComponent,
+    ProblemInfoComponent,
+    MarkdownToHtmlPipe,
+    SafeHTMLPipe,
+    ModifyDialogComponent,
+  ],
   imports: [
     CommonModule,
     CmsRoutingModule,
@@ -22,6 +35,8 @@ import { ProblemInfoComponent } from './dashboard/problem-info/problem-info.comp
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CmsService,

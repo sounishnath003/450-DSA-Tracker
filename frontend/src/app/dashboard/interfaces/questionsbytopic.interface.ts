@@ -10,6 +10,7 @@ export interface Questions {
 }
 
 export interface Problem {
+  _id: string;
   id: string;
   createdAt: Date;
   updatedAt: Date;
