@@ -14,6 +14,10 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then((m) => m.CmsModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'dashboard',

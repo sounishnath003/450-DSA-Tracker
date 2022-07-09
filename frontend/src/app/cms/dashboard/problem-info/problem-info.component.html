@@ -1,0 +1,82 @@
+<div *ngIf="questionTopicProblems$ | async; else temp">
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let problem of questionTopicProblems$ | async as list"
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title class="font-sans">
+          {{ problem.problemTitle }}
+        </mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-list role="list">
+          <mat-list-item>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="space-between center"
+              class="w-full font-sans"
+            >
+              <div>Link :</div>
+              <div>
+                <a [href]="problem.problemURL" target="_blank">
+                  {{ problem.problemURL }}
+                </a>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="space-between center"
+              class="w-full font-sans"
+            >
+              <div>Topic Name :</div>
+              <div>{{ problem.topicname }}</div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="space-between center"
+              class="w-full font-sans"
+            >
+              <div>Difficulty Level :</div>
+              <div>
+                <a [href]="problem.problemURL" target="_blank">
+                  {{ formatDifficultyLevel(+problem.difficultyLevel) }}
+                </a>
+              </div>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div
+              fxLayout="row"
+              fxLayoutGap="20px"
+              fxLayoutAlign="space-between center"
+              class="w-full font-sans"
+            >
+              <div>Last updated at :</div>
+              <div>
+                {{ problem.updatedAt | date }}
+              </div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <mat-action-list class="float-right my-2">
+        <button color="accent" mat-button class="font-sans" (click)="openModifyDialog(problem)">
+          Modify Details <mat-icon> edit </mat-icon>
+        </button>
+      </mat-action-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<ng-template #temp>
+  <div>Please select one question Topic from your left side</div>
+</ng-template>

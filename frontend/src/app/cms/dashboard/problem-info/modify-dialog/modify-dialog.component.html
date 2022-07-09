@@ -1,0 +1,89 @@
+<h1 mat-dialog-title class="font-sans">{{ data.problem.problemTitle }}</h1>
+<div mat-dialog-content>
+  <form
+    fxLayout="column"
+    fxLayoutGap="30px"
+    [formGroup]="problemUpdateForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Problem Title </mat-label>
+      <input
+        matInput
+        placeholder
+        type="text"
+        class="problemTitle"
+        id="problemTitle"
+        placeholder="Modify Title"
+        width="100%"
+        formControlName="problemTitle"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Problem URL </mat-label>
+      <input
+        matInput
+        placeholder
+        type="text"
+        class="problemURL"
+        id="problemURL"
+        placeholder="Modify URL"
+        width="100%"
+        formControlName="problemURL"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Difficulty Level </mat-label>
+      <input
+        matInput
+        placeholder
+        type="number"
+        class="difficultyLevel"
+        id="difficultyLevel"
+        placeholder="Modify Difficulty Level"
+        width="100%"
+        formControlName="difficultyLevel"
+      />
+    </mat-form-field>
+    <mat-form-field style="display: none">
+      <mat-label class="dark:text-gray-300"> Topicname </mat-label>
+      <input
+        matInput
+        placeholder
+        type="text"
+        class="topicname"
+        id="topicname"
+        placeholder="Modify Topicname"
+        width="100%"
+        formControlName="topicname"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Question Information </mat-label>
+      <textarea
+        matInput
+        placeholder
+        type="text"
+        class="questionInformation"
+        id="questionInformation"
+        placeholder="Modify QuestionInformation"
+        width="100%"
+        formControlName="questionInformation"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="float-right my-2">
+  <button
+    mat-button
+    mat-dialog-close
+    color="primary"
+    class="font-sans"
+    (click)="close()"
+  >
+    Close
+  </button>
+  <button mat-button color="accent" class="font-sans" (click)="onSubmit()">
+    Update
+  </button>
+</div>

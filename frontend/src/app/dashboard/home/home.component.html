@@ -1,42 +1,56 @@
-<div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-around start">
-  <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
-    <h1
-      class="text-xl md:text-4xl font-semibold text-black tracking-wide dark:text-gray-300"
-    >
-      DSA 450 Cracker
-    </h1>
-    <h3
-      class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:font-black dark:text-gray-300"
-    >
-      BRUSH UP YOU DATASTRUCTURES AND ALGORITHM SKILLS
-    </h3>
-
-    <app-progress-card></app-progress-card>
-  </div>
-  <div
-    class="rounded-full bg-black p-2 text-white font-semibold ring-2 ring-pink-300"
-  >
-    <button [matMenuTriggerFor]="menu" aria-label="account menu button">
-      {{ getUserInitials() }}
-    </button>
-  </div>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item class="font-sans">
-      <mat-icon>info</mat-icon>
-      <span>Account info</span>
-    </button>
-    <button mat-menu-item class="font-sans">
-      <a
-        href="https://github.com/sounishnath003/450-DSA-Tracker/"
-        target="_blank"
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="space-around start">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+      <h1
+        class="text-xl md:text-4xl font-semibold text-black tracking-wide dark:text-gray-300"
       >
-        <mat-icon>open_in_new</mat-icon>
-        <span>450-DSA-Tracker GitHub</span>
-      </a>
-    </button>
-    <button mat-menu-item (click)="logout()" class="font-sans">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
-  </mat-menu>
+        DSA 450 Cracker
+      </h1>
+      <h3
+        class="text-sm md:text-xl font-bold tracking-wide text-pink-600 dark:font-black dark:text-gray-300"
+      >
+        BRUSH UP YOU DATASTRUCTURES AND ALGORITHM SKILLS
+      </h3>
+    </div>
+    <div>
+      <button mat-button class="font-sans bg-green-300 uppercase">
+        &check; {{ totalSolved }} Completed
+      </button>
+    </div>
+
+    <div
+      class="rounded-full bg-black p-2 text-white font-semibold ring-2 ring-pink-300"
+    >
+      <button [matMenuTriggerFor]="menu" aria-label="account menu button">
+        {{ getUserInitials() }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="font-sans">
+          <mat-icon>info</mat-icon>
+          <span>Account info</span>
+        </button>
+        <button mat-menu-item class="font-sans">
+          <a
+            href="https://github.com/sounishnath003/450-DSA-Tracker/"
+            target="_blank"
+          >
+            <mat-icon>open_in_new</mat-icon>
+            <span>450-DSA-Tracker GitHub</span>
+          </a>
+        </button>
+        <button mat-menu-item (click)="logout()" class="font-sans">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <app-progress-card
+    [topics$]="progressHistory"
+    (resetProgressClicked)="resetProgress($event)"
+  ></app-progress-card>
 </div>

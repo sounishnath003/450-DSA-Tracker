@@ -1,0 +1,53 @@
+<div
+  class="m-20 dark:text-white"
+  fxLayout="column"
+  fxLayoutAlign="start center"
+>
+  <div fxLayout="column" fxLayoutAlign="start center" class="my-6">
+    <h1 class="text-5xl font-bold my-2 text-black dark:text-gray-300">
+      450 DSA Tracker
+    </h1>
+    <div class="body-font text-gray-800 dark:text-gray-300">
+      ⚡ Boosts up your Data structure and Algorithms Skills.
+    </div>
+  </div>
+
+  <form
+    fxLayout="column"
+    fxLayoutGap="30px"
+    class="w-600 dark:text-gray-300"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Username </mat-label>
+      <input
+        matInput
+        placeholder
+        type="username"
+        class="username"
+        id="username"
+        placeholder="sounishnath003"
+        width="100%"
+        formControlName="username"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="dark:text-gray-300"> Enter Authcode received</mat-label>
+      <input
+        matInput
+        type="password"
+        class="password"
+        id="password"
+        placeholder="** **** **"
+        formControlName="password"
+      />
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button fxFlex="" color="accent" class="font-sans">
+        Super User Activation &rarr;
+      </button>
+    </div>
+  </form>
+</div>

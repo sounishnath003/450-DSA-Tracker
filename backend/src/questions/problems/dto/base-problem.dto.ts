@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { Base } from 'src/shared/base.schema';
 
-export class BaseProblemDto {
+export class BaseProblemDto extends Base {
   @IsNotEmpty()
   @IsString()
   problemTitle: string;
@@ -12,4 +13,7 @@ export class BaseProblemDto {
   @IsNotEmpty()
   @IsString()
   topicname: string;
+
+  @IsString()
+  questionInformation: string = '';
 }

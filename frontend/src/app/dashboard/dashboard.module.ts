@@ -10,10 +10,14 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ProgressCardComponent } from './home/progress-card/progress-card.component';
-import { ProblemInfoComponent } from './problem-info/problem-info.component';
+import {
+  ProblemInfoComponent,
+  SafeHTMLPipe,
+} from './problem-info/problem-info.component';
 import { DashboardService } from './services/dashboard.service';
 import { BackButtonDirective } from './shared/back-button.directive';
 import { TopicBoardComponent } from './topic-board/topic-board.component';
+import { MarkdownToHtmlPipe } from './shared/markdown-to-html.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { TopicBoardComponent } from './topic-board/topic-board.component';
     TopicBoardComponent,
     ProblemInfoComponent,
     BackButtonDirective,
+    SafeHTMLPipe,
+    MarkdownToHtmlPipe,
   ],
   imports: [
     CommonModule,

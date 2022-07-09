@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
@@ -93,5 +94,19 @@ export class ProblemInfoComponent implements OnInit {
 
   formatInAbs(value: number) {
     return Math.abs(value);
+  }
+
+  fullScreen() {
+    (
+      window.document.getElementsByTagName('ngx-codemirror')[0] as any
+    ).webkitRequestFullscreen();
+  }
+}
+
+@Pipe({ name: 'safeHTML' })
+export class SafeHTMLPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(text: string, ...args: any[]) {
+    return this.sanitizer.bypassSecurityTrustHtml(text);
   }
 }
