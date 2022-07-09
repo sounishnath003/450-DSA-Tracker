@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CmsService } from '../services/cms.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
   loginForm: FormGroup;
-  constructor() {
+  constructor(private cmsService: CmsService, private router: Router) {
     this.loginForm = new FormGroup({
       username: new FormControl(null, [
         Validators.required,
@@ -22,5 +24,15 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  onSubmit() {}
+  onSubmit() {
+    const { username, password } = this.loginForm.value;
+    this.cmsService.cmsLogin(username, password).subscribe((response: any) => {
+      try {
+        if (response.response.status != 201) return;
+        this.router.navigate(['', 'cms']);
+      } catch (error) {
+        window.location.replace('/');
+      }
+    });
+  }
 }

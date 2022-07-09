@@ -47,7 +47,10 @@ export class AuthService {
     }
   }
 
-  async loginWithUsernamePassword(userDto: AuthDto) {
+  async loginWithUsernamePassword(
+    userDto: AuthDto,
+    isCMSAdmin: boolean = false,
+  ) {
     try {
       const { username, password } = userDto;
       const isExists = await this.userRepo.findOne({ username });
@@ -62,6 +65,13 @@ export class AuthService {
       );
       if (error || !data)
         throw new UnauthorizedException(`Username / Password is not correct!`);
+
+      if (
+        isCMSAdmin &&
+        username !== `sounishnath003` &&
+        isExists.username !== `sounishnath003`
+      )
+        throw new UnauthorizedException('You are not a Super User');
 
       const payload: JwtPayloadInterface = { sessionId: Date.now(), username };
       const accessToken: string = this.jwtService.sign(payload);

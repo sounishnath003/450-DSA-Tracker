@@ -24,6 +24,11 @@ export class AuthController {
     return await this.authService.loginWithUsernamePassword(userDto);
   }
 
+  @Post('cms-login')
+  async cmslogin(@Body() userDto: AuthDto) {
+    return await this.authService.loginWithUsernamePassword(userDto, true);
+  }
+
   @Get('is-loggedIn')
   @UseGuards(AuthGuard('jwt'))
   async isLoggedIn(@GetUser() user: User) {
