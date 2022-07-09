@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
+import { Question } from './all-problems-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +12,25 @@ export class CmsService {
   private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  constructor(private http: HttpClient, private snackbar: MatSnackBar) {
-    this._isLoggedIn.next(!!localStorage.getItem('accessToken'));
+  constructor(
+    private http: HttpClient,
+    private snackbar: MatSnackBar,
+    private router: Router
+  ) {
+    this._isLoggedIn.next(
+      !!localStorage.getItem('accessToken') &&
+        !!localStorage.getItem(`isCMSAdmin`)
+    );
   }
 
   get authState$(): Observable<boolean> {
     return this._isLoggedIn.asObservable();
+  }
+
+  buildAndPopulateCMSDashboard$(): Observable<Array<Question>> {
+    return this.http
+      .get(`/api/questions`)
+      .pipe(map((resp: any) => resp.data.questions));
   }
 
   cmsLogin(username: string, password: string) {
@@ -51,6 +66,7 @@ export class CmsService {
         map((response: any) => {
           this._isLoggedIn.next(true);
           localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem('isCMSAdmin', `true`);
           localStorage.setItem(
             'userInitials',
             `${username.charAt(0)}${username.charAt(1)}`.toUpperCase()

@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="dark:text-gray-300">
+  <div class="grid-2">
+    <div>
+      <div
+        class="p-2 hover:bg-gray-50 border-b cursor-pointer hover:text-gray-800 transition-all"
+        *ngFor="let questionTopic of data; let index = index"
+        [attr.data-index]="index"
+      >
+        <button
+          mat-button
+          color="accent"
+          class="font-sans w-full"
+          (click)="onCurrentSelectionChange(index)"
+        >
+          {{ questionTopic.topicname | titlecase }}
+        </button>
+      </div>
+    </div>
+    <div>
+      <app-problem-info
+        [questionTopicWithProblems]="currentSelectedQuestionTopic"
+      ></app-problem-info>
+    </div>
+  </div>
+</div>

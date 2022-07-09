@@ -1,0 +1,10 @@
+<div *ngIf="questionTopicWithProblems$ | async; else temp">
+  <div *ngFor="let problem of questionTopicWithProblems$ | async as list">
+    <div class="p-2 cursor-pointer">
+      {{ problem.problemTitle }}
+    </div>
+  </div>
+</div>
+<ng-template #temp>
+  <div>Please select one question Topic from your left side</div>
+</ng-template>

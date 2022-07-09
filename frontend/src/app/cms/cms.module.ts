@@ -10,9 +10,10 @@ import { CmsRoutingModule } from './cms-routing.module';
 import { CmsComponent } from './cms.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CmsService } from './services/cms.service';
+import { ProblemInfoComponent } from './dashboard/problem-info/problem-info.component';
 
 @NgModule({
-  declarations: [AuthComponent, CmsComponent, DashboardComponent],
+  declarations: [AuthComponent, CmsComponent, DashboardComponent, ProblemInfoComponent],
   imports: [
     CommonModule,
     CmsRoutingModule,
