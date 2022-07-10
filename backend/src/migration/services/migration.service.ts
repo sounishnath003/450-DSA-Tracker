@@ -30,6 +30,7 @@ export class MigrateService {
     (async () => {
       try {
         // await this.FromOldProductionToNewProductionDatabaseMigration();
+        // await this.problemRepo.updateTopicnameForStrings();
       } catch (error) {
         throw new Error(error);
       }

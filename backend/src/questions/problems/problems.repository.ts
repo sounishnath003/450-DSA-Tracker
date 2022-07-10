@@ -15,6 +15,21 @@ export class ProblemsRepository {
     @InjectModel(Question.name) private questionSchema: Model<QuestionDocument>,
   ) {}
 
+  async updateTopicnameForStrings() {
+    try {
+      const stringProblems = await this.problemSchema.find({
+        topicname: `String`,
+      });
+      for (const problem of stringProblems) {
+        problem.topicname = `Strings`;
+        await problem.save();
+      }
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async findByTopicname(topicname: string) {
     return await this.problemSchema.find({ topicname }, { _id: 0, __v: 0 });
   }
