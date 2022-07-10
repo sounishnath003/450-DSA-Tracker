@@ -48,165 +48,193 @@
       >
     </span>
   </div>
-
-  <table
-    mat-table
-    [dataSource]="problems"
-    class="mat-elevation-z3 font-sans dark:bg-gray-900 mb-6"
-    style="min-width: 600px; width: 1200px; max-width: 1200px"
-    matSort
-    (matSortChange)="performSorting($event)"
-  >
-    <!-- SL.NO Column -->
-    <ng-container matColumnDef="SL.NO">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        class="dark:text-gray-300"
-        mat-sort-header
-        sortActionDescription="Sort by number"
+  <div>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>
+        <mat-icon>search</mat-icon> Search By Problem Title</mat-label
       >
-        SL.NO.
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        class="dark:text-gray-300"
-        [ngClass]="{ 'dark:text-gray-300': !element.solved }"
-      >
-        {{ element.position }}
-      </td>
-    </ng-container>
+      <input
+        matInput
+        placeholder="Type..."
+        type="search"
+        [(ngModel)]="searchText"
+        autocomplete="off"
+      />
+    </mat-form-field>
 
-    <!-- ProblemTitle Column -->
-    <ng-container matColumnDef="Problem">
-      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef mat-sort-header>
-        Problem.
-      </th>
-      <td
-        class="hover:text-pink-600"
-        [ngClass]="{
-          'hover:text-green-800': element.solved,
-          'dark:text-gray-300': !element.solved
-        }"
-        mat-cell
-        *matCellDef="let element"
-      >
-        <a [href]="element.problemURL" target="_blank">{{
-          element.problemTitle
-        }}</a>
-      </td>
-    </ng-container>
-
-    <!-- Score Column -->
-    <ng-container matColumnDef="Score">
-      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef mat-sort-header>
-        Score.
-      </th>
-      <td
-        class="hover:text-pink-600 font-semibold"
-        mat-cell
-        *matCellDef="let element"
-      >
-        <div *ngIf="element.solved; else notsolved" class="text-green-700">
-          {{ showProgressBySolution(element.code) }}
-        </div>
-        <ng-template #notsolved>
-          <div class="text-pink-700 dark:text-gray-300">
-            {{ 0 }}
-          </div>
-        </ng-template>
-      </td>
-    </ng-container>
-
-    <!-- Status Column -->
-    <ng-container matColumnDef="Status">
-      <th class="dark:text-gray-300" mat-header-cell *matHeaderCellDef mat-sort-header>
-        Status.
-      </th>
-      <td class="dark:text-gray-300" mat-cell *matCellDef="let element">
-        <section class="is-solved-section">
-          <button
-            mat-button
-            color="accent"
-            *ngIf="element.solved ?? false; else temp"
-            class="mat-button font-sans"
-            [matTooltip]="generateTooltipText(element.solved)"
-            (click)="navigateToQuestionPage(element.id)"
-          >
-            Upload / Modify Code
-            <mat-icon> upload_file </mat-icon>
-          </button>
-
-          <ng-template #temp>
-            <button
-              mat-button
-              color="accentt"
-              class="mat-button"
-              class="font-sans text-green-700"
-              [matTooltip]="generateTooltipText(element.solved)"
-              (click)="markProblemAsSolved(element.questionId, element.id)"
-            >
-              Have already solved?
-            </button>
-          </ng-template>
-        </section>
-      </td>
-    </ng-container>
-
-    <!-- Attempted Count Column -->
-    <ng-container matColumnDef="Attempted By">
-      <th
-        mat-header-cell
-        mat-sort-header
-        sortActionDescription="Sort by number"
-        *matHeaderCellDef
-        class="dark:text-gray-300"
-      >
-        Attempted By.
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <div
-          fxLayout="row"
-          fxLayoutGap="5px"
-          fxLayoutAlign="center center"
-          class="mx-auto hover:text-pink-500"
+    <table
+      mat-table
+      [dataSource]="problems.filteredData | filter: searchText"
+      class="mat-elevation-z3 font-sans dark:bg-gray-900 mb-6"
+      style="min-width: 600px; width: 1200px; max-width: 1200px"
+      matSort
+      (matSortChange)="performSorting($event)"
+    >
+      <!-- SL.NO Column -->
+      <ng-container matColumnDef="SL.NO">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="dark:text-gray-300"
+          mat-sort-header
+        >
+          SL.NO.
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="dark:text-gray-300"
           [ngClass]="{ 'dark:text-gray-300': !element.solved }"
         >
-          <div>
-            {{ element.attemptedCount ?? 0 }}
-          </div>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#12ee9d"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M20.2 7.8l-7.7 7.7-4-4-5.7 5.7" />
-              <path d="M15 7h6v6" />
-            </svg>
-          </div>
-        </div>
-      </td>
-    </ng-container>
+          {{ element.position }}
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      [ngClass]="{
-        'bg-green-100': row.solved,
-        'hover:bg-green-200': row.solved,
-        'dark:bg-green-200': row.solved,
-        'dark:hover:bg-green-300': row.solved
-      }"
-      class="hover:bg-gray-50 hover:font-semibold transition-all cursor-pointer"
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-    ></tr>
-  </table>
+      <!-- ProblemTitle Column -->
+      <ng-container matColumnDef="Problem">
+        <th
+          class="dark:text-gray-300"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          Problem.
+        </th>
+        <td
+          class="hover:text-pink-600"
+          [ngClass]="{
+            'hover:text-green-800': element.solved,
+            'dark:text-gray-300': !element.solved
+          }"
+          mat-cell
+          *matCellDef="let element"
+        >
+          <a [href]="element.problemURL" target="_blank">{{
+            element.problemTitle
+          }}</a>
+        </td>
+      </ng-container>
+
+      <!-- Score Column -->
+      <ng-container matColumnDef="Score">
+        <th
+          class="dark:text-gray-300"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          Score.
+        </th>
+        <td
+          class="hover:text-pink-600 font-semibold"
+          mat-cell
+          *matCellDef="let element"
+        >
+          <div *ngIf="element.solved; else notsolved" class="text-green-700">
+            {{ showProgressBySolution(element.code) }}
+          </div>
+          <ng-template #notsolved>
+            <div class="text-pink-700 dark:text-gray-300">
+              {{ 0 }}
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="Status">
+        <th
+          class="dark:text-gray-300"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          Status.
+        </th>
+        <td class="dark:text-gray-300" mat-cell *matCellDef="let element">
+          <section class="is-solved-section">
+            <button
+              mat-button
+              color="accent"
+              *ngIf="element.solved ?? false; else temp"
+              class="mat-button font-sans"
+              [matTooltip]="generateTooltipText(element.solved)"
+              (click)="navigateToQuestionPage(element.id)"
+            >
+              Upload / Modify Code
+              <mat-icon> upload_file </mat-icon>
+            </button>
+
+            <ng-template #temp>
+              <button
+                mat-button
+                color="accentt"
+                class="mat-button"
+                class="font-sans text-green-700"
+                [matTooltip]="generateTooltipText(element.solved)"
+                (click)="markProblemAsSolved(element.questionId, element.id)"
+              >
+                Have already solved?
+              </button>
+            </ng-template>
+          </section>
+        </td>
+      </ng-container>
+
+      <!-- Attempted Count Column -->
+      <ng-container matColumnDef="Attempted By">
+        <th
+          mat-header-cell
+          mat-sort-header
+          sortActionDescription="Sort by number"
+          *matHeaderCellDef
+          class="dark:text-gray-300"
+        >
+          Attempted By.
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            fxLayout="row"
+            fxLayoutGap="5px"
+            fxLayoutAlign="center center"
+            class="mx-auto hover:text-pink-500"
+            [ngClass]="{ 'dark:text-gray-300': !element.solved }"
+          >
+            <div>
+              {{ element.attemptedCount ?? 0 }}
+            </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#12ee9d"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20.2 7.8l-7.7 7.7-4-4-5.7 5.7" />
+                <path d="M15 7h6v6" />
+              </svg>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        [ngClass]="{
+          'bg-green-100': row.solved,
+          'hover:bg-green-200': row.solved,
+          'dark:bg-green-200': row.solved,
+          'dark:hover:bg-green-300': row.solved
+        }"
+        class="hover:bg-gray-50 hover:font-semibold transition-all cursor-pointer"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+  </div>
 </div>

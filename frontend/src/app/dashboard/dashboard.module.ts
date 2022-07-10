@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MaterialModule } from '../material/material.module';
 import { JwtTokenInterceptor } from '../shared/jwt-token.interceptor';
 import { LoaderInterceptor } from '../shared/loader.interceptor';
@@ -16,8 +17,8 @@ import {
 } from './problem-info/problem-info.component';
 import { DashboardService } from './services/dashboard.service';
 import { BackButtonDirective } from './shared/back-button.directive';
-import { TopicBoardComponent } from './topic-board/topic-board.component';
 import { MarkdownToHtmlPipe } from './shared/markdown-to-html.pipe';
+import { TopicBoardComponent } from './topic-board/topic-board.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MarkdownToHtmlPipe } from './shared/markdown-to-html.pipe';
     FormsModule,
     CodemirrorModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
   ],
   providers: [
     DashboardService,
