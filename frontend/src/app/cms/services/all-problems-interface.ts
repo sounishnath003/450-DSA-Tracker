@@ -41,6 +41,6 @@ export enum Topicname {
   Matrix = 'Matrix',
   SearchSort = 'Search & Sort',
   StacksQueues = 'Stacks & Queues',
-  String = 'String',
+  Strings = 'String',
   Trie = 'Trie',
 }
