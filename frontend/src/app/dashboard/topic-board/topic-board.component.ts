@@ -37,7 +37,7 @@ export class TopicBoardComponent implements OnInit, OnDestroy, AfterViewInit {
   problems: MatTableDataSource<Problem> = new MatTableDataSource<Problem>([]);
   totalScore: number = 0;
   @ViewChild(MatSort)
-  sort: MatSort = new MatSort;
+  sort: MatSort = new MatSort();
 
   constructor(
     private route: ActivatedRoute,
@@ -117,7 +117,7 @@ export class TopicBoardComponent implements OnInit, OnDestroy, AfterViewInit {
     ]
       .sort(
         (a, b) =>
-          new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       )
       .map((value, index) => {
         return { position: index + 1, ...value };
